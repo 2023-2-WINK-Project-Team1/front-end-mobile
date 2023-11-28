@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-/* css를 import 하지 않으면 7번째 줄에서 에러난다. */
+/* css를 import 하지 않으면 6번째 줄에서 에러난다. */
 import styled, { css } from 'styled-components';
 
 /* props의 size값에 따른 버튼 크기 설정(Large, Medium, Small) */
@@ -69,14 +69,18 @@ function Button(props) {
     disabled: 대여신청, 대여완료, 반납완료 버튼에서의 속성값
     cancel: 대여취소 버튼에서의 속성값
     */
-  const { btnText, size, disabled, cancel } = props;
+  const { children, size, disabled, cancel } = props;
 
-  console.log(btnText);
   return (
     <StyledButton disabled={disabled} size={size} cancel={cancel}>
-      {btnText}
+      {children}
     </StyledButton>
   );
 }
+
+/*
+  컴포넌트 사용방법
+  <Button disabled={true} size="Large" cancel={true}> children </Button>
+  */
 
 export default Button;

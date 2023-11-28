@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { ThemeProvider } from 'styled-components'; // 1. Global color를 사용하기 위한 import
 import theme from './Theme.js'; // 2. Global color를 사용하기 위한 import
-import Button from './component/Button.js'; // Button 컴포넌트 테스트를 위해 잠시 import 해두었습니다.
+import Button from './components/Button.js'; // Button 컴포넌트 테스트를 위해 잠시 import 해두었습니다.
 
 function App() {
   return (
