@@ -11,7 +11,7 @@ const sizeStyle = css`
       width: 295px;
       height: 60px;
       font-size: 16px;
-    `}
+    `};
 
   /* Medium 사이즈 버튼*/
   ${(props) =>
@@ -20,16 +20,16 @@ const sizeStyle = css`
       width: 104px;
       height: 32px;
       font-size: 16px;
-    `}
+    `};
 
-    /* Small 사이즈 버튼*/
+  /* Small 사이즈 버튼*/
   ${(props) =>
     props.size === 'Small' &&
     css`
       width: 76px;
       height: 22px;
       font-size: 11px;
-    `}
+    `};
 `;
 
 const StyledButton = styled.button`
@@ -50,7 +50,7 @@ const StyledButton = styled.button`
     props.cancel &&
     css`
       background-color: ${(props) => props.theme.red};
-    `}
+    `};
 
   ${(
     props, // disabled = {true}일 때 변경되는 것들 (Large 버튼에만 사용되어서 위로 이동해야할 지 고민중)
@@ -59,7 +59,7 @@ const StyledButton = styled.button`
     css`
       background-color: ${(props) => props.theme.gray};
       cursor: not-allowed; // 클릭할 수 없다는 모양의 커서로 변경
-    `}
+    `};
 `;
 
 function Button(props) {
@@ -71,6 +71,7 @@ function Button(props) {
     */
   const { btnText, size, disabled, cancel } = props;
 
+  console.log(btnText);
   return (
     <StyledButton disabled={disabled} size={size} cancel={cancel}>
       {btnText}
