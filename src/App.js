@@ -1,24 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Button from './components/Button';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>1팀 화이팅 !~!!</p>
-
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Button status={1}>대여중</Button>
+      <Button status={2}>대여 가능</Button>
+      <Button status={3}>반납 완료</Button>
     </div>
   );
-}
+};
 
 export default App;
