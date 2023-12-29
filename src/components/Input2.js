@@ -3,7 +3,6 @@ import styled from "styled-components";
 import DatePicker from 'react-datepicker';
 import iconpassword1 from "../assets/iconpassword1.png";
 import iconpassword2 from "../assets/iconpassword2.png";
-import icontime from "../assets/icontime.png";
 import iconX from "../assets/iconX.png";
 import 'react-datepicker/dist/react-datepicker.css';
 
