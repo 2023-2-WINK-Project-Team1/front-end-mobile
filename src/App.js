@@ -1,12 +1,12 @@
 import React from 'react';
-import Button from './components/Button';
+import State from './components/State';
 
 const App = () => {
   return (
     <div>
-      <Button status={1}>대여중</Button>
-      <Button status={2}>대여 가능</Button>
-      <Button status={3}>반납 완료</Button>
+      <State status={1}>대여중</State>
+      <State status={2}>대여 신청</State>
+      <State status={3}>반납 완료</State>
     </div>
   );
 };
