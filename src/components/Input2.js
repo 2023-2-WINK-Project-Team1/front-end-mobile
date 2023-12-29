@@ -7,9 +7,6 @@ import icontime from "../assets/icontime.png";
 import iconX from "../assets/iconX.png";
 import 'react-datepicker/dist/react-datepicker.css';
 
-
-
-
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -70,6 +67,8 @@ const StyledDatePicker = styled(DatePicker)`
 `;
 
 
+
+
 function Input() {
     //대여시간
     const [startTime, setStartTime] = useState(null);
@@ -94,9 +93,6 @@ function Input() {
     const checkPasswordIcon = () => {
         return isPasswordVisible ? iconpassword1 : iconpassword2;
     };
-
-
-
 
 
     // 이름 지우기
@@ -131,9 +127,9 @@ function Input() {
         }
     };
 
+
     return (
         <InputContainer className="App">
-
             <InputDiv
                 type="text"
                 className="input"
@@ -141,12 +137,6 @@ function Input() {
             />
 
             <InputWrapper>
-                <ToggleButton
-                    onClick={() => validateEmail()}
-                    // disabled={emailError}
-                >
-                    {"인증번호 전송"}
-                </ToggleButton>
                 <InputDiv
                     type="text"
                     className="input"
@@ -155,6 +145,12 @@ function Input() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
+                <ToggleButton
+                    onClick={() => validateEmail()}
+                    // disabled={emailError}
+                >
+                    {"인증번호 전송"}
+                </ToggleButton>
             </InputWrapper>
 
             <InputDiv
