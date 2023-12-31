@@ -3,15 +3,16 @@ import styled, { css } from 'styled-components';
 const State = styled.div`
   width: 62px;
   height: 22px;
-  padding: 8px 20px;
+
   border: none;
   border-radius: 20px;
-  text-align: center;
-  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   // 공통 스타일
   color: white;
-  font-size: 16px; /* 폰트 크기를 조절 */
+  font-size: 12px;
 
   // props에 따른 변화
   ${(props) => css`
