@@ -105,6 +105,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 const InputDiv = styled.input`
@@ -115,7 +116,6 @@ const InputDiv = styled.input`
   border-bottom: 1px solid #E6E6E6;
   outline: none;
   color: black;
-
   ::placeholder {
     color: #9C9C9C;
   }
@@ -140,22 +140,16 @@ const ToggleButton = styled.button`
   } 
   border-radius: 4px;
   border:none;
-  
-
 `;
 
 const ErrorMessage = styled.div`
   color: red;
   font-size: 12px;
-  text-align: left; 
-  margin-bottom: 29px;
 `;
 
 const SuccessMessage = styled.div`
   color: black;
   font-size: 12px;
-  text-align: left;
-  margin-bottom: 29px;
 `;
 
 function Email() {
