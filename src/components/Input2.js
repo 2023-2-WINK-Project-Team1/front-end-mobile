@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 import DatePicker from 'react-datepicker';
-import iconpassword1 from "../assets/iconpassword1.png";
-import iconpassword2 from "../assets/iconpassword2.png";
-import iconX from "../assets/iconX.png";
+import iconpassword1 from "../assets/iconpassword1.svg";
+import iconpassword2 from "../assets/iconpassword2.svg";
+import iconX from "../assets/iconX.svg";
 import 'react-datepicker/dist/react-datepicker.css';
 
 const InputContainer = styled.div`
@@ -13,7 +13,8 @@ const InputContainer = styled.div`
 `;
 
 const InputDiv = styled.input`
-  height: 21px;
+  font-size: 16px;
+  height: 20px;  
   width: 295px;
   border: none;
   border-bottom: 1px solid #E6E6E6;

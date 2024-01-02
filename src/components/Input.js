@@ -3,7 +3,6 @@ import Hello from './passwordInput';
 import Password from "./passwordInput";
 import Input2 from "./Input2";
 import PasswordInput from "./passwordInput";
-import PasswordCheckInput from "./passwordCheckInput";
 import StudentId from "./StudentId";
 import Email from "./Email";
 import Name from "./Name";
@@ -14,7 +13,6 @@ function App() {
     return (
         <div>
             <PasswordInput />
-            <PasswordCheckInput/>
             <StudentId/>
             <Email/>
             <Name/>

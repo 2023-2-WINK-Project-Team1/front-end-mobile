@@ -9,12 +9,13 @@ const InputContainer = styled.div`
 `;
 
 const InputDiv = styled.input`
-  height: 21px;
+  font-size: 16px;
+  height: 20px;
   width: 295px;
   border: none;
   border-bottom: 1px solid #E6E6E6;
   outline: none;
-  margin-bottom: 10px;
+  margin-bottom: 40px;
   ::placeholder {
     color: #9C9C9C;
   }

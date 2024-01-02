@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import iconpassword1 from "../assets/iconpassword1.png";
-import iconpassword2 from "../assets/iconpassword2.png";
+import iconpassword1 from "../assets/iconpassword1.svg";
+import iconpassword2 from "../assets/iconpassword2.svg";
 import 'react-datepicker/dist/react-datepicker.css';
 
 const InputContainer = styled.div`
@@ -11,7 +11,8 @@ const InputContainer = styled.div`
 `;
 
 const InputDiv = styled.input`
-  height: 21px;
+  font-size: 16px;
+  height: 20px;  
   width: 295px;
   border: none;
   border-bottom: 1px solid #E6E6E6;
@@ -35,6 +36,7 @@ const InputImage = styled.img`
 const InputWrapper = styled.div`
   position: relative;
   width: 300px; /* 필요에 따라 조절 */
+  margin-bottom: 40px;
 `;
 
 function Password() {

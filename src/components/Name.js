@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import iconX from "../assets/iconX.png";
+import iconX from "../assets/iconX.svg";
 import 'react-datepicker/dist/react-datepicker.css';
 
 const InputContainer = styled.div`
@@ -10,7 +10,8 @@ const InputContainer = styled.div`
 `;
 
 const InputDiv = styled.input`
-  height: 21px;
+  font-size: 16px;
+  height: 20px;
   width: 295px;
   border: none;
   border-bottom: 1px solid #E6E6E6;
@@ -34,20 +35,16 @@ const InputImage = styled.img`
 const InputWrapper = styled.div`
   position: relative;
   width: 300px; /* 필요에 따라 조절 */
+  margin-bottom: 40px;
 `;
 
 function Name() {
     // 이름 지우기
     const [name, setName] = useState('');
-    const handleClear = (field) => {
-        switch (field) {
-            case 'name':
-                setName('');
-                break;
-            default:
-                break;
-        }
+    const handleClear = () => {
+        setName('');
     }
+
 
     return (
         <InputContainer className="App">

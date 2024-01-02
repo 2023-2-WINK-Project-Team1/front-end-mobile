@@ -9,7 +9,8 @@ const InputContainer = styled.div`
 `;
 
 const InputDiv = styled.input`
-  height: 21px;
+  font-size: 16px;
+  height: 20px;
   width: 295px;
   border: none;
   border-bottom: 1px solid #E6E6E6;
@@ -23,6 +24,7 @@ const InputDiv = styled.input`
 const InputWrapper = styled.div`
   position: relative;
   width: 300px; /* 필요에 따라 조절 */
+  margin-bottom: 40px;
 `;
 
 
