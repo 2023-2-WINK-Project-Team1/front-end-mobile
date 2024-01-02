@@ -1,14 +1,24 @@
-import React from 'react';
-import State from './components/State';
+import logo from './logo.svg';
+import './App.css';
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <State status={1}>대여중</State>
-      <State status={2}>대여 신청</State>
-      <State status={3}>반납 완료</State>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>1팀 화이팅 !~!!</p>
+
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
   );
-};
+}
 
 export default App;
