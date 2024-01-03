@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import iconpassword1 from "../assets/iconpassword1.svg";
-import iconpassword2 from "../assets/iconpassword2.svg";
+import iconpassword1 from "../../assets/iconpassword1.svg";
+import iconpassword2 from "../../assets/iconpassword2.svg";
 import 'react-datepicker/dist/react-datepicker.css';
 
 const InputContainer = styled.div`

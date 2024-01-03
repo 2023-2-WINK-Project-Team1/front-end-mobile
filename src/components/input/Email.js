@@ -47,12 +47,12 @@ const ToggleButton = styled.button`
 
 const ErrorMessage = styled.div`
   color: red;
-  font-size: 12px;
+  font-size: 8px;
 `;
 
 const SuccessMessage = styled.div`
   color: black;
-  font-size: 12px;
+  font-size: 8px;
 `;
 
 function Email() {
@@ -90,7 +90,7 @@ function Email() {
                     <ErrorMessage>이메일 형식이 맞지 않습니다.</ErrorMessage>
                 )}
                 {codeSent && (
-                    <SuccessMessage>인증번호가 전송되었습니다.</SuccessMessage>
+                    <SuccessMessage>인증번호가 발송되었습니다.</SuccessMessage>
                 )}
             </InputWrapper>
 

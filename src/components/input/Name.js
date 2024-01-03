@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import iconX from "../assets/iconX.svg";
+import iconX from "../../assets/iconX.svg";
 import 'react-datepicker/dist/react-datepicker.css';
 
 const InputContainer = styled.div`
