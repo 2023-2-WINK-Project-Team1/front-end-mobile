@@ -35,6 +35,7 @@ const InputImage = styled.img`
 const InputWrapper = styled.div`
   position: relative;
   width: 300px; /* 필요에 따라 조절 */
+  margin-top: 44px;
   margin-bottom: 40px;
 `;
 

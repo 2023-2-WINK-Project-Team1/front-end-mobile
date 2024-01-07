@@ -36,11 +36,10 @@ const InputImage = styled.img`
 const InputWrapper = styled.div`
   position: relative;
   width: 300px; /* 필요에 따라 조절 */
-  margin-top: 40px;
   margin-bottom: 40px;
 `;
 
-function Password() {
+function PasswordCheck() {
 
     //비밀번호
     const [showPassword, setShowPassword] = useState(false);
@@ -58,7 +57,7 @@ function Password() {
                 <InputDiv
                     type={showPassword ? "text" : "password"}
                     className="input"
-                    placeholder="비밀번호"
+                    placeholder="비밀번호 확인"
                 />
             </InputWrapper>
         </InputContainer>
@@ -66,7 +65,7 @@ function Password() {
 };
 
 
-export default Password;
+export default PasswordCheck;
 
 
 
