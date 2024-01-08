@@ -12,7 +12,7 @@ function Main() {
           left: '45px',
           display: 'flex',
           alignItems: 'center',
-          flexDirection: 'row', // 추가된 부분
+          flexDirection: 'row', 
         }}
       >
         <img
@@ -60,7 +60,7 @@ function Main() {
         style={{
           top: '289px',
           left: '45px',
-          display: 'flex', // 추가된 부분
+          display: 'flex', 
           alignItems: 'center',
           flexDirection: 'row',
         }}
