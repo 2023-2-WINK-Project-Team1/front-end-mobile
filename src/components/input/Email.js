@@ -16,6 +16,7 @@ const InputDiv = styled.input`
   border-bottom: 1px solid #e6e6e6;
   outline: none;
   color: black;
+  margin-bottom:40px;
   ::placeholder {
     color: #9c9c9c;
   }
@@ -27,7 +28,6 @@ const InputWrapper = styled.div`
   align-items: start;
   position: relative;
   width: 300px; /* 필요에 따라 조절 */
-  margin-bottom: 40px;
 `;
 
 const ToggleButton = styled.button`
@@ -48,12 +48,12 @@ const ToggleButton = styled.button`
 
 const ErrorMessage = styled.div`
   color: red;
-  font-size: 8px;
+  font-size: 10px;
 `;
 
 const SuccessMessage = styled.div`
   color: black;
-  font-size: 8px;
+  font-size: 9px;
 `;
 
 function Email() {

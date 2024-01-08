@@ -16,7 +16,6 @@ const InputDiv = styled.input`
   border: none;
   border-bottom: 1px solid #E6E6E6;
   outline: none;
-  margin-bottom: 10px;
   ::placeholder {
     color: #9C9C9C;
   }
@@ -35,8 +34,6 @@ const InputImage = styled.img`
 const InputWrapper = styled.div`
   position: relative;
   width: 300px; /* 필요에 따라 조절 */
-  margin-top: 44px;
-  margin-bottom: 40px;
 `;
 
 function Name() {

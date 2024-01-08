@@ -24,7 +24,6 @@ const InputDiv = styled.input`
 const InputWrapper = styled.div`
   position: relative;
   width: 300px; /* 필요에 따라 조절 */
-  margin-bottom: 40px;
 `;
 
 

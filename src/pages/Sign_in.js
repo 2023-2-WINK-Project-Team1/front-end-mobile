@@ -18,6 +18,9 @@ const LogoImage = styled.img`
   height: 152px;
   margin-top: 38px;
 `;
+const Margin = styled.div`
+  margin-top: 28px;
+`;
 
 const Button_margin = styled.div`
   margin-top: 32px;
@@ -29,9 +32,12 @@ const Name_margin = styled.div`
 
 const CheckBoxContainer = styled.div`
   display: flex;
-  align-items: end;
   color: #7A7A7A;
   font-size: 12px;
+  align-items: center;
+  margin-right: 220px;
+  //justify-content:start;
+
 `;
 
 const CheckBox = styled.input`
@@ -62,7 +68,9 @@ function Sign_in() {
             <LogoImage src={logoGreen} alt="Logo" />
             <Name_margin/>
             <StudentId />
+            <Margin/>
             <PasswordInput />
+            <Margin/>
             <CheckBoxContainer>
                 <CheckBox type="checkbox" />
                 자동로그인

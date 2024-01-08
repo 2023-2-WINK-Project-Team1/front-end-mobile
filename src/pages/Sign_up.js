@@ -23,9 +23,14 @@ const LogoImage = styled.img`
   margin-top: 38px;
 `;
 
-const Button_margin = styled.div`
-  margin-top: 32px;
+const Margin40 = styled.div`
+  margin-top: 40px;
 `;
+
+const Margin42 = styled.div`
+  margin-top: 42px;
+`;
+
 
 const SignUpText = styled.p`
   margin-top: 12px;
@@ -46,14 +51,19 @@ function Sign_up() {
     return (
         <CenteredDiv>
             <LogoImage src={logoGreen} alt="Logo" />
+            <Margin42/>
             <Name/>
+            <Margin40/>
             <StudentId />
+            <Margin40/>
             <Email/>
             <PasswordInput />
+            <Margin40/>
             <PasswordInputCheck/>
-            <Button_margin>
-                <Button size="Large">회원가입</Button>
-            </Button_margin>
+            <Margin42/>
+            <Link to="/sign_in">
+                <Button size="Large">회원가입완료</Button>
+            </Link>
             <SignUpText>이미 회원이신가요?<SignUpLink to="/sign_in"> 로그인</SignUpLink></SignUpText>
         </CenteredDiv>
     );

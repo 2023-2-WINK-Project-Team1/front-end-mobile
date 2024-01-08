@@ -15,7 +15,6 @@ const InputDiv = styled.input`
   border: none;
   border-bottom: 1px solid #E6E6E6;
   outline: none;
-  margin-bottom: 40px;
   ::placeholder {
     color: #9C9C9C;
   }
