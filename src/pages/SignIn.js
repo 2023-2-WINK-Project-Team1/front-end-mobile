@@ -23,6 +23,7 @@ const CheckBoxContainer = styled.div`
   display: flex;
   color: #7A7A7A;
   font-size: 12px;
+  font-weight:600;
   align-items: center;
   text-align: center;
 `;
