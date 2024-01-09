@@ -6,6 +6,7 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap:40px;
 `;
 
 const InputDiv = styled.input`
@@ -16,7 +17,6 @@ const InputDiv = styled.input`
   border-bottom: 1px solid #e6e6e6;
   outline: none;
   color: black;
-  margin-bottom:40px;
   ::placeholder {
     color: #9c9c9c;
   }

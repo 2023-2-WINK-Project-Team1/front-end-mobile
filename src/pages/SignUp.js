@@ -15,25 +15,16 @@ const CenteredDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 38px;
 `;
 
 const LogoImage = styled.img`
   width: 172px;
   height: 152px;
-  margin-top: 38px;
-`;
-
-const Margin40 = styled.div`
-  margin-top: 40px;
-`;
-
-const Margin42 = styled.div`
-  margin-top: 42px;
 `;
 
 
 const SignUpText = styled.p`
-  margin-top: 12px;
   font-size: 16px;
   color: #7A7A7A ;
 `;
@@ -42,31 +33,39 @@ const SignUpLink = styled(Link)`
   color: #005950; 
   text-decoration: none; 
   cursor: pointer;
-  margin-top: 12px;
   font-size: 16px;
 `;
 
+const InputContainer = styled.div`
+  padding:42px;
+  display: flex;
+  flex-direction: column;
+  gap:40px;
+`;
 
-function Sign_up() {
+
+
+function SignUp() {
     return (
         <CenteredDiv>
+
             <LogoImage src={logoGreen} alt="Logo" />
-            <Margin42/>
-            <Name/>
-            <Margin40/>
-            <StudentId />
-            <Margin40/>
-            <Email/>
-            <PasswordInput />
-            <Margin40/>
-            <PasswordInputCheck/>
-            <Margin42/>
-            <Link to="/sign_in">
+
+            <InputContainer>
+                <Name/>
+                <StudentId />
+                <Email/>
+                <PasswordInput />
+                <PasswordInputCheck/>
+            </InputContainer>
+
+            <Link to="/signIn">
                 <Button size="Large">회원가입완료</Button>
             </Link>
-            <SignUpText>이미 회원이신가요?<SignUpLink to="/sign_in"> 로그인</SignUpLink></SignUpText>
+            <SignUpText>이미 회원이신가요?<SignUpLink to="/signIn"> 로그인</SignUpLink></SignUpText>
+
         </CenteredDiv>
     );
 }
 
-export default Sign_up;
+export default SignUp;
