@@ -1,100 +1,10 @@
-/* App.css */
 .App {
-  max-width: 360px;
+  max-width: 480px;
   margin: 0 auto;
-  min-height: 800px;
+  min-height: 100vh;
   width: auto;
   position: relative;
   word-break: keep-all;
   font-family: 'Noto Sans KR', sans-serif;
   border: 1px solid red;
-}
-
-.box {
-  width: 294px;
-  height: 54px;
-  border: 1px solid #005950;
-  margin-bottom: 10px;
-  position: absolute;
-  border-radius: 10px;
-}
-
-.box:nth-child(1) {
-  top: 102px;
-  left: 33px;
-}
-
-.box:nth-child(2) {
-  top: 186px;
-  left: 33px;
-}
-
-.box:nth-child(3) {
-  top: 270px;
-  left: 33px;
-}
-
-.box:nth-child(4) {
-  top: 677px;
-  left: 43px;
-  width: 273px;
-  height: 34px;
-  border-radius: 5px;
-}
-
-.text-box {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #005950;
-}
-
-/* 추가된 스타일 */
-.box:nth-child(1) .text-box {
-  font-size: 14px;
-  color: #505050;
-}
-
-.box:nth-child(2) .text-box {
-  font-size: 14px;
-  color: #505050;
-}
-
-.box:nth-child(3) .text-box {
-  font-size: 14px;
-  color: #505050;
-}
-
-.box:nth-child(4) .text-box {
-  font-size: 16px;
-  color: #505050;
-  text-align: center;
-}
-
-/* App.css 또는 다른 CSS 파일 */
-.main-container {
-  display: flex;
-  justify-content: space-around;
-}
-
-.box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 294px;
-  height: 54px;
-  border: 1px solid #005950;
-  margin-bottom: 10px;
-}
-
-img {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.text {
-  text-align: center;
 }
