@@ -28,10 +28,20 @@ const StyledBox = styled.div`
   padding: 0 10px;
 `;
 
+/*const Img = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  margin-right: 10px;
+`;*/
+
 const Img = styled.img`
   max-width: 100%;
   max-height: 100%;
   margin-right: 10px;
+  margin-left: ${(props) => props.imageMarginLeft || '0'};
+  line-height: 1;
+  width: 16px;
+  height: 16px;
 `;
 
 const Text = styled.p`
@@ -67,15 +77,7 @@ function Main() {
     <MainContainer>
       <BoxContainer>
         <StyledBox>
-          <Img
-            src="/images/bell.png"
-            style={{
-              marginLeft: imageMarginLeft,
-              lineHeight: '1',
-              width: '16px',
-              height: '16px',
-            }}
-          />
+          <Img src="/images/bell.png" imageMarginLeft={imageMarginLeft} />
           <Text>알림</Text>
           <img className="arrow" src="/images/radio.svg" alt="Arrow" />
         </StyledBox>
@@ -83,27 +85,14 @@ function Main() {
         <StyledBox>
           <Img
             src="/images/questionmark.png"
-            style={{
-              marginLeft: imageMarginLeft,
-              lineHeight: '1',
-              width: '16px',
-              height: '16px',
-            }}
+            imageMarginLeft={imageMarginLeft}
           />
           <Text>정보</Text>
           <img className="arrow" src="/images/arrow.png" alt="Arrow" />
         </StyledBox>
 
         <StyledBox>
-          <Img
-            src="/images/people.png"
-            style={{
-              marginLeft: imageMarginLeft,
-              lineHeight: '1',
-              width: '16px',
-              height: '16px',
-            }}
-          />
+          <Img src="/images/people.png" imageMarginLeft={imageMarginLeft} />
           <Text>사용자 모드</Text>
           <img className="arrow" src="/images/arrow.png" alt="Arrow" />
         </StyledBox>
