@@ -10,7 +10,7 @@ const MainContainer = styled.div`
 const BoxContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  //align-items: ;
   gap: 10px;
   margin-top: 102px;
 `;
@@ -25,12 +25,7 @@ const StyledBox = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
-  padding: 0 10px; /* Added padding for the arrow */
-
-  .arrow {
-    width: 20px; /* Adjust arrow width as needed */
-    height: 20px; /* Adjust arrow height as needed */
-  }
+  padding: 0 10px;
 `;
 
 const Img = styled.img`
@@ -40,9 +35,17 @@ const Img = styled.img`
 `;
 
 const Text = styled.p`
-  text-align: center;
   font-size: ${(props) => props.fontSize || '14px'};
   color: #505050;
+  flex: 1;
+  //margin-left: -150px;
+  //text-align: center;
+`;
+
+const LogOutText = styled.p`
+  font-size: ${(props) => props.fontSize || '14px'};
+  color: #505050;
+  text-align: center;
 `;
 
 const LogoutBox = styled.div`
@@ -66,45 +69,48 @@ function Main() {
         <StyledBox>
           <Img
             src="/images/bell.png"
-            alt="알림"
             style={{
               marginLeft: imageMarginLeft,
-              lineHeight: '2',
+              lineHeight: '1',
+              width: '16px',
+              height: '16px',
             }}
           />
           <Text>알림</Text>
-          <img className="arrow" src="/images/arrow.svg" alt="Arrow" />
+          <img className="arrow" src="/images/radio.svg" alt="Arrow" />
         </StyledBox>
 
         <StyledBox>
           <Img
             src="/images/questionmark.png"
-            alt="정보"
             style={{
               marginLeft: imageMarginLeft,
               lineHeight: '1',
+              width: '16px',
+              height: '16px',
             }}
           />
           <Text>정보</Text>
-          <img className="arrow" src="/images/arrow.svg" alt="Arrow" />
+          <img className="arrow" src="/images/arrow.png" alt="Arrow" />
         </StyledBox>
 
         <StyledBox>
           <Img
             src="/images/people.png"
-            alt="사람"
             style={{
               marginLeft: imageMarginLeft,
               lineHeight: '1',
+              width: '16px',
+              height: '16px',
             }}
           />
           <Text>사용자 모드</Text>
-          <img className="arrow" src="/images/arrow.svg" alt="Arrow" />
+          <img className="arrow" src="/images/arrow.png" alt="Arrow" />
         </StyledBox>
       </BoxContainer>
 
       <LogoutBox>
-        <Text fontSize="16px">로그아웃</Text>
+        <LogOutText fontSize="16px">로그아웃</LogOutText>
       </LogoutBox>
     </MainContainer>
   );
