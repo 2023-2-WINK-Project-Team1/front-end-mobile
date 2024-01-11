@@ -8,6 +8,7 @@ const StyledHeader = styled.div`
   align-items: center;
   width: 100%; // 화면 크기에 맞추기 위해서
   height: 56px;
+  border-bottom: 1px solid #e6e6e6;
   background: ${(props) => props.theme.white};
 `;
 

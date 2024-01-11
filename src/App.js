@@ -5,19 +5,22 @@ import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';
 import TestPage from './pages/componentTest/TestPage';
+import { RecoilRoot } from 'recoil';
 
 function App() {
   return (
     // 3. styled-component의 ThemeProvider와 theme를 가져온 후, 컴포넌트의 최상단에 감싸준다.
     <ThemeProvider theme={theme}>
-      <div className="App">
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Main />}></Route>
-            <Route path="/testPage" element={<TestPage />}></Route>
-          </Routes>
-        </BrowserRouter>
-      </div>
+      <RecoilRoot>
+        <div className="App">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Main />}></Route>
+              <Route path="/testPage" element={<TestPage />}></Route>
+            </Routes>
+          </BrowserRouter>
+        </div>
+      </RecoilRoot>
     </ThemeProvider>
   );
 }

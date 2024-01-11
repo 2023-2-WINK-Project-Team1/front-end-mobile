@@ -6,8 +6,8 @@ import { ReactComponent as MypageIcon } from '../../assets/mypage.svg';
 import { ReactComponent as ListIcon } from '../../assets/list.svg';
 import { ReactComponent as UploadIcon } from '../../assets/upload.svg';
 // 푸터에서 어떤 아이콘을 눌렀는지 확인하기 위해 recoil 사용
-import { useRecoilState } from 'recoil';
-import { selectedButtonState } from '../../recoil/recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { selectedButtonState, isAdminState } from '../../recoil/recoil';
 
 const StyledFooter = styled.div`
   display: flex;
@@ -65,12 +65,19 @@ const UploadButton = styled(Button)`
 `;
 
 // props로 isAdmin(관리자 or 사용자)을 받음
-function Footer({ isAdmin }) {
+function Footer() {
   /* useRecoilState 훅을 사용하여 selectedButtonState의 Recoil 상태를 가져와 값을 관리하는 React 상태를 선언
      - selectedButton: 현재 selectedButtonState의 값을 저장하는 변수
      - setSelectedButton: selectedButtonState의 값을 업데이트하는 함수 */
-  const [selectedButton, setSelectedButton] =
-    useRecoilState(selectedButtonState);
+  const selectedButton = useRecoilValue(selectedButtonState);
+  const setSelectedButton = useSetRecoilState(selectedButtonState);
+  const isAdmin = useRecoilState(isAdminState);
+
+  // default로 불이 들어오는 button설정
+  if (!selectedButton) {
+    if (isAdmin[0]) setSelectedButton('list'); // 관리자일때는 listIcon
+    else setSelectedButton('home'); // 사용자일때는 homeIcon
+  }
 
   /* 버튼이 클릭되었을 때 실행되는 콜백 함수
      useRecoilState(selectedButtonState)에서 반환된 setSelectedButton 함수를 호출하여 selectedButtonState의 값을 업데이트*/
@@ -88,7 +95,7 @@ function Footer({ isAdmin }) {
       >
         <AlarmIcon />
       </AlarmButton>
-      {isAdmin ? ( // isAdmin = true(관리자)일 때, <ListButton> 렌더링
+      {isAdmin[0] ? ( // isAdmin = true(관리자)일 때, <ListButton> 렌더링
         <ListButton
           onClick={() => isClicked('list')}
           isSelected={selectedButton === 'list'}
@@ -104,7 +111,7 @@ function Footer({ isAdmin }) {
           <HomeIcon />
         </HomeButton>
       )}
-      {isAdmin ? ( // isAdmin = true(관리자)일 때, <UploadButton> 렌더링
+      {isAdmin[0] ? ( // isAdmin = true(관리자)일 때, <UploadButton> 렌더링
         <UploadButton
           onClick={() => isClicked('upload')}
           isSelected={selectedButton === 'upload'}
