@@ -1,106 +1,113 @@
 import React from 'react';
 import styled from 'styled-components';
+import bell from '../../src/assets/Settings/bell.svg';
 
 const MainContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 360px;
 `;
 
 const BoxContainer = styled.div`
   display: flex;
   flex-direction: column;
-  //align-items: ;
-  gap: 10px;
-  margin-top: 102px;
+  width: 100%;
+  gap: 16px;
+  justify-content: space-between;
+  padding-left: 33px;
+  padding-right: 33px;
+  padding-top: 102px;
+  box-sizing: border-box;
 `;
 
-const StyledBox = styled.div`
-  position: relative;
-  width: 294px;
-  height: 54px;
+const MiniContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const BoxComponent = styled.div`
+  width: 100%;
+  box-sizing: border-box;
   border: 1px solid #005950;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
-  padding: 0 10px;
+  padding-right: 12px;
 `;
-
-/*const Img = styled.img`
-  max-width: 100%;
-  max-height: 100%;
-  margin-right: 10px;
-`;*/
 
 const Img = styled.img`
   max-width: 100%;
   max-height: 100%;
   margin-right: 10px;
-  margin-left: ${(props) => props.imageMarginLeft || '0'};
-  line-height: 1;
+  margin-left: 12px;
   width: 16px;
   height: 16px;
 `;
 
 const Text = styled.p`
-  font-size: ${(props) => props.fontSize || '14px'};
+  font-size: 14px;
   color: #505050;
   flex: 1;
-  //margin-left: -150px;
-  //text-align: center;
+`;
+
+const LogOutContainer = styled.div`
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const LogOutText = styled.p`
-  font-size: ${(props) => props.fontSize || '14px'};
+  font-size: 16px;
   color: #505050;
   text-align: center;
 `;
 
-const LogoutBox = styled.div`
-  position: relative;
-  width: 273px;
-  height: 34px;
+const LogOutBox = styled.button`
+  width: 100%;
   border: 1px solid #005950;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 407px;
 `;
 
 function Main() {
-  const imageMarginLeft = '12px';
-
   return (
     <MainContainer>
       <BoxContainer>
-        <StyledBox>
-          <Img src="/images/bell.png" imageMarginLeft={imageMarginLeft} />
-          <Text>알림</Text>
+        <BoxComponent>
+          <MiniContainer>
+            <Img src="/images/bell.png" />
+            <Text>알림</Text>
+          </MiniContainer>
           <img className="arrow" src="/images/radio.svg" alt="Arrow" />
-        </StyledBox>
+        </BoxComponent>
 
-        <StyledBox>
-          <Img
-            src="/images/questionmark.png"
-            imageMarginLeft={imageMarginLeft}
-          />
-          <Text>정보</Text>
-          <img className="arrow" src="/images/arrow.png" alt="Arrow" />
-        </StyledBox>
+        <BoxComponent>
+          <MiniContainer>
+            <Img src="/images/questionmark.png" />
+            <Text>정보</Text>
+          </MiniContainer>
+          <Img src="/images/arrow.png" />
+        </BoxComponent>
 
-        <StyledBox>
-          <Img src="/images/people.png" imageMarginLeft={imageMarginLeft} />
-          <Text>사용자 모드</Text>
-          <img className="arrow" src="/images/arrow.png" alt="Arrow" />
-        </StyledBox>
+        <BoxComponent>
+          <MiniContainer>
+            <Img src="/images/people.png" />
+            <Text>사용자 모드</Text>
+          </MiniContainer>
+          <Img src="/images/arrow.png" />
+        </BoxComponent>
       </BoxContainer>
-
-      <LogoutBox>
-        <LogOutText fontSize="16px">로그아웃</LogOutText>
-      </LogoutBox>
+      <LogOutContainer>
+        <LogOutBox>
+          <LogOutText>로그아웃</LogOutText>
+        </LogOutBox>
+      </LogOutContainer>
     </MainContainer>
   );
 }
