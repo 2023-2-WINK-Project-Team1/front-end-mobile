@@ -12,7 +12,7 @@ const InputContainer = styled.div`
 const InputDiv = styled.input`
   font-size: 16px;
   height: 20px;
-  width: 295px;
+  width: 100%;
   border: none;
   border-bottom: 1px solid #e6e6e6;
   outline: none;
@@ -27,15 +27,15 @@ const InputWrapper = styled.div`
   flex-direction: column;
   align-items: start;
   position: relative;
-  width: 300px; /* 필요에 따라 조절 */
+  width: 100%; /* 필요에 따라 조절 */
 `;
 
 const ToggleButton = styled.button`
   font-size: 11px;
   position: absolute;
   height: 22px;
-  top: 0;
   right: 0;
+  bottom: 4px;
   cursor: pointer;
   color: white;
   background-color: #005950;

@@ -11,12 +11,10 @@ const CenteredDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 38px;  
+  width: 100%;
 `;
 
 const LogoImage = styled.img`
-  width: 172px;
-  height: 152px;
 `;
 
 const CheckBoxContainer = styled.div`
@@ -26,6 +24,7 @@ const CheckBoxContainer = styled.div`
   font-weight:600;
   align-items: center;
   text-align: center;
+  cursor: pointer;
 `;
 
 const CheckBox = styled.input`
@@ -44,13 +43,12 @@ const SignUpText = styled.p`
 const SignUpLink = styled(Link)`
   color: #005950; 
   text-decoration: none; 
-  cursor: pointer;
   font-size: 16px;
 `;
 
 const InputContainer = styled.div`
-  padding-top:146px;
-  padding-bottom: 32px;
+  margin-top:146px;
+  margin-bottom: 32px;
   display: flex;
   flex-direction: column;
   gap:28px;

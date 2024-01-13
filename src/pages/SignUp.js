@@ -15,12 +15,10 @@ const CenteredDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 38px;
+  width: 100%;
 `;
 
 const LogoImage = styled.img`
-  width: 172px;
-  height: 152px;
 `;
 
 
@@ -37,6 +35,8 @@ const SignUpLink = styled(Link)`
 `;
 
 const InputContainer = styled.div`
+  margin-top: 42px;
+  margin-bottom: 42px;
   padding:42px;
   display: flex;
   flex-direction: column;

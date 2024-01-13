@@ -34,7 +34,7 @@ const InputImage = styled.img`
 
 const InputWrapper = styled.div`
   position: relative;
-  width: 300px; /* 필요에 따라 조절 */
+  width:100%; /* 필요에 따라 조절 */
 `;
 
 function PasswordCheck() {

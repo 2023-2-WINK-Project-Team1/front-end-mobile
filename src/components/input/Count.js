@@ -11,11 +11,10 @@ const InputContainer = styled.div`
 const InputDiv = styled.input`
   font-size: 16px;
   height: 20px;
-  width: 295px;
+  width: 100%;
   border: none;
   border-bottom: 1px solid #E6E6E6;
   outline: none;
-  margin-bottom: 10px;
   ::placeholder {
     color: #9C9C9C;
   }
@@ -23,7 +22,7 @@ const InputDiv = styled.input`
 
 const InputWrapper = styled.div`
   position: relative;
-  width: 300px; /* 필요에 따라 조절 */
+  width: 100%; /* 필요에 따라 조절 */
 `;
 
 
