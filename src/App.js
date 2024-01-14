@@ -13,7 +13,7 @@ function App() {
     // 3. styled-component의 ThemeProvider와 theme를 가져온 후, 컴포넌트의 최상단에 감싸준다.
     <ThemeProvider theme={theme}>
       <RecoilRoot>
-        <div className="App">
+        <div id="App">
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Main />}></Route>
