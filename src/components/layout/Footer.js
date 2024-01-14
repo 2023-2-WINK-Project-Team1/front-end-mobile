@@ -9,15 +9,22 @@ import { ReactComponent as UploadIcon } from '../../assets/upload.svg';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { selectedButtonState, isAdminState } from '../../recoil/recoil';
 
-const StyledFooter = styled.div`
+const FooterContainer = styled.div`
   display: flex;
-  justify-content: space-between; // 아이콘을 양쪽 방향으로 두기 위함
-  align-items: center;
+  //justify-content: space-between; // 아이콘을 양쪽 방향으로 두기 위함
   position: absolute; // 화면의 맨 아래에 고정하기 위함
+  padding-top: 20px;
   bottom: 0;
   width: 100%;
   height: 65px;
   background: ${(props) => props.theme.primary};
+  box-sizing: border-box;
+  justify-content: center; // 가운데 정렬 추가
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 120px; // 버튼 사이의 간격 조정 (피그마와 비율이 달라서 임의로 조정함)
 `;
 
 const Button = styled.div`
@@ -26,7 +33,6 @@ const Button = styled.div`
 
 // 알림 버튼
 const AlarmButton = styled(Button)`
-  margin-left: 62px;
   // 버튼을 클릭했을 때, 아이콘의 투명도를 1로 설정
   // 버튼을 클릭하지 않았을 때, 아이코늬 투명도를 0.5로 설정
   svg {
@@ -50,7 +56,6 @@ const ListButton = styled(Button)`
 
 // 마이페이지 버튼(사용자)
 const MypageButton = styled(Button)`
-  margin-right: 62px;
   svg {
     fill-opacity: ${(props) => (props.isSelected ? 1 : 0.5)};
   }
@@ -58,7 +63,6 @@ const MypageButton = styled(Button)`
 
 // 물품관리및등록(관리자)
 const UploadButton = styled(Button)`
-  margin-right: 62px;
   svg {
     fill-opacity: ${(props) => (props.isSelected ? 1 : 0.5)};
   }
@@ -88,46 +92,48 @@ function Footer() {
   return (
     // onClick: 'alarm'버튼이 클릭되었을 때 isClicked 실행
     // isSelected: selectedButton이 'alarm'일 경우 true로 설정되어 해당 버튼 활성화
-    <StyledFooter>
-      <AlarmButton
-        onClick={() => isClicked('alarm')}
-        isSelected={selectedButton === 'alarm'}
-      >
-        <AlarmIcon />
-      </AlarmButton>
-      {isAdmin[0] ? ( // isAdmin = true(관리자)일 때, <ListButton> 렌더링
-        <ListButton
-          onClick={() => isClicked('list')}
-          isSelected={selectedButton === 'list'}
+    <FooterContainer>
+      <ButtonContainer>
+        <AlarmButton
+          onClick={() => isClicked('alarm')}
+          isSelected={selectedButton === 'alarm'}
         >
-          <ListIcon />
-        </ListButton>
-      ) : (
-        // isAdmin = false(사용자)일 때, <HomeButton> 렌더링
-        <HomeButton
-          onClick={() => isClicked('home')}
-          isSelected={selectedButton === 'home'}
-        >
-          <HomeIcon />
-        </HomeButton>
-      )}
-      {isAdmin[0] ? ( // isAdmin = true(관리자)일 때, <UploadButton> 렌더링
-        <UploadButton
-          onClick={() => isClicked('upload')}
-          isSelected={selectedButton === 'upload'}
-        >
-          <UploadIcon />
-        </UploadButton>
-      ) : (
-        // isAdmin = false(사용자)일 때, <MypageButton> 렌더링
-        <MypageButton
-          onClick={() => isClicked('mypage')}
-          isSelected={selectedButton === 'mypage'}
-        >
-          <MypageIcon />
-        </MypageButton>
-      )}
-    </StyledFooter>
+          <AlarmIcon />
+        </AlarmButton>
+        {isAdmin[0] ? ( // isAdmin = true(관리자)일 때, <ListButton> 렌더링
+          <ListButton
+            onClick={() => isClicked('list')}
+            isSelected={selectedButton === 'list'}
+          >
+            <ListIcon />
+          </ListButton>
+        ) : (
+          // isAdmin = false(사용자)일 때, <HomeButton> 렌더링
+          <HomeButton
+            onClick={() => isClicked('home')}
+            isSelected={selectedButton === 'home'}
+          >
+            <HomeIcon />
+          </HomeButton>
+        )}
+        {isAdmin[0] ? ( // isAdmin = true(관리자)일 때, <UploadButton> 렌더링
+          <UploadButton
+            onClick={() => isClicked('upload')}
+            isSelected={selectedButton === 'upload'}
+          >
+            <UploadIcon />
+          </UploadButton>
+        ) : (
+          // isAdmin = false(사용자)일 때, <MypageButton> 렌더링
+          <MypageButton
+            onClick={() => isClicked('mypage')}
+            isSelected={selectedButton === 'mypage'}
+          >
+            <MypageIcon />
+          </MypageButton>
+        )}
+      </ButtonContainer>
+    </FooterContainer>
   );
 }
 
