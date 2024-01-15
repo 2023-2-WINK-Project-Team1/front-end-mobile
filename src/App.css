@@ -1,7 +1,7 @@
-.App {
+#App {
   max-width: 480px;
   margin: 0 auto;
-  min-height: 100vh;
+  height: 100vh;
   width: auto;
   position: relative;
   word-break: keep-all;
