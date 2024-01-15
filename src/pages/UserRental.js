@@ -9,10 +9,12 @@ import { ReactComponent as ImageIcon } from '../assets/image.svg';
 
 const RentalContainer = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  gap: 57px;
+  justify-content: center;
+  gap: 56px;
+  height: 100%;
+  padding: 28px 32px;
+  box-sizing: border-box;
 `;
 
 const ImageBox = styled.div`
@@ -30,7 +32,6 @@ const ImageContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-top: 28px;
   gap: 24px;
 `;
 
@@ -44,8 +45,8 @@ const TimeContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 28px;
-  gap: 9px;
-  margin-bottom: 51px; // 외부 요소인 버튼과의 간격 조절을 위해 margin 사용
+  gap: 8px;
+  //margin-bottom: 51px; // 외부 요소인 버튼과의 간격 조절을 위해 margin 사용
 `;
 
 const Text = styled.div`
@@ -93,6 +94,7 @@ function UserRental() {
 
       reader.readAsDataURL(file);
     }
+    console.log('uploadedImage : ', uploadedImage);
   };
 
   // <ImageBox> 컴포넌트 클릭하면 호출되는 함수
@@ -101,8 +103,7 @@ function UserRental() {
   };
 
   return (
-    <div>
-      <Layout headerProps={headerProps} isAdmin={isAdmin} />
+    <Layout headerProps={headerProps} isAdmin={isAdmin}>
       <RentalContainer>
         <ImageContainer>
           <ImageBox onClick={clickImageWrapper}>
@@ -128,7 +129,7 @@ function UserRental() {
           onChange={imageUpload}
         />
       </RentalContainer>
-    </div>
+    </Layout>
   );
 }
 

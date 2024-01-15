@@ -12,19 +12,19 @@ import { selectedButtonState, isAdminState } from '../../recoil/recoil';
 const FooterContainer = styled.div`
   display: flex;
   //justify-content: space-between; // 아이콘을 양쪽 방향으로 두기 위함
-  position: absolute; // 화면의 맨 아래에 고정하기 위함
-  padding-top: 20px;
-  bottom: 0;
+  align-items: center;
   width: 100%;
   height: 65px;
   background: ${(props) => props.theme.primary};
-  box-sizing: border-box;
   justify-content: center; // 가운데 정렬 추가
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
-  gap: 120px; // 버튼 사이의 간격 조정 (피그마와 비율이 달라서 임의로 조정함)
+  width: 100%;
+  align-items: center;
+  //gap: 120px; // 버튼 사이의 간격 조정 (피그마와 비율이 달라서 임의로 조정함)
+  justify-content: space-around;
 `;
 
 const Button = styled.div`
