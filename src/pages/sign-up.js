@@ -8,14 +8,15 @@ import Email from "../components/input/Email";
 import PasswordInput from "../components/input/PasswordInput";
 import PasswordInputCheck from "../components/input/PasswordInputCheck";
 import Button from "../components/Button";
-import Password from "../components/input/PasswordInput";
 
-const CenteredDiv = styled.div`
+const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
+  padding: 32px;
+  box-sizing: border-box;
 `;
 
 const LogoImage = styled.img`
@@ -41,13 +42,14 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap:40px;
+  width: 100%;
 `;
 
 
 
 function SignUp() {
     return (
-        <CenteredDiv>
+        <MainContainer>
 
             <LogoImage src={logoGreen} alt="Logo" />
 
@@ -62,9 +64,9 @@ function SignUp() {
             <Link to="/signIn">
                 <Button size="Large">회원가입완료</Button>
             </Link>
-            <SignUpText>이미 회원이신가요?<SignUpLink to="/signIn"> 로그인</SignUpLink></SignUpText>
+            <SignUpText>이미 회원이신가요?<SignUpLink to="/SignIn"> 로그인</SignUpLink></SignUpText>
 
-        </CenteredDiv>
+        </MainContainer>
     );
 }
 
