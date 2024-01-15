@@ -16,7 +16,7 @@ function Main() {
   };
 
   // 여기서 사용자/관리자 설정 가능
-  setAdminStatus(true);
+  setAdminStatus(false);
 
   return (
     <div>
