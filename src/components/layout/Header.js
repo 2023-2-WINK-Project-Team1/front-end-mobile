@@ -4,7 +4,6 @@ import { ReactComponent as SettingIcon } from '../../assets/setting.svg';
 
 const HeaderContainer = styled.div`
   display: flex;
-  justify-content: space-between; // 자식 요소들을 양 끝으로 분산 정렬
   align-items: center;
   width: 100%; // 화면 크기에 맞추기 위해서
   height: 56px;
@@ -16,7 +15,9 @@ const HeaderContainer = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
-  gap: 156px; // 버튼 사이의 간격 조정 (피그마와 비율이 달라서 임의로 조정함)
+  justify-content: space-between; // 아이콘을 좌우로 정렬
+  width: 100%;
+  padding: 0 16px; // 위쪽 padding 0, 좌우 패딩 16px이라는 뜻
   align-items: center; // 수직 가운데 정렬
 `;
 

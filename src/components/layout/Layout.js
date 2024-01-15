@@ -6,15 +6,15 @@ import Footer from './Footer';
 
 /* 사용할 props 정리
     headerProps: 해당 페이지의 제목(title)
-    isAdmin: 관리자(true)인지 사용자(false)인지 구별하기 위함
+    children: 안에 들어갈 컨텐츠들
     */
-function Layout({ headerProps, isAdmin, children }) {
+function Layout({ headerProps, children }) {
   return (
     <div>
       {/*...을 쓰면 객체내의 모든 속성이 해당 컴포넌트의 props로 전달됨*/}
       <Header {...headerProps} />
       <main>{children}</main>
-      <Footer isAdmin={isAdmin} />
+      <Footer />
     </div>
   );
 }

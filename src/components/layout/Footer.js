@@ -24,7 +24,9 @@ const FooterContainer = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
-  gap: 120px; // 버튼 사이의 간격 조정 (피그마와 비율이 달라서 임의로 조정함)
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 62px;
 `;
 
 const Button = styled.div`
@@ -68,7 +70,6 @@ const UploadButton = styled(Button)`
   }
 `;
 
-// props로 isAdmin(관리자 or 사용자)을 받음
 function Footer() {
   /* useRecoilState 훅을 사용하여 selectedButtonState의 Recoil 상태를 가져와 값을 관리하는 React 상태를 선언
      - selectedButton: 현재 selectedButtonState의 값을 저장하는 변수
