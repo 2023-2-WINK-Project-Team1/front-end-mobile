@@ -26,13 +26,12 @@ const BoxContainer = styled.div`
   padding-right: 33px;
   padding-top: 102px;
   box-sizing: border-box;
-  border: 1px;
 `;
 
 const MiniContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding-left: 12px;
   gap: 20px;
 `;
 
@@ -54,8 +53,9 @@ const Text = styled.p`
 `;
 
 const LogOutContainer = styled.div`
-  width: 80%;
-  display: flex;
+  width: 70%;
+
+  //display: flex;
   justify-content: center;
   align-items: center;
 `;
@@ -70,7 +70,7 @@ const LogOutBox = styled.button`
   width: 100%;
   border: 1px solid #005950;
   border-radius: 5px;
-  display: flex;
+  //display: flex;
   align-items: center;
   justify-content: center;
 `;
