@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import bell from '../../src/assets/Settings/bell.svg';
+import people from '../../src/assets/Settings/people.svg';
+import radio from '../../src/assets/Settings/radio.svg';
+import arrow from '../../src/assets/Settings/arrow.svg';
+import questionmark from '../../src/assets/Settings/questionmark.svg';
 
 const MainContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   gap: 360px;
 `;
 
@@ -24,7 +29,8 @@ const BoxContainer = styled.div`
 
 const MiniContainer = styled.div`
   display: flex;
-  align-items: center;
+  padding-left: 12px;
+  gap: 20px;
 `;
 
 const BoxComponent = styled.div`
@@ -38,15 +44,6 @@ const BoxComponent = styled.div`
   padding-right: 12px;
 `;
 
-const Img = styled.img`
-  max-width: 100%;
-  max-height: 100%;
-  margin-right: 10px;
-  margin-left: 12px;
-  width: 16px;
-  height: 16px;
-`;
-
 const Text = styled.p`
   font-size: 14px;
   color: #505050;
@@ -54,8 +51,7 @@ const Text = styled.p`
 `;
 
 const LogOutContainer = styled.div`
-  width: 80%;
-  display: flex;
+  width: 70%;
   justify-content: center;
   align-items: center;
 `;
@@ -70,37 +66,35 @@ const LogOutBox = styled.button`
   width: 100%;
   border: 1px solid #005950;
   border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 function Main() {
+  const [imagePath, setImagePath] = useState('');
   return (
     <MainContainer>
       <BoxContainer>
         <BoxComponent>
           <MiniContainer>
-            <Img src="/images/bell.png" />
+            <img src={bell} />
             <Text>알림</Text>
           </MiniContainer>
-          <img className="arrow" src="/images/radio.svg" alt="Arrow" />
+          <img src={radio} />
         </BoxComponent>
 
         <BoxComponent>
           <MiniContainer>
-            <Img src="/images/questionmark.png" />
+            <img src={questionmark} />
             <Text>정보</Text>
           </MiniContainer>
-          <Img src="/images/arrow.png" />
+          <img src={arrow} />
         </BoxComponent>
 
         <BoxComponent>
           <MiniContainer>
-            <Img src="/images/people.png" />
+            <img src={people} />
             <Text>사용자 모드</Text>
           </MiniContainer>
-          <Img src="/images/arrow.png" />
+          <img src={arrow} />
         </BoxComponent>
       </BoxContainer>
       <LogOutContainer>
