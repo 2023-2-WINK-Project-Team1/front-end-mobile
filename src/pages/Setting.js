@@ -13,6 +13,8 @@ const MainContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 360px;
+  padding-top: 102px;
+  background: #fff;
 `;
 
 const BoxContainer = styled.div`
@@ -21,9 +23,8 @@ const BoxContainer = styled.div`
   width: 100%;
   gap: 16px;
   justify-content: space-between;
-  padding-left: 33px;
-  padding-right: 33px;
-  padding-top: 102px;
+  padding-left: 32px;
+  padding-right: 32px;
   box-sizing: border-box;
 `;
 
@@ -58,7 +59,7 @@ const LogOutContainer = styled.div`
 
 const LogOutText = styled.p`
   font-size: 16px;
-  color: #505050;
+  color: #005950;
   text-align: center;
 `;
 
@@ -66,9 +67,10 @@ const LogOutBox = styled.button`
   width: 100%;
   border: 1px solid #005950;
   border-radius: 5px;
+  background-color: #ffffff;
 `;
 
-function Main() {
+function Setting() {
   const [imagePath, setImagePath] = useState('');
   return (
     <MainContainer>
@@ -106,4 +108,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default Setting;
