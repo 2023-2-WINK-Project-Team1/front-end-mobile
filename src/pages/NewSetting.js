@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import bell from '../../src/assets/Settings/bell.svg';
-import edit from '../../src/assets/Settings/edit.svg';
 import people from '../../src/assets/Settings/people.svg';
 import radio from '../../src/assets/Settings/radio.svg';
 import arrow from '../../src/assets/Settings/arrow.svg';
@@ -30,7 +29,6 @@ const BoxContainer = styled.div`
 
 const MiniContainer = styled.div`
   display: flex;
-  align-items: center;
   padding-left: 12px;
   gap: 20px;
 `;
@@ -54,8 +52,6 @@ const Text = styled.p`
 
 const LogOutContainer = styled.div`
   width: 70%;
-
-  //display: flex;
   justify-content: center;
   align-items: center;
 `;
@@ -70,9 +66,6 @@ const LogOutBox = styled.button`
   width: 100%;
   border: 1px solid #005950;
   border-radius: 5px;
-  //display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 function Main() {
