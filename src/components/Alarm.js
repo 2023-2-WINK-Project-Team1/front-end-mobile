@@ -8,6 +8,8 @@ const MainWrapper = styled.div`
   gap: 20px;
   align-items: center;
   justify-content: flex-start;
+  padding-top: 12px;
+  padding-bottom: 16px;
 `;
 
 const TextWrapper = styled.div`
@@ -17,7 +19,6 @@ const TextWrapper = styled.div`
   color: black;
   font-weight: 600;
   gap: 10px;
-  border: 1px;
 `;
 
 const AlarmTitle = styled.div`
