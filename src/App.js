@@ -4,6 +4,8 @@ import theme from './Theme.js'; // 2. Global color를 사용하기 위한 import
 import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';
+import Setting from './pages/Setting';
+import TestPage from './pages/componentTest/TestPage';
 import UserRental from './pages/UserRental';
 import { RecoilRoot } from 'recoil';
 
@@ -16,6 +18,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Main />}></Route>
+              <Route path="/setting" element={<Setting />}></Route>
               <Route path="/user-rental" element={<UserRental />}></Route>
             </Routes>
           </BrowserRouter>
