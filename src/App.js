@@ -1,6 +1,6 @@
 import './App.css';
 import { ThemeProvider } from 'styled-components'; // 1. Global color를 사용하기 위한 import
-import theme from './Theme.js'; // 2. Global color를 사용하기 위한 import
+import theme from './Theme.js'; // 2. Global color를 사용하기 위한 import.
 import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';

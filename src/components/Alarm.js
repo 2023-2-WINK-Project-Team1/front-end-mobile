@@ -52,7 +52,7 @@ function StringAlarmRender({ type }) {
         setTitleText('대여 신청 승인');
         setResultText(
           `${adminName} 님이 ${userName} 님의 물품 대여 신청을 처리하였습니다.`,
-        ); /*관리자명을 표기할 것인가요?*/
+        ); /*관리자명 표기*/
         setImagePath(bell);
         break;
 
