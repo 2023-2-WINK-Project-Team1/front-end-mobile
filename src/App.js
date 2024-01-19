@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';
 import TestPage from './pages/componentTest/TestPage';
+import Alarm from './pages/AlarmComponent';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />}></Route>
             <Route path="/testPage" element={<TestPage />}></Route>
+            <Route path="/alarm" element={<Alarm />}></Route>
           </Routes>
         </BrowserRouter>
       </div>

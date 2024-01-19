@@ -8,8 +8,8 @@ const MainWrapper = styled.div`
   gap: 20px;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 12px;
-  padding-bottom: 16px;
+  padding: 12px 0px 16px 20px;
+  border-bottom: 1px solid #d9d9d9;
 `;
 
 const TextWrapper = styled.div`
@@ -36,6 +36,7 @@ function StringAlarmRender({ type }) {
   const [imagePath, setImagePath] = useState('');
   const userName = 'gugu';
   const goodsName = 'gun';
+  const adminName = 'admin';
 
   useEffect(() => {
     switch (type) {
@@ -50,24 +51,22 @@ function StringAlarmRender({ type }) {
       case 'RequestApprove':
         setTitleText('대여 신청 승인');
         setResultText(
-          `${userName} 님이 ${goodsName} 물품에 대해 대여 신청을 승인하였습니다.`,
-        );
+          `${adminName} 님이 ${userName} 님의 물품 대여 신청을 처리하였습니다.`,
+        ); /*관리자명을 표기할 것인가요?*/
         setImagePath(bell);
         break;
 
       case 'InfoFix':
         setTitleText('정보 수정');
         setResultText(
-          `${userName} 님이 ${goodsName} 물품 관련 정보를 수정하였습니다.`,
+          `${adminName} 님이 ${goodsName} 물품 관련 정보를 수정하였습니다.`,
         );
         setImagePath(edit);
         break;
 
       case 'RequestDenial':
         setTitleText('대여 신청 거절');
-        setResultText(
-          `${userName} 님이 ${goodsName} 물품에 대해 대여 신청을 거절하였습니다.`,
-        );
+        setResultText(`${userName} 님이 물품 대여 신청을 취소하였습니다.`);
         setImagePath(bell);
         break;
 
