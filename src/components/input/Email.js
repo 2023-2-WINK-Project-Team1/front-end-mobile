@@ -22,6 +22,11 @@ const InputDiv = styled.input`
   }
 `;
 
+const InputDivWithButton = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -77,16 +82,18 @@ function Email() {
     return (
         <InputContainer className="App">
             <InputWrapper>
-                <InputDiv
-                    type="text"
-                    className="input"
-                    placeholder="학교 이메일"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <ToggleButton onClick={() => validateEmail()}>
-                    {'인증번호 전송'}
-                </ToggleButton>
+                <InputDivWithButton>
+                    <InputDiv
+                        type="text"
+                        className="input"
+                        placeholder="학교 이메일"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <ToggleButton onClick={() => validateEmail()}>
+                        {'인증번호 전송'}
+                    </ToggleButton>
+                </InputDivWithButton>
                 {emailError && (
                     <ErrorMessage>이메일 형식이 맞지 않습니다.</ErrorMessage>
                 )}
