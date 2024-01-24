@@ -27,14 +27,14 @@ const InputWrapper = styled.div`
   flex-direction: column;
   align-items: start;
   position: relative;
-  width: 100%; /* 필요에 따라 조절 */
+  width: 100%; 
 `;
 
 const ToggleButton = styled.button`
   font-size: 11px;
   position: absolute;
   height: 22px;
-  right: 0;
+  right:0;
   bottom: 4px;
   cursor: pointer;
   color: white;
@@ -53,7 +53,7 @@ const ErrorMessage = styled.div`
 
 const SuccessMessage = styled.div`
   color: black;
-  font-size: 9px;
+  font-size: 10px;
 `;
 
 function Email() {
@@ -94,7 +94,6 @@ function Email() {
                     <SuccessMessage>인증번호가 발송되었습니다.</SuccessMessage>
                 )}
             </InputWrapper>
-
             <InputDiv type="text" className="input" placeholder="인증번호" />
         </InputContainer>
     );

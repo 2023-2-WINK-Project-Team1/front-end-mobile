@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import logoGreen from "../assets/logo_green.svg";
 import StudentId from "../components/input/StudentId";
 import Name from "../components/input/Name";
@@ -19,16 +19,14 @@ const MainContainer = styled.div`
   box-sizing: border-box;
 `;
 
-const LogoImage = styled.img`
-`;
-
+const LogoImage = styled.img``;
 
 const SignUpText = styled.p`
   font-size: 16px;
   color: #7A7A7A ;
 `;
 
-const SignUpLink = styled(Link)`
+const SignUpLink = styled.span`
   color: #005950; 
   text-decoration: none; 
   cursor: pointer;
@@ -45,13 +43,16 @@ const InputContainer = styled.div`
   width: 100%;
 `;
 
-
-
 function SignUp() {
+    const navigate = useNavigate();
+
+    const handleSignInClick = () => {
+        navigate('/signIn');
+    };
+
     return (
         <MainContainer>
-
-            <LogoImage src={logoGreen} alt="Logo" />
+            <LogoImage src={logoGreen} alt="로고" />
 
             <InputContainer>
                 <Name/>
@@ -61,11 +62,8 @@ function SignUp() {
                 <PasswordInputCheck/>
             </InputContainer>
 
-            <Link to="/signIn">
-                <Button size="Large">회원가입완료</Button>
-            </Link>
-            <SignUpText>이미 회원이신가요?<SignUpLink to="/SignIn"> 로그인</SignUpLink></SignUpText>
-
+            <Button size="Large" onClick={handleSignInClick}>회원가입완료</Button>
+            <SignUpText>이미 회원이신가요?<SignUpLink onClick={handleSignInClick}> 로그인</SignUpLink></SignUpText>
         </MainContainer>
     );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import logoGreen from '../assets/logo_green.svg';
 import StudentId from '../components/input/StudentId';
 import PasswordInput from '../components/input/PasswordInput';
@@ -41,10 +41,11 @@ const SignUpText = styled.p`
   color: #7a7a7a;
 `;
 
-const SignUpLink = styled(Link)`
+const SignUpLink = styled.span`
   color: #005950;
   text-decoration: none;
   font-size: 16px;
+  cursor: pointer;
 `;
 
 const InputContainer = styled.div`
@@ -57,9 +58,15 @@ const InputContainer = styled.div`
 `;
 
 function SignIn() {
+    const navigate = useNavigate();
+
+    const handleSignUpClick = () => {
+        navigate('/SignUp');
+    };
+
     return (
         <MainContainer>
-            <LogoImage src={logoGreen} alt="Logo" />
+            <LogoImage src={logoGreen} alt="로고" />
 
             <InputContainer>
                 <StudentId />
@@ -72,7 +79,7 @@ function SignIn() {
 
             <Button size="Large">로그인</Button>
             <SignUpText>
-                회원이 아니신가요?<SignUpLink to="/SignUp"> 회원가입</SignUpLink>
+                회원이 아니신가요?<SignUpLink onClick={handleSignUpClick}> 회원가입</SignUpLink>
             </SignUpText>
         </MainContainer>
     );
