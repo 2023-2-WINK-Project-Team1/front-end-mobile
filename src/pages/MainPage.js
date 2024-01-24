@@ -71,6 +71,26 @@ const ListItem = styled.div`
   border-bottom: 1px solid black;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  gap: 8px; 
+  margin-top: 22px;
+`;
+
+const Remaining = styled.div`
+  color: #9C9C9C;
+  font-size: 12px;
+  font-weight: 500;
+`;
+
+const GoodsName = styled.div`
+  font-size: 20px;
+  font-weight: 500;
+`;
+
+
 
 const ItemImage = styled.img`
   width: 48px; /* Adjust the width of the image as needed */
@@ -78,14 +98,14 @@ const ItemImage = styled.img`
 `;
 
 const dummyData = [
-    { imgSrc: image, goodsName: '물품 1', state: 0, },
-    { imgSrc: image, goodsName: '물품 2', state: 1 },
-    { imgSrc: image, goodsName: '물품 3', state: 2 },
-    { imgSrc: image, goodsName: '물품 3', state: 2 },
-    { imgSrc: image, goodsName: '물품 3', state: 2 },
-    { imgSrc: image, goodsName: '물품 3', state: 2 },
-    { imgSrc: image, goodsName: '물품 3', state: 2 },
-    { imgSrc: image, goodsName: '물품 3', state: 2 },
+    { imgSrc: image, goodsName: '물품 1', state: 0, remaining: 5 },
+    { imgSrc: image, goodsName: '물품 2', state: 1, remaining: 5 },
+    { imgSrc: image, goodsName: '물품 3', state: 2, remaining: 5 },
+    { imgSrc: image, goodsName: '물품 3', state: 2, remaining: 5 },
+    { imgSrc: image, goodsName: '물품 3', state: 2, remaining: 5 },
+    { imgSrc: image, goodsName: '물품 3', state: 2, remaining: 5 },
+    { imgSrc: image, goodsName: '물품 3', state: 2, remaining: 5 },
+    { imgSrc: image, goodsName: '물품 3', state: 2, remaining: 5 },
 
 ];
 
@@ -115,8 +135,11 @@ function MainPage() {
                     {dummyData.map((item, index) => (
                         <ListItem key={index}>
                             <ItemImage src={image} alt={item.imgSrc} />
-                            {item.goodsName}
-                            <Button children = {stateList[item.state]} size="Medium" cancel = {item.state == 1}></Button>
+                            <GoodsName>{item.goodsName}</GoodsName>
+                            <ButtonContainer>
+                                <Button children = {stateList[item.state]} size="Medium" cancel = {item.state == 1}></Button>
+                                <Remaining>남은 수량: {item.remaining}</Remaining>
+                            </ButtonContainer>
                         </ListItem>
                     ))}
                 </ListContainer>
