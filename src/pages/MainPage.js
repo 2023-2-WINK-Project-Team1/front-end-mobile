@@ -4,14 +4,14 @@ import styled from "styled-components";
 import xLogo from "../assets/xLogo.svg";
 import connectLogoWhite from "../assets/connectLogoWhite.svg";
 import winkLogo from "../assets/winkLogo.svg";
-import image from "../assets/image.svg";
+import defaultImage from "../assets/defaultImage.svg";
 import Button from "../components/Button";
 
 
 const Container = styled.div`
   width: 100%;
   background-color: #005950;
-  height: 199.2px;
+  height: 200px;
 `;
 
 const TextContainer = styled.div`
@@ -31,14 +31,14 @@ const ImageContainer = styled.div`
 `;
 
 const WinkLogo = styled.img`
-  width: 87px;
-  height: 37.45px;
+  width: 86px;
+  height: 38px;
 `;
 
 const XLogo = styled.img`
   width: 28px;
   height: 28px;
-  padding-left: 5px;
+  padding-left: 4px;
   padding-right: 16px;
 `;
 
@@ -51,7 +51,7 @@ const ListContainer = styled.div`
   width: 100%;
   height: calc(100vh - 256px);
   box-sizing: border-box;
-  padding-bottom: 65px;
+  padding-bottom: 64px;
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -68,7 +68,7 @@ const ListItem = styled.div`
   gap:50px;
   width: 100%;
   height: 150px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #D8D8D8;
 `;
 
 const ButtonContainer = styled.div`
@@ -90,22 +90,20 @@ const GoodsName = styled.div`
   font-weight: 500;
 `;
 
-
-
 const ItemImage = styled.img`
   width: 48px; /* Adjust the width of the image as needed */
   height: 48px; /* Adjust the height of the image as needed */
 `;
 
 const dummyData = [
-    { imgSrc: image, goodsName: '물품 1', state: 0, remaining: 5 },
-    { imgSrc: image, goodsName: '물품 2', state: 1, remaining: 5 },
-    { imgSrc: image, goodsName: '물품 3', state: 2, remaining: 5 },
-    { imgSrc: image, goodsName: '물품 3', state: 2, remaining: 5 },
-    { imgSrc: image, goodsName: '물품 3', state: 2, remaining: 5 },
-    { imgSrc: image, goodsName: '물품 3', state: 2, remaining: 5 },
-    { imgSrc: image, goodsName: '물품 3', state: 2, remaining: 5 },
-    { imgSrc: image, goodsName: '물품 3', state: 2, remaining: 5 },
+    { imgSrc: defaultImage, goodsName: '물품 1', state: 0, remaining: 5 },
+    { imgSrc: defaultImage, goodsName: '물품 2', state: 1, remaining: 5 },
+    { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
+    { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
+    { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
+    { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
+    { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
+    { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
 
 ];
 
@@ -118,7 +116,7 @@ function MainPage() {
     };
 
     return (
-            <div>
+            <>
                 <Container>
                     <ImageContainer>
                         <WinkLogo src={winkLogo} alt="Wink Logo" />
@@ -134,16 +132,16 @@ function MainPage() {
                 <ListContainer>
                     {dummyData.map((item, index) => (
                         <ListItem key={index}>
-                            <ItemImage src={image} alt={item.imgSrc} />
+                            <ItemImage src={item.imgSrc} alt={defaultImage} />
                             <GoodsName>{item.goodsName}</GoodsName>
                             <ButtonContainer>
-                                <Button children = {stateList[item.state]} size="Medium" cancel = {item.state == 1}></Button>
+                                <Button children = {stateList[item.state]} size="Medium" cancel = {item.state === 1}></Button>
                                 <Remaining>남은 수량: {item.remaining}</Remaining>
                             </ButtonContainer>
                         </ListItem>
                     ))}
                 </ListContainer>
-            </div>
+            </>
     );
 }
 
