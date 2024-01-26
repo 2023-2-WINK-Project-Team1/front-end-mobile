@@ -36,7 +36,7 @@ const InputWrapper = styled.div`
 `;
 
 const ToggleButton = styled.button`
-  font-size: 11px;
+  font-size: 12px;
   position: absolute;
   height: 22px;
   right:0;
