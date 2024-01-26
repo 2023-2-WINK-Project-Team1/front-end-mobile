@@ -80,7 +80,7 @@ function Email() {
     };
 
     return (
-        <InputContainer className="App">
+        <InputContainer>
             <InputWrapper>
                 <InputDivWithButton>
                     <InputDiv
@@ -101,7 +101,7 @@ function Email() {
                     <SuccessMessage>인증번호가 발송되었습니다.</SuccessMessage>
                 )}
             </InputWrapper>
-            <InputDiv type="text" className="input" placeholder="인증번호" />
+            <InputDiv type="text" placeholder="인증번호" />
         </InputContainer>
     );
 }

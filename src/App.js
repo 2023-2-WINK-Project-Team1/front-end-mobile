@@ -1,11 +1,11 @@
 import './App.css';
 import { ThemeProvider } from 'styled-components'; // 1. Global color를 사용하기 위한 import
 import theme from './Theme.js'; // 2. Global color를 사용하기 위한 import
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';
-import SignIn from './pages/sign-in';
-import SignUp from './pages/sign-up';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 import TestPage from './pages/componentTest/TestPage';
 
 function App() {
@@ -16,8 +16,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Main />}></Route>
-            <Route path="/SignIn" element={<SignIn />}></Route>
-            <Route path="/SignUp" element={<SignUp/>}></Route>
+            <Route path="/sign-in" element={<SignIn />}></Route>
+            <Route path="/sign-up" element={<SignUp/>}></Route>
             <Route path="/testPage" element={<TestPage />}></Route>
           </Routes>
         </BrowserRouter>

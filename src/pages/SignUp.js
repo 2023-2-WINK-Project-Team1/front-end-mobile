@@ -19,8 +19,6 @@ const MainContainer = styled.div`
   box-sizing: border-box;
 `;
 
-const LogoImage = styled.img``;
-
 const SignUpText = styled.p`
   font-size: 16px;
   color: #7A7A7A ;
@@ -47,12 +45,12 @@ function SignUp() {
     const navigate = useNavigate();
 
     const handleSignInClick = () => {
-        navigate('/signIn');
+        navigate('/sign-in');
     };
 
     return (
         <MainContainer>
-            <LogoImage src={logoGreen} alt="로고" />
+            <img src={logoGreen} alt="로고" />
 
             <InputContainer>
                 <Name/>

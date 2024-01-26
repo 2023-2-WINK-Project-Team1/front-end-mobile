@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import logoGreen from '../assets/logo_green.svg';
@@ -16,8 +16,6 @@ const MainContainer = styled.div`
   box-sizing: border-box;
 `;
 
-const LogoImage = styled.img``;
-
 const CheckBoxContainer = styled.div`
   display: flex;
   color: #7a7a7a;
@@ -27,6 +25,7 @@ const CheckBoxContainer = styled.div`
   text-align: center;
   cursor: pointer;
   gap: 8px;
+  width: fit-content;
 `;
 
 const CheckBox = styled.input`
@@ -59,20 +58,25 @@ const InputContainer = styled.div`
 
 function SignIn() {
     const navigate = useNavigate();
+    const [autoLogin, setAutoLogin] = useState(false);
 
     const handleSignUpClick = () => {
-        navigate('/SignUp');
+        navigate('/sign-up');
+    };
+
+    const handleCheckBoxClick = () => {
+        setAutoLogin(!autoLogin);
     };
 
     return (
         <MainContainer>
-            <LogoImage src={logoGreen} alt="로고" />
+            <img src={logoGreen} alt="로고" />
 
             <InputContainer>
                 <StudentId />
                 <PasswordInput />
-                <CheckBoxContainer>
-                    <CheckBox type="checkbox" />
+                <CheckBoxContainer onClick={handleCheckBoxClick}>
+                    <CheckBox type="checkbox" checked={autoLogin} />
                     자동로그인
                 </CheckBoxContainer>
             </InputContainer>
