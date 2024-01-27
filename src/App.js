@@ -4,6 +4,7 @@ import theme from './Theme.js'; // 2. Global color를 사용하기 위한 import
 import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';
+import MainPage from './pages/MainPage';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Setting from './pages/Setting';
@@ -20,6 +21,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Main />}></Route>
+              <Route path="/main" element={<MainPage />}></Route>
               <Route path="/setting" element={<Setting />}></Route>
               <Route path="/user-rental" element={<UserRental />}></Route>
               <Route path="/notification" element={<Notification />}></Route>
