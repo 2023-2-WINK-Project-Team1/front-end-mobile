@@ -5,8 +5,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';
 import Setting from './pages/Setting';
-import TestPage from './pages/componentTest/TestPage';
-import Alarm from './pages/AlarmComponent';
+import Notification from './pages/Notification';
 import UserRental from './pages/UserRental';
 import { RecoilRoot } from 'recoil';
 
@@ -15,19 +14,17 @@ function App() {
     // 3. styled-component의 ThemeProvider와 theme를 가져온 후, 컴포넌트의 최상단에 감싸준다.
     <ThemeProvider theme={theme}>
       <RecoilRoot>
-        <div className="App">
+        <div id="App">
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Main />}></Route>
-              <Route path="/testPage" element={<TestPage />}></Route>
               <Route path="/setting" element={<Setting />}></Route>
               <Route path="/user-rental" element={<UserRental />}></Route>
-              <Route path="/alarm" element={<Alarm />}></Route>
+              <Route path="/notification" element={<Notification />}></Route>
             </Routes>
           </BrowserRouter>
         </div>
       </RecoilRoot>
-
     </ThemeProvider>
   );
 }

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Alarm from '../components/Alarm';
+import NotiItem from '../components/NotiItem';
 
 const MainContainer = styled.div`
   display: flex;
@@ -10,15 +10,15 @@ const MainContainer = styled.div`
   color: #d9d9d9;
 `;
 
-function StringAlarmRender() {
+function Notification() {
   return (
     <MainContainer>
-      <Alarm type={'Request'} />
-      <Alarm type={'RequestApprove'} />
-      <Alarm type={'InfoFix'} />
-      <Alarm type={'RequestDenial'} />
+      <NotiItem type={'Request'} />
+      <NotiItem type={'RequestApprove'} />
+      <NotiItem type={'InfoFix'} />
+      <NotiItem type={'RequestDenial'} />
     </MainContainer>
   );
 }
 
-export default StringAlarmRender;
+export default Notification;

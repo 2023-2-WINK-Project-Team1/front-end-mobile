@@ -29,7 +29,7 @@ const AlarmContent = styled.div`
   font-size: 10px;
 `;
 
-function StringAlarmRender({ type }) {
+function NotiItem({ type }) {
   console.log('type : ', type);
   const [titleText, setTitleText] = useState('');
   const [resultText, setResultText] = useState('');
@@ -86,4 +86,4 @@ function StringAlarmRender({ type }) {
   );
 }
 
-export default StringAlarmRender;
+export default NotiItem;
