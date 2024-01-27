@@ -1,5 +1,6 @@
 import Layout from '../components/layout/Layout';
-import { RecoilRoot } from 'recoil';
+import { useRecoilState } from 'recoil';
+import { isAdminState } from '../recoil/recoil';
 
 function Main() {
   const headerProps = {
@@ -7,15 +8,21 @@ function Main() {
     title: '물품 대여',
   };
 
-  const isAdmin = true; // 관리자(true), 사용자(false)
+  const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
+
+  // 특정 값으로 isAdmin 설정하는 함수
+  const setAdminStatus = (value) => {
+    setIsAdmin(value);
+  };
+
+  // 여기서 사용자/관리자 설정 가능
+  setAdminStatus(false);
 
   return (
-    <RecoilRoot>
-      <div>
-        {/*<h1>1팀 화이팅 ~!</h1>*/}
-        <Layout headerProps={headerProps} isAdmin={false} />
-      </div>
-    </RecoilRoot>
+    <div>
+      {/*<h1>1팀 화이팅 ~!</h1>*/}
+      <Layout headerProps={headerProps} isAdmin={isAdmin} />
+    </div>
   );
 }
 

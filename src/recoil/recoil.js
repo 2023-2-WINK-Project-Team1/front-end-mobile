@@ -5,3 +5,8 @@ export const selectedButtonState = atom({
   key: 'selectedButtonState',
   default: null,
 });
+
+export const isAdminState = atom({
+  key: 'isAdminState',
+  default: false, // default 값은 사용자로
+});
