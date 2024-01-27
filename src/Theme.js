@@ -11,6 +11,7 @@ const theme = {
   gray: '#9C9C9C', // Button disabled 색상
   lightGray: '#D9D9D9', // 반납완료 button 색상
   white: '#ffffff', // 버튼 글자 색상
+  black: '#000000', // 검은색
 };
 
 export default theme;
