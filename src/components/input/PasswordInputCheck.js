@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import iconX from '../../assets/IconX.svg';
+import iconpassword1 from '../../assets/iconpassword1.svg';
+import iconpassword2 from '../../assets/iconpassword2.svg';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const InputContainer = styled.div`
@@ -36,31 +37,32 @@ const InputWrapper = styled.div`
   width: 100%; /* 필요에 따라 조절 */
 `;
 
-function Name() {
-  // 이름 지우기
-  const [name, setName] = useState('');
-  const handleClear = () => {
-    setName('');
+function PasswordCheck() {
+  //비밀번호
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const getPasswordIcon = () => {
+    return showPassword ? iconpassword1 : iconpassword2;
   };
 
   return (
     <InputContainer>
       <InputWrapper>
         <InputImage
-          src={iconX}
+          src={getPasswordIcon()}
           alt="Icon"
-          onClick={() => handleClear('name')}
+          onClick={togglePasswordVisibility}
         />
         <InputDiv
-          type="text"
+          type={showPassword ? 'text' : 'password'}
           className="input"
-          placeholder="이름"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          placeholder="비밀번호 확인"
         />
       </InputWrapper>
     </InputContainer>
   );
 }
 
-export default Name;
+export default PasswordCheck;

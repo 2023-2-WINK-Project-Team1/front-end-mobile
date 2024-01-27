@@ -6,12 +6,13 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap:40px;
 `;
 
 const InputDiv = styled.input`
   font-size: 16px;
   height: 20px;
-  width: 295px;
+  width: 100%;
   border: none;
   border-bottom: 1px solid #e6e6e6;
   outline: none;
@@ -21,20 +22,25 @@ const InputDiv = styled.input`
   }
 `;
 
+const InputDivWithButton = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
   position: relative;
-  width: 300px; /* 필요에 따라 조절 */
+  width: 100%; 
 `;
 
 const ToggleButton = styled.button`
-  font-size: 11px;
+  font-size: 12px;
   position: absolute;
   height: 22px;
-  top: 0;
-  right: 0;
+  right:0;
+  bottom: 4px;
   cursor: pointer;
   color: white;
   background-color: #005950;
@@ -47,12 +53,12 @@ const ToggleButton = styled.button`
 
 const ErrorMessage = styled.div`
   color: red;
-  font-size: 8px;
+  font-size: 10px;
 `;
 
 const SuccessMessage = styled.div`
   color: black;
-  font-size: 8px;
+  font-size: 10px;
 `;
 
 function Email() {
@@ -74,18 +80,20 @@ function Email() {
     };
 
     return (
-        <InputContainer className="App">
+        <InputContainer>
             <InputWrapper>
-                <InputDiv
-                    type="text"
-                    className="input"
-                    placeholder="학교 이메일"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <ToggleButton onClick={() => validateEmail()}>
-                    {'인증번호 전송'}
-                </ToggleButton>
+                <InputDivWithButton>
+                    <InputDiv
+                        type="text"
+                        className="input"
+                        placeholder="학교 이메일"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <ToggleButton onClick={() => validateEmail()}>
+                        {'인증번호 전송'}
+                    </ToggleButton>
+                </InputDivWithButton>
                 {emailError && (
                     <ErrorMessage>이메일 형식이 맞지 않습니다.</ErrorMessage>
                 )}
@@ -93,8 +101,7 @@ function Email() {
                     <SuccessMessage>인증번호가 발송되었습니다.</SuccessMessage>
                 )}
             </InputWrapper>
-
-            <InputDiv type="text" className="input" placeholder="인증번호" />
+            <InputDiv type="text" placeholder="인증번호" />
         </InputContainer>
     );
 }
