@@ -8,7 +8,7 @@ const sizeStyle = css`
   ${(props) =>
     props.size === 'Large' &&
     css`
-      width: 295px;
+      width: 100%;
       height: 60px;
       font-size: 16px;
     `};
