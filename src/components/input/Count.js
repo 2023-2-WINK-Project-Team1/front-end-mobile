@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from "styled-components";
+import styled from 'styled-components';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const InputContainer = styled.div`
@@ -13,10 +13,10 @@ const InputDiv = styled.input`
   height: 20px;
   width: 100%;
   border: none;
-  border-bottom: 1px solid #E6E6E6;
+  border-bottom: 1px solid #e6e6e6;
   outline: none;
   ::placeholder {
-    color: #9C9C9C;
+    color: #9c9c9c;
   }
 `;
 
@@ -25,29 +25,19 @@ const InputWrapper = styled.div`
   width: 100%; /* 필요에 따라 조절 */
 `;
 
-
-
 function Count() {
-
-    return (
-        <InputContainer className="App">
-
-            <InputWrapper>
-                <InputDiv
-                    type="number"
-                    className="input"
-                    placeholder="수량"
-                    min="0"  // 최소값을 0로 설정
-                />
-            </InputWrapper>
-
-        </InputContainer>
-    );
+  return (
+    <InputContainer>
+      <InputWrapper>
+        <InputDiv
+          type="number"
+          className="input"
+          placeholder="수량"
+          min="0" // 최소값을 0로 설정
+        />
+      </InputWrapper>
+    </InputContainer>
+  );
 }
 
 export default Count;
-
-
-
-
-

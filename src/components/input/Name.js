@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import styled from "styled-components";
-import iconX from "../../assets/IconX.svg";
+import styled from 'styled-components';
+import iconX from '../../assets/IconX.svg';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const InputContainer = styled.div`
@@ -14,10 +14,10 @@ const InputDiv = styled.input`
   height: 20px;
   width: 100%;
   border: none;
-  border-bottom: 1px solid #E6E6E6;
+  border-bottom: 1px solid #e6e6e6;
   outline: none;
   ::placeholder {
-    color: #9C9C9C;
+    color: #9c9c9c;
   }
 `;
 
@@ -37,34 +37,30 @@ const InputWrapper = styled.div`
 `;
 
 function Name() {
-    // 이름 지우기
-    const [name, setName] = useState('');
-    const handleClear = () => {
-        setName('');
-    }
+  // 이름 지우기
+  const [name, setName] = useState('');
+  const handleClear = () => {
+    setName('');
+  };
 
-
-    return (
-        <InputContainer className="App">
-
-            <InputWrapper>
-                <InputImage src={iconX} alt="Icon" onClick={() => handleClear('name')} />
-                <InputDiv
-                    type="text"
-                    className="input"
-                    placeholder="이름"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-            </InputWrapper>
-
-        </InputContainer>
-    );
+  return (
+    <InputContainer>
+      <InputWrapper>
+        <InputImage
+          src={iconX}
+          alt="Icon"
+          onClick={() => handleClear('name')}
+        />
+        <InputDiv
+          type="text"
+          className="input"
+          placeholder="이름"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </InputWrapper>
+    </InputContainer>
+  );
 }
 
 export default Name;
-
-
-
-
-

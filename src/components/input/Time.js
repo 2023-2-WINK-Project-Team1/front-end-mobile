@@ -40,7 +40,7 @@ function Time() {
   };
 
   return (
-    <InputContainer className="App">
+    <InputContainer>
       <InputWrapper>
         <StyledDatePicker
           selected={startTime}
