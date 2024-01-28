@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const InputContainer = styled.div`
@@ -11,31 +11,21 @@ const InputContainer = styled.div`
 const InputDiv = styled.input`
   font-size: 16px;
   height: 20px;
-  width: 295px;
+  width: 100%;
   border: none;
-  border-bottom: 1px solid #E6E6E6;
+  border-bottom: 1px solid #e6e6e6;
   outline: none;
-  margin-bottom: 40px;
   ::placeholder {
-    color: #9C9C9C;
+    color: #9c9c9c;
   }
 `;
 
 function StudentId() {
-    return (
-        <InputContainer className="App">
-            <InputDiv
-                type="text"
-                className="input"
-                placeholder="학번"
-            />
-        </InputContainer>
-    );
+  return (
+    <InputContainer>
+      <InputDiv type="text" className="input" placeholder="학번" />
+    </InputContainer>
+  );
 }
 
 export default StudentId;
-
-
-
-
-
