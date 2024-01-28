@@ -10,6 +10,7 @@ import SignUp from './pages/SignUp';
 import Setting from './pages/Setting';
 import Notification from './pages/Notification';
 import UserRental from './pages/UserRental';
+import MyPage from './pages/MyPage';
 import { RecoilRoot } from 'recoil';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
               <Route path="/main" element={<MainPage />}></Route>
               <Route path="/setting" element={<Setting />}></Route>
               <Route path="/user-rental" element={<UserRental />}></Route>
+              <Route path="/mypage" element={<MyPage />}></Route>
               <Route path="/notification" element={<Notification />}></Route>
               <Route path="/sign-in" element={<SignIn />}></Route>
               <Route path="/sign-up" element={<SignUp />}></Route>

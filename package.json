@@ -11,11 +11,12 @@
     "react-datepicker": "^4.23.0",
     "react-datetime-picker": "^5.5.3",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.1",
-    "react-scripts": "5.0.1",
+    "react-router-dom": "^6.21.3",
+    "react-scripts": "^5.0.1",
     "react-time-picker": "^6.5.2",
     "recoil": "^0.7.7",
     "styled-components": "^6.1.6",
+    "sweetalert2": "^11.10.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

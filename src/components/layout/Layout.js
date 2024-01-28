@@ -5,10 +5,12 @@ import Header from './Header';
 import Footer from './Footer';
 
 const LayoutContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  height: 100vh;
+  position: absolute;
 `;
 
 const Main = styled.main`
