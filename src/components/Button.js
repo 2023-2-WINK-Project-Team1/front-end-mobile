@@ -69,10 +69,10 @@ function Button(props) {
     disabled: 대여신청, 대여완료, 반납완료 버튼에서의 속성값
     cancel: 대여취소 버튼에서의 속성값
     */
-  const { children, size, disabled, cancel } = props;
+  const { children, size, disabled, cancel, onClick } = props;
 
   return (
-    <StyledButton disabled={disabled} size={size} cancel={cancel}>
+    <StyledButton disabled={disabled} size={size} cancel={cancel} onClick={onClick}>
       {children}
     </StyledButton>
   );

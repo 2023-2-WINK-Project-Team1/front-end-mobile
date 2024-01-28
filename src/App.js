@@ -7,6 +7,7 @@ import Main from './pages/Main';
 import Setting from './pages/Setting';
 import TestPage from './pages/componentTest/TestPage';
 import UserRental from './pages/UserRental';
+import MyPage from './pages/MyPage';
 import { RecoilRoot } from 'recoil';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
               <Route path="/" element={<Main />}></Route>
               <Route path="/setting" element={<Setting />}></Route>
               <Route path="/user-rental" element={<UserRental />}></Route>
+              <Route path="/mypage" element={<MyPage />}></Route>
             </Routes>
           </BrowserRouter>
         </div>
