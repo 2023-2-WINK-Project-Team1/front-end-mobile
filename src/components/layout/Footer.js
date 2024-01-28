@@ -17,6 +17,8 @@ const FooterContainer = styled.div`
   height: 65px;
   background: ${(props) => props.theme.primary};
   justify-content: center; // 가운데 정렬 추가
+  position: absolute;
+  bottom: 0; // footer를 화면 하단에 고정
 `;
 
 const ButtonContainer = styled.div`
