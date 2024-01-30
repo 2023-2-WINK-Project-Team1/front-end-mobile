@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';
 import UserRental from './pages/UserRental';
+import Setting from './pages/Setting';
 import { RecoilRoot } from 'recoil';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Main />}></Route>
               <Route path="/user-rental" element={<UserRental />}></Route>
+              <Route path="/setting" element={<Setting />}></Route>
             </Routes>
           </BrowserRouter>
         </div>
