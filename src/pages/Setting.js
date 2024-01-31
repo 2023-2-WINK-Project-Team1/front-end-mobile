@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
 import bell from '../../src/assets/Settings/bell.svg';
 import people from '../../src/assets/Settings/people.svg';
 import radio from '../../src/assets/Settings/radio.svg';
 import arrow from '../../src/assets/Settings/arrow.svg';
 import questionmark from '../../src/assets/Settings/questionmark.svg';
 import offRadio from '../../src/assets/Settings/offradio.svg';
+import { isRadioOnState } from '../recoil/recoil';
 
 const MainContainer = styled.div`
   width: 100%;
@@ -73,8 +75,9 @@ const LogOutBox = styled.button`
 
 function Setting() {
   const [imagePath, setImagePath] = useState('');
-  const [isRadioOn, setIsRadioOn] = useState(true);
-  // isRadioOn이 true 이거나 false일 경우로 관리
+  const [isRadioOn, setIsRadioOn] = useRecoilState(isRadioOnState);
+  // 전역 상태 isRadioOn으로 관리
+
   return (
     <MainContainer>
       <BoxContainer>

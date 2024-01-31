@@ -10,3 +10,8 @@ export const isAdminState = atom({
   key: 'isAdminState',
   default: false, // default 값은 사용자로
 });
+
+export const isRadioOnState = atom({
+  key: 'isRadioOnState',
+  default: true,
+});
