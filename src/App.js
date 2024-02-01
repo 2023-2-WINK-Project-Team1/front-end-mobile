@@ -12,6 +12,8 @@ import Notification from './pages/Notification';
 import UserRental from './pages/UserRental';
 import MyPage from './pages/MyPage';
 import { RecoilRoot } from 'recoil';
+import RentalManager from "./pages/RentalManager";
+import ReturnManager from "./pages/ReturnManager";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
               <Route path="/notification" element={<Notification />}></Route>
               <Route path="/sign-in" element={<SignIn />}></Route>
               <Route path="/sign-up" element={<SignUp />}></Route>
+              <Route path="/rental-manager" element={<RentalManager />}></Route>
+              <Route path="/return-manager" element={<ReturnManager />}></Route>
             </Routes>
           </BrowserRouter>
         </div>
