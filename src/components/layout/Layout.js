@@ -11,6 +11,8 @@ const LayoutContainer = styled.div`
   justify-content: space-between;
   height: 100vh;
   position: absolute;
+  padding-bottom: 65px;
+  box-sizing: border-box;
 `;
 
 const Main = styled.main`
