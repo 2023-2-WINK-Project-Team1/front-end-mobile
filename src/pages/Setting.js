@@ -79,10 +79,14 @@ function Setting() {
   const RadioClick = () => {
     setIsAlarmOn(!isAlarmOn);
   };
+  const headerProps = {
+    // header에 들어갈 페이지 제목은 여기서 수정
+    title: '설정',
+  };
   // alarm on/off를 RadioClick으로 제어
   return (
     <div>
-      <Layout>
+      <Layout headerProps={headerProps}>
         <MainContainer>
           <BoxContainer>
             <BoxComponent>
