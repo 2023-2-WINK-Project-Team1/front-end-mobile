@@ -11,12 +11,16 @@ const LayoutContainer = styled.div`
   justify-content: space-between;
   height: 100vh;
   position: absolute;
-  padding-bottom: 65px;
+  padding-bottom: 65px; // Footer height
   box-sizing: border-box;
 `;
 
 const Main = styled.main`
   flex: 1; // flex 속성을 활용하여 가용 공간을 채우도록 설정
+  > div {
+    height: 100%;
+    box-sizing: border-box;
+  }
 `;
 /* 사용할 props 정리
     headerProps: 해당 페이지의 제목(title)
