@@ -37,7 +37,7 @@ const InputWrapper = styled.div`
   width: 100%; /* 필요에 따라 조절 */
 `;
 
-function Password() {
+function Password({ value, setValue }) {
   //비밀번호
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
@@ -57,8 +57,9 @@ function Password() {
         />
         <InputDiv
           type={showPassword ? 'text' : 'password'}
-          className="input"
           placeholder="비밀번호"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
         />
       </InputWrapper>
     </InputContainer>

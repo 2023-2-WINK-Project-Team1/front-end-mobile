@@ -36,11 +36,10 @@ const InputWrapper = styled.div`
   width: 100%; /* 필요에 따라 조절 */
 `;
 
-function Name() {
+function Name({ value, setValue }) {
   // 이름 지우기
-  const [name, setName] = useState('');
   const handleClear = () => {
-    setName('');
+    setValue('');
   };
 
   return (
@@ -55,8 +54,8 @@ function Name() {
           type="text"
           className="input"
           placeholder="이름"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
         />
       </InputWrapper>
     </InputContainer>
