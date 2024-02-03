@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import bell from '../../src/assets/Settings/bell.svg';
 import people from '../../src/assets/Settings/people.svg';
-import radio from '../../src/assets/Settings/radio.svg';
+import alarmOn from '../../src/assets/Settings/radio.svg';
 import arrow from '../../src/assets/Settings/arrow.svg';
 import questionmark from '../../src/assets/Settings/questionmark.svg';
-import offRadio from '../../src/assets/Settings/offradio.svg';
+import alarmOff from '../../src/assets/Settings/offradio.svg';
 import { isRadioOnState } from '../recoil/recoil';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
 
 const MainContainer = styled.div`
   width: 100%;
@@ -74,43 +76,50 @@ const LogOutBox = styled.button`
 `;
 
 function Setting() {
-  const [imagePath, setImagePath] = useState('');
   const [isRadioOn, setIsRadioOn] = useRecoilState(isRadioOnState);
-  // 전역 상태 isRadioOn으로 관리
-
+  // isRadioOn이 true이면 alarm 설정됨.
+  const RadioClick = () => {
+    setIsRadioOn(!isRadioOn);
+  };
+  // alarm on/off를 RadioClick으로 제어
   return (
-    <MainContainer>
-      <BoxContainer>
-        <BoxComponent>
-          <MiniContainer>
-            <img src={bell} />
-            <Text>알림</Text>
-          </MiniContainer>
-          <img src={isRadioOn ? radio : offRadio} />
-        </BoxComponent>
+    <div>
+      <Header />
 
-        <BoxComponent>
-          <MiniContainer>
-            <img src={questionmark} />
-            <Text>정보</Text>
-          </MiniContainer>
-          <img src={arrow} />
-        </BoxComponent>
+      <MainContainer>
+        <BoxContainer>
+          <BoxComponent>
+            <MiniContainer>
+              <img src={bell} />
+              <Text>알림</Text>
+            </MiniContainer>
+            <img src={isRadioOn ? alarmOn : alarmOff} onClick={RadioClick} />
+          </BoxComponent>
 
-        <BoxComponent>
-          <MiniContainer>
-            <img src={people} />
-            <Text>사용자 모드</Text>
-          </MiniContainer>
-          <img src={arrow} />
-        </BoxComponent>
-      </BoxContainer>
-      <LogOutContainer>
-        <LogOutBox>
-          <LogOutText>로그아웃</LogOutText>
-        </LogOutBox>
-      </LogOutContainer>
-    </MainContainer>
+          <BoxComponent>
+            <MiniContainer>
+              <img src={questionmark} />
+              <Text>정보</Text>
+            </MiniContainer>
+            <img src={arrow} />
+          </BoxComponent>
+
+          <BoxComponent>
+            <MiniContainer>
+              <img src={people} />
+              <Text>사용자 모드</Text>
+            </MiniContainer>
+            <img src={arrow} />
+          </BoxComponent>
+        </BoxContainer>
+        <LogOutContainer>
+          <LogOutBox>
+            <LogOutText>로그아웃</LogOutText>
+          </LogOutBox>
+        </LogOutContainer>
+      </MainContainer>
+      <Footer />
+    </div>
   );
 }
 
