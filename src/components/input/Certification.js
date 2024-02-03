@@ -25,7 +25,7 @@ function StudentId({ value, setValue }) {
     <InputContainer>
       <InputDiv
         type="text"
-        placeholder="학번"
+        placeholder="인증번호"
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
