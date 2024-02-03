@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import bell from '../../src/assets/Settings/bell.svg';
 import people from '../../src/assets/Settings/people.svg';
-import alarmOn from '../../src/assets/Settings/radio.svg';
+import onRadio from '../../src/assets/Settings/radio.svg';
 import arrow from '../../src/assets/Settings/arrow.svg';
 import questionmark from '../../src/assets/Settings/questionmark.svg';
-import alarmOff from '../../src/assets/Settings/offradio.svg';
-import { isRadioOnState } from '../recoil/recoil';
+import offRadio from '../../src/assets/Settings/offradio.svg';
+import { isAlarmOnState } from '../recoil/recoil';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 
@@ -76,10 +76,10 @@ const LogOutBox = styled.button`
 `;
 
 function Setting() {
-  const [isRadioOn, setIsRadioOn] = useRecoilState(isRadioOnState);
+  const [isAlarmOn, setIsAlarmOn] = useRecoilState(isAlarmOnState);
   // isRadioOn이 true이면 alarm 설정됨.
   const RadioClick = () => {
-    setIsRadioOn(!isRadioOn);
+    setIsAlarmOn(!isAlarmOn);
   };
   // alarm on/off를 RadioClick으로 제어
   return (
@@ -93,7 +93,7 @@ function Setting() {
               <img src={bell} />
               <Text>알림</Text>
             </MiniContainer>
-            <img src={isRadioOn ? alarmOn : alarmOff} onClick={RadioClick} />
+            <img src={isAlarmOn ? onRadio : offRadio} onClick={RadioClick} />
           </BoxComponent>
 
           <BoxComponent>

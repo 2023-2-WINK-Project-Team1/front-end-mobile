@@ -11,7 +11,7 @@ export const isAdminState = atom({
   default: false, // default 값은 사용자로
 });
 
-export const isRadioOnState = atom({
-  key: 'isRadioOnState',
+export const isAlarmOnState = atom({
+  key: 'isAlarmOnState',
   default: true,
 });
