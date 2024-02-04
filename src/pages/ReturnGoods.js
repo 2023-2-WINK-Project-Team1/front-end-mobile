@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Layout from '../components/layout/Layout';
-import { useRecoilState } from 'recoil';
-import { isAdminState } from '../recoil/recoil';
 import defaultImage from "../assets/defaultImage.svg";
 import Button from '../components/Button';
 import Swal from "sweetalert2";
@@ -12,7 +10,7 @@ const MyPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   padding: 32px;
 `;
 
@@ -66,24 +64,19 @@ const dummyData =
     { imgSrc: defaultImage, label: "우산", user:"찬우", time:"23:00"}
 ;
 
-function RentalManager() {
+function ReturnGoods() {
     const headerProps = {
-        title: '물품 대여',
+        title: '물품 반납',
     };
 
-    const [isAdmin, setIsAdmin] = useRecoilState(isAdminState);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        setIsAdmin(false);
-    });
 
     const clickRentalButton = () => {
         setIsButtonDisabled(true);
 
         Swal.fire({
-            title: '대여 신청을 처리하겠습니까?',
+            title: '반납 신청을 처리하겠습니까?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#005950',
@@ -96,7 +89,7 @@ function RentalManager() {
                 setTimeout(() => {
                     Swal.fire(
                         {
-                            title: '대여 신청 처리가 완료되었습니다.',
+                            title: '반납 신청 처리가 완료되었습니다.',
                             icon: 'success',
                             confirmButtonColor: '#005950',
                             confirmButtonText: '확인'
@@ -112,7 +105,7 @@ function RentalManager() {
     };
 
     return (
-        <Layout headerProps={headerProps} isAdmin={isAdmin}>
+        <Layout headerProps={headerProps}>
             <MyPageContainer>
                     <ListContainer>
                         <ImageBox>
@@ -125,11 +118,11 @@ function RentalManager() {
                         </ListItem>
                     </ListContainer>
                 <Button onClick={clickRentalButton} disabled={isButtonDisabled} size="Large" cancel={false}>
-                    대여 완료 처리
+                    반납 완료 처리
                 </Button>
             </MyPageContainer>
         </Layout>
     );
 }
 
-export default RentalManager;
+export default ReturnGoods;
