@@ -56,7 +56,6 @@ const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 `;
 
 const ListItem = styled.div`
@@ -104,7 +103,6 @@ const dummyData = [
     { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
     { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
     { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-
 ];
 
 const stateList = ['대여하기', '신청취소', '반납하기'];
