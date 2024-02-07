@@ -34,7 +34,7 @@ const ImageContainer = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding-bottom: 76px;
+    margin-bottom: 76px;
 `;
 
 const Image = styled.img`
@@ -76,6 +76,9 @@ function GoodsRegistration() {
   };
 
   const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false) -> 전역변수로 관리
+  const [userName, setUserName] = useState('');
+  const [count, setCount] = useState('');
+
 
   /* 이미지 업로드 기능
      uploadedImage: 현재 업로드된 이미지의 Base64 인코딩 데이터 저장
@@ -117,6 +120,17 @@ function GoodsRegistration() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const clickRentalButton = () => {
+
+    if(!uploadedImage || !userName || !count) {
+      Swal.fire({
+        title: '물품의 정보를 모두 입력해주세요.',
+        icon: 'error',
+        confirmButtonColor: '#005950',  // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        confirmButtonText: '확인',
+      });
+      return;
+    }
+
     setIsButtonDisabled(true);  // 버튼 클릭하면 disabled 되게
 
     Swal.fire({
@@ -161,12 +175,12 @@ function GoodsRegistration() {
           </ImageBox>
         </ImageContainer>
         <GoodsInfoContainer>
-          <Name />
-          <Count />
+          <Name value={userName} setValue={setUserName}/>
+          <Count value={count} setValue={setCount}/>
         </GoodsInfoContainer>
         <ReturnContainer>
-          <CheckBox type={"checkbox"} checked={isReturn} onChange={returnCheckboxChange}/>
-          반납이 필요한 물품입니다.
+          <CheckBox id={"returnCheck"} type={"checkbox"} checked={isReturn} onChange={returnCheckboxChange}/>
+          <label htmlFor={"returnCheck"}>반납이 필요한 물품입니다.</label>
         </ReturnContainer>
         <Button onClick={clickRentalButton} disabled={isButtonDisabled} size="Large" cancel={false}>
           물품 등록
