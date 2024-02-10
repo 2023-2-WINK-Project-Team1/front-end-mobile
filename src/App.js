@@ -11,6 +11,7 @@ import Setting from './pages/Setting';
 import Notification from './pages/Notification';
 import UserRental from './pages/UserRental';
 import MyPage from './pages/MyPage';
+import GoodsRegistration from './pages/GoodsRegistration';
 import AppInfo from './pages/AppInfo';
 import { RecoilRoot } from 'recoil';
 import RentalGoods from "./pages/RentalGoods";
@@ -32,6 +33,7 @@ function App() {
               <Route path="/notification" element={<Notification />}></Route>
               <Route path="/sign-in" element={<SignIn />}></Route>
               <Route path="/sign-up" element={<SignUp />}></Route>
+              <Route path="/goods-registration" element={<GoodsRegistration />}></Route>
               <Route path="/app-info" element={<AppInfo />}></Route>
               <Route path="/rental-goods" element={<RentalGoods />}></Route>
               <Route path="/return-goods" element={<ReturnGoods />}></Route>
