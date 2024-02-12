@@ -56,7 +56,6 @@ const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 `;
 
 const ListItem = styled.div`
@@ -65,22 +64,22 @@ const ListItem = styled.div`
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  gap:50px;
+  gap: 50px;
   width: 100%;
   height: 150px;
-  border-bottom: 1px solid #D8D8D8;
+  border-bottom: 1px solid #d8d8d8;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center; 
-  gap: 8px; 
+  align-items: center;
+  gap: 8px;
   margin-top: 22px;
 `;
 
 const Remaining = styled.div`
-  color: #9C9C9C;
+  color: #9c9c9c;
   font-size: 12px;
   font-weight: 500;
 `;
@@ -96,18 +95,13 @@ const ItemImage = styled.img`
 `;
 
 const dummyData = [
-    { imgSrc: defaultImage, goodsName: '물품 1', state: 0, remaining: 5 },
-    { imgSrc: defaultImage, goodsName: '물품 2', state: 1, remaining: 5 },
-    { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-    { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-    { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-    { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-    { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-    { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-
+  { imgSrc: defaultImage, goodsName: '물품 1', state: 0, remaining: 5 },
+  { imgSrc: defaultImage, goodsName: '물품 2', state: 1, remaining: 5 },
+  { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
+  { imgSrc: defaultImage, goodsName: '물품 3', state: 3, remaining: 5 },
 ];
 
-const stateList = ['대여하기', '신청취소', '반납하기'];
+const stateList = ['대여하기', '신청취소', '반납하기', '반납 처리중'];
 
 
 function MainPage() {

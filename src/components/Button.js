@@ -52,6 +52,12 @@ const StyledButton = styled.button`
       background-color: ${(props) => props.theme.red};
     `};
 
+  ${(props) =>
+    props.processing &&
+    css`
+      background-color: ${(props) => props.theme.gray};
+    `};
+
   ${(
     props, // disabled = {true}일 때 변경되는 것들 (Large 버튼에만 사용되어서 위로 이동해야할 지 고민중)
   ) =>
@@ -69,10 +75,16 @@ function Button(props) {
     disabled: 대여신청, 대여완료, 반납완료 버튼에서의 속성값
     cancel: 대여취소 버튼에서의 속성값
     */
-  const { children, size, disabled, cancel, onClick } = props;
+  const { children, size, disabled, cancel, processing, onClick } = props;
 
   return (
-    <StyledButton disabled={disabled} size={size} cancel={cancel} onClick={onClick}>
+    <StyledButton
+      disabled={disabled}
+      size={size}
+      cancel={cancel}
+      processing={processing}
+      onClick={onClick}
+    >
       {children}
     </StyledButton>
   );
