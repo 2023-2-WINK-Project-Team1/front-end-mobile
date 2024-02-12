@@ -37,7 +37,7 @@ const InputWrapper = styled.div`
   width: 100%; /* 필요에 따라 조절 */
 `;
 
-function Password() {
+function Password({ onChange, value }) {
   //비밀번호
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
@@ -59,6 +59,7 @@ function Password() {
           type={showPassword ? 'text' : 'password'}
           className="input"
           placeholder="비밀번호"
+          onChange={(e) => onChange(e.target.value)} // 입력값이 변경될 때마다 onChange prop으로 전달된 함수 호출
         />
       </InputWrapper>
     </InputContainer>

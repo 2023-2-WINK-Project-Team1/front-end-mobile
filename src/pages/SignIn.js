@@ -57,36 +57,42 @@ const InputContainer = styled.div`
 `;
 
 function SignIn() {
-    const navigate = useNavigate();
-    const [autoLogin, setAutoLogin] = useState(false);
+  const navigate = useNavigate();
+  const [autoLogin, setAutoLogin] = useState(false);
+  const [studentIdValue, setStudentIdValue] = useState('');
 
-    const handleSignUpClick = () => {
-        navigate('/sign-up');
-    };
+  const handleSignUpClick = () => {
+    navigate('/sign-up');
+  };
 
-    const handleCheckBoxClick = () => {
-        setAutoLogin(!autoLogin);
-    };
+  const handleCheckBoxClick = () => {
+    setAutoLogin(!autoLogin);
+  };
 
-    return (
-        <MainContainer>
-            <img src={logoGreen} alt="로고" />
+  const handleStudentIdChange = (newValue) => {
+    setStudentIdValue(newValue);
+  };
 
-            <InputContainer>
-                <StudentId />
-                <PasswordInput />
-                <CheckBoxContainer onClick={handleCheckBoxClick}>
-                    <CheckBox type="checkbox" checked={autoLogin} />
-                    자동로그인
-                </CheckBoxContainer>
-            </InputContainer>
+  return (
+    <MainContainer>
+      <img src={logoGreen} alt="로고" />
 
-            <Button size="Large">로그인</Button>
-            <SignUpText>
-                회원이 아니신가요?<SignUpLink onClick={handleSignUpClick}> 회원가입</SignUpLink>
-            </SignUpText>
-        </MainContainer>
-    );
+      <InputContainer>
+        <StudentId onChange={handleStudentIdChange} />
+        <PasswordInput onChange={handleStudentIdChange} />
+        <CheckBoxContainer onClick={handleCheckBoxClick}>
+          <CheckBox type="checkbox" checked={autoLogin} />
+          자동로그인
+        </CheckBoxContainer>
+      </InputContainer>
+
+      <Button size="Large">로그인</Button>
+      <SignUpText>
+        회원이 아니신가요?
+        <SignUpLink onClick={handleSignUpClick}> 회원가입</SignUpLink>
+      </SignUpText>
+    </MainContainer>
+  );
 }
 
 export default SignIn;

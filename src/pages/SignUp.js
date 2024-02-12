@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import logoGreen from "../assets/logo_green.svg";
-import StudentId from "../components/input/StudentId";
-import Name from "../components/input/Name";
-import Email from "../components/input/Email";
-import PasswordInput from "../components/input/PasswordInput";
-import PasswordInputCheck from "../components/input/PasswordInputCheck";
-import Button from "../components/Button";
+import logoGreen from '../assets/logo_green.svg';
+import StudentId from '../components/input/StudentId';
+import Name from '../components/input/Name';
+import Email from '../components/input/Email';
+import PasswordInput from '../components/input/PasswordInput';
+import PasswordInputCheck from '../components/input/PasswordInputCheck';
+import Button from '../components/Button';
 
 const MainContainer = styled.div`
   display: flex;
@@ -21,12 +21,12 @@ const MainContainer = styled.div`
 
 const SignUpText = styled.p`
   font-size: 16px;
-  color: #7A7A7A ;
+  color: #7a7a7a;
 `;
 
 const SignUpLink = styled.span`
-  color: #005950; 
-  text-decoration: none; 
+  color: #005950;
+  text-decoration: none;
   cursor: pointer;
   font-size: 16px;
 `;
@@ -34,36 +34,64 @@ const SignUpLink = styled.span`
 const InputContainer = styled.div`
   margin-top: 42px;
   margin-bottom: 42px;
-  padding:42px;
+  padding: 42px;
   display: flex;
   flex-direction: column;
-  gap:40px;
+  gap: 40px;
   width: 100%;
 `;
 
 function SignUp() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [nameValue, setNameValue] = useState('');
+  const [studentIdValue, setStudentIdValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+  const [passwordCheckValue, setPasswordCheckValue] = useState('');
 
-    const handleSignInClick = () => {
-        navigate('/sign-in');
-    };
+  const handleSignInClick = () => {
+    // 이름에 숫자가 포함되어 있는지 확인
+    const hasNumber = /\d/.test(nameValue);
+    const hasLetterInStudentId = /[a-zA-Z]/.test(studentIdValue);
 
-    return (
-        <MainContainer>
-            <img src={logoGreen} alt="로고" />
+    if (hasNumber || hasLetterInStudentId) {
+      // 숫자와 문자 포함되어 있으면 알림 창 띄우기
+      alert('다시 한번 확인해주세요.');
+    }
+    // } else if (hasLetterInStudentId) {
+    //   alert('학번 형식이 틀렸습니다.');
+    else if (passwordValue !== passwordCheckValue) {
+      // 비밀번호와 비밀번호 확인 값이 다를 때 알림창 띄우기
+      alert('비밀번호가 틀렸습니다.다시 입력해주세요.');
+    } else {
+      // 숫자가 포함되어 있지 않고 비밀번호가 일치하면 회원가입 페이지로 이동
+      navigate('/sign-in');
+    }
+  };
 
-            <InputContainer>
-                <Name/>
-                <StudentId />
-                <Email/>
-                <PasswordInput />
-                <PasswordInputCheck/>
-            </InputContainer>
+  return (
+    <MainContainer>
+      <img src={logoGreen} alt="로고" />
 
-            <Button size="Large" onClick={handleSignInClick}>회원가입완료</Button>
-            <SignUpText>이미 회원이신가요?<SignUpLink onClick={handleSignInClick}> 로그인</SignUpLink></SignUpText>
-        </MainContainer>
-    );
+      <InputContainer>
+        <Name onChange={setNameValue} value={nameValue} />
+        <StudentId onChange={setStudentIdValue} value={studentIdValue} />
+        <Email />
+        <PasswordInput onChange={setPasswordValue} value={passwordValue} />
+        <PasswordInputCheck
+          onChange={setPasswordCheckValue}
+          value={passwordCheckValue}
+        />
+      </InputContainer>
+
+      <Button size="Large" onClick={handleSignInClick}>
+        회원가입완료
+      </Button>
+      <SignUpText>
+        이미 회원이신가요?
+        <SignUpLink onClick={() => navigate('/sign-in')}> 로그인</SignUpLink>
+      </SignUpText>
+    </MainContainer>
+  );
 }
 
 export default SignUp;

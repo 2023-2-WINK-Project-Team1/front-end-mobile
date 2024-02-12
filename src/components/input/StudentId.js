@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -20,10 +20,23 @@ const InputDiv = styled.input`
   }
 `;
 
-function StudentId() {
+function StudentId({ onChange, value }) {
+  const [studentIdValue, setStudentIdValue] = useState('');
+
+  const handleInputChange = (event) => {
+    const newValue = event.target.value;
+    setStudentIdValue(newValue);
+    onChange(newValue);
+  };
   return (
     <InputContainer>
-      <InputDiv type="text" className="input" placeholder="학번" />
+      <InputDiv
+        type="text"
+        className="input"
+        placeholder="학번"
+        value={value}
+        onChange={handleInputChange}
+      />
     </InputContainer>
   );
 }
