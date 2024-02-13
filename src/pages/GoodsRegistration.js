@@ -4,18 +4,18 @@ import Layout from '../components/layout/Layout';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { isAdminState } from '../recoil/recoil';
-import Time from '../components/input/Time';
+import Name from '../components/input/Name';
+import Count from '../components/input/Count';
 import Button from '../components/Button';
 import { ReactComponent as ImageIcon } from '../assets/image.svg';
 import Swal from "sweetalert2";
 
-const RentalContainer = styled.div`
+const RegisterContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 56px;
   height: 100%;
-  padding: 28px 32px;
+  padding: 28px 32px 100px 32px;
   box-sizing: border-box;
 `;
 
@@ -31,10 +31,10 @@ const ImageBox = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 24px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 76px;
 `;
 
 const Image = styled.img`
@@ -43,38 +43,42 @@ const Image = styled.img`
   border-radius: 10px;
 `;
 
-const TimeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding-top: 28px;
-  gap: 8px;
-`;
-
-const Text = styled.div`
-  color: ${(props) => props.theme.black};
-  font-size: 20px;
-  font-weight: 700;
-`;
-
 const Input = styled.input`
   display: none; // 화면에 안보이게 하기 위함
 `;
 
-function UserRental() {
+const GoodsInfoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+`;
+
+const ReturnContainer = styled.div`
+    display: flex;
+    align-items: center;
+    color: ${(props) => props.theme.black};
+    font-size: 16px;
+    font-weight: 600;
+    padding-top: 32px;
+    padding-bottom: 60px;
+    gap: 16px;
+`;
+
+const CheckBox = styled.input`
+    width: 16px;
+    height: 16px;
+`;
+
+function GoodsRegistration() {
   const headerProps = {
     // header에 들어갈 페이지 제목은 여기서 수정
-    title: '대여 신청',
+    title: '물품 등록',
   };
 
-  const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
+  const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false) -> 전역변수로 관리
+  const [userName, setUserName] = useState('');
+  const [count, setCount] = useState('');
 
-  // 특정 값으로 isAdmin 설정하는 함수
-  const setAdminStatus = (value) => {
-    setIsAdmin(value);
-  };
-
-  // user 대여 신청이므로 false
-  setAdminStatus(false);
 
   /* 이미지 업로드 기능
      uploadedImage: 현재 업로드된 이미지의 Base64 인코딩 데이터 저장
@@ -105,45 +109,62 @@ function UserRental() {
 
   const navigate = useNavigate();
 
+  // 반납여부 체크
+  const [isReturn, setIsReturn] = useState(false);
+
+  const returnCheckboxChange = (e) => {
+    setIsReturn(e.target.checked);
+  };
 
   // 대여신청 버튼을 클릭하였을 때
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const clickRentalButton = () => {
-      setIsButtonDisabled(true);  // 버튼 클릭하면 disabled 되게
 
+    if(!uploadedImage || !userName || !count) {
       Swal.fire({
-        title: '대여를 신청하시겠습니까?',
-        icon: 'warning',
-        showCancelButton: true,
+        title: '물품의 정보를 모두 입력해주세요.',
+        icon: 'error',
         confirmButtonColor: '#005950',  // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
-        cancelButtonColor: '#D43434',
-        confirmButtonText: '신청',
-        cancelButtonText: '취소',
-        reverseButtons: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // '신청' 버튼을 누르면 2초 뒤에 확인창 뜸
-          setTimeout(() => {
+        confirmButtonText: '확인',
+      });
+      return;
+    }
+
+    setIsButtonDisabled(true);  // 버튼 클릭하면 disabled 되게
+
+    Swal.fire({
+      title: '물품을 등록하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#005950',  // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+      cancelButtonColor: '#D43434',
+      confirmButtonText: '등록',
+      cancelButtonText: '취소',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // '신청' 버튼을 누르면 2초 뒤에 확인창 뜸
+        setTimeout(() => {
           Swal.fire(
             {
-              title: '대여 신청이 완료되었습니다.',
+              title: '물품 등록이 완료되었습니다.',
               icon: 'success',
               confirmButtonColor: '#005950',  // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
               confirmButtonText: '확인'
             }).then(() => {navigate('/main');
-            });
-          }, 2000);
-        } else {
-          setIsButtonDisabled(false);  // 대여신청 취소 버튼을 누르면 버튼이 다시 활성화 되도록
-        }
-      });
+          });
+        }, 2000);
+      } else {
+        setIsButtonDisabled(false);  // 대여신청 취소 버튼을 누르면 버튼이 다시 활성화 되도록
+      }
+    });
   };
 
 
   return (
     <Layout headerProps={headerProps} isAdmin={isAdmin}>
-      <RentalContainer>
+      <RegisterContainer>
         <ImageContainer>
           <ImageBox onClick={clickImageWrapper}>
             {uploadedImage ? (
@@ -152,14 +173,17 @@ function UserRental() {
               <ImageIcon />
             )}
           </ImageBox>
-          <Text>물품1</Text>
         </ImageContainer>
-        <TimeContainer>
-          <Text>대여 시간</Text>
-          <Time />
-        </TimeContainer>
+        <GoodsInfoContainer>
+          <Name value={userName} setValue={setUserName}/>
+          <Count value={count} setValue={setCount}/>
+        </GoodsInfoContainer>
+        <ReturnContainer>
+          <CheckBox id={"returnCheck"} type={"checkbox"} checked={isReturn} onChange={returnCheckboxChange}/>
+          <label htmlFor={"returnCheck"}>반납이 필요한 물품입니다.</label>
+        </ReturnContainer>
         <Button onClick={clickRentalButton} disabled={isButtonDisabled} size="Large" cancel={false}>
-          대여 신청
+          물품 등록
         </Button>
         <Input
           type="file"
@@ -167,9 +191,9 @@ function UserRental() {
           ref={imageInputRef}
           onChange={imageUpload}
         />
-      </RentalContainer>
+      </RegisterContainer>
     </Layout>
   );
 }
 
-export default UserRental;
+export default GoodsRegistration;
