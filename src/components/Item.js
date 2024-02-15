@@ -24,10 +24,15 @@ const InfoContainer = styled.div`
     color: ${(props) => props.theme.black};
 `
 
+const UserWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
 const DateContainer = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: flex-end;  // 요소들을 세로로 오른쪽 정렬
+    align-self: flex-end;
 `
 
 const DateBox = styled.div`
@@ -73,7 +78,7 @@ function Item({goodsName, rentalDate, returnDate, rentalState, user, onClick}) {
         <State status = {rentalState}>{stateText}</State>
       </GoodsContainer>
       <InfoContainer>
-        {user}
+        <UserWrapper>{user}</UserWrapper>
       <DateContainer>
         <DateBox>
           <div>대여시간 | {rentalDate}</div>
