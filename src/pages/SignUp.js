@@ -68,7 +68,7 @@ function SignUp() {
       passwordCheckValue,
     ];
     for (let i = 0; i < valueList.length; i++) {
-      if (valueList[i] === '') {
+      if (valueList[i].trim() === '') {
         alert(`${errorList[i]}을(를) 입력해주세요.`);
         return false;
       }
