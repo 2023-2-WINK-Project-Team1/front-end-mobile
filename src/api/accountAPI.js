@@ -1,7 +1,7 @@
 import { customAxios } from './customAxios';
 
 export default {
-  signUp(data) {
+  emailAuth(data) {
     return customAxios.post('email_auth', data);
   },
 };

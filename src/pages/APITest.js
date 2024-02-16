@@ -26,16 +26,11 @@ function APITest() {
     // header에 들어갈 페이지 제목은 여기서 수정
     title: '물품 대여',
   };
-  const signUp = async () => {
+  const emailAuth = async () => {
     const data = {
-      // user_number: '201810302',
-      // name: '희희',
       email: 'heegun4690@kookmin.ac.kr',
-      // code: 'asd299',
-      // password: '1234',
-      // password2: '1234',
     };
-    const res = await accountAPI.signUp(data);
+    const res = await accountAPI.emailAuth(data);
     console.log('res : ', res);
   };
 
@@ -45,7 +40,7 @@ function APITest() {
         {/*<h1>1팀 화이팅 ~!</h1>*/}
         <MainContainer>
           <ButtonContainer>
-            <APIButton onClick={signUp}>1</APIButton>
+            <APIButton onClick={emailAuth}>1</APIButton>
             <APIButton>2</APIButton>
             <APIButton>3</APIButton>
             <APIButton>4</APIButton>
