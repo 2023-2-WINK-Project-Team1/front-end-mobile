@@ -6,7 +6,7 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap:40px;
+  gap: 40px;
 `;
 
 const InputDiv = styled.input`
@@ -32,14 +32,14 @@ const InputWrapper = styled.div`
   flex-direction: column;
   align-items: start;
   position: relative;
-  width: 100%; 
+  width: 100%;
 `;
 
 const ToggleButton = styled.button`
   font-size: 12px;
   position: absolute;
   height: 22px;
-  right:0;
+  right: 0;
   bottom: 4px;
   cursor: pointer;
   color: white;
@@ -61,49 +61,51 @@ const SuccessMessage = styled.div`
   font-size: 10px;
 `;
 
-function Email() {
-    const [email, setEmail] = useState('');
-    const [emailError, setEmailError] = useState(false);
-    const [codeSent, setCodeSent] = useState(false);
+function Email({ onChange, value, setCertificationNumber }) {
+  const [emailError, setEmailError] = useState(false);
+  const [codeSent, setCodeSent] = useState(false);
 
-    const validateEmail = () => {
-        const emailRegex = /^[^\s@]+@kookmin\.ac\.kr$/;
-        const isValid = emailRegex.test(email);
+  const validateEmail = () => {
+    const emailRegex = /^[^\s@]+@kookmin\.ac\.kr$/;
+    const isValid = emailRegex.test(value);
 
-        if (!isValid) {
-            setEmailError(true);
-            setCodeSent(false);
-        } else {
-            setEmailError(false);
-            setCodeSent(true);
-        }
-    };
+    if (!isValid) {
+      setEmailError(true);
+      setCodeSent(false);
+    } else {
+      setEmailError(false);
+      setCodeSent(true);
+    }
+  };
 
-    return (
-        <InputContainer>
-            <InputWrapper>
-                <InputDivWithButton>
-                    <InputDiv
-                        type="text"
-                        className="input"
-                        placeholder="학교 이메일"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <ToggleButton onClick={() => validateEmail()}>
-                        {'인증번호 전송'}
-                    </ToggleButton>
-                </InputDivWithButton>
-                {emailError && (
-                    <ErrorMessage>이메일 형식이 맞지 않습니다.</ErrorMessage>
-                )}
-                {codeSent && (
-                    <SuccessMessage>인증번호가 발송되었습니다.</SuccessMessage>
-                )}
-            </InputWrapper>
-            <InputDiv type="text" placeholder="인증번호" />
-        </InputContainer>
-    );
+  return (
+    <InputContainer>
+      <InputWrapper>
+        <InputDivWithButton>
+          <InputDiv
+            type="text"
+            className="input"
+            placeholder="학교 이메일"
+            onChange={(e) => onChange(e.target.value)}
+          />
+          <ToggleButton onClick={() => validateEmail()}>
+            {'인증번호 전송'}
+          </ToggleButton>
+        </InputDivWithButton>
+        {emailError && (
+          <ErrorMessage>이메일 형식이 맞지 않습니다.</ErrorMessage>
+        )}
+        {codeSent && (
+          <SuccessMessage>인증번호가 발송되었습니다.</SuccessMessage>
+        )}
+      </InputWrapper>
+      <InputDiv
+        type="text"
+        placeholder="인증번호"
+        onChange={(e) => setCertificationNumber(e.target.value)}
+      />
+    </InputContainer>
+  );
 }
 
 export default Email;

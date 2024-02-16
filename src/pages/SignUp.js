@@ -45,10 +45,39 @@ function SignUp() {
   const navigate = useNavigate();
   const [nameValue, setNameValue] = useState('');
   const [studentIdValue, setStudentIdValue] = useState('');
+  const [emailValue, setEmailValue] = useState('');
+  const [certificateNumber, setCertificateNumber] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [passwordCheckValue, setPasswordCheckValue] = useState('');
 
+  const errorList = [
+    '이름',
+    '학번',
+    '이메일',
+    '인증번호',
+    '비밀번호',
+    '비밀번호 확인',
+  ];
+  const checkEmpty = () => {
+    const valueList = [
+      nameValue,
+      studentIdValue,
+      emailValue,
+      certificateNumber,
+      passwordValue,
+      passwordCheckValue,
+    ];
+    for (let i = 0; i < valueList.length; i++) {
+      if (valueList[i] === '') {
+        alert(`${errorList[i]}을(를) 입력해주세요.`);
+        return false;
+      }
+    }
+    return true;
+  };
+
   const handleSignInClick = () => {
+    if (!checkEmpty()) return;
     // 이름에 숫자가 포함되어 있는지 확인
     const hasNumber = /\d/.test(nameValue);
     const hasLetterInStudentId = /[a-zA-Z]/.test(studentIdValue);
@@ -75,7 +104,12 @@ function SignUp() {
       <InputContainer>
         <Name onChange={setNameValue} value={nameValue} />
         <StudentId onChange={setStudentIdValue} value={studentIdValue} />
-        <Email />
+        <Email
+          onChange={setEmailValue}
+          value={emailValue}
+          setCertificationNumber={setCertificateNumber}
+          certificationNumber={certificateNumber}
+        />
         <PasswordInput onChange={setPasswordValue} value={passwordValue} />
         <PasswordInputCheck
           onChange={setPasswordCheckValue}
