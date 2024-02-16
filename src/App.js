@@ -11,6 +11,7 @@ import Setting from './pages/Setting';
 import Notification from './pages/Notification';
 import UserRental from './pages/UserRental';
 import MyPage from './pages/MyPage';
+import APITest from './pages/APITest';
 import GoodsRegistration from './pages/GoodsRegistration';
 import AppInfo from './pages/AppInfo';
 import { RecoilRoot } from 'recoil';
@@ -37,6 +38,7 @@ function App() {
               <Route path="/app-info" element={<AppInfo />}></Route>
               <Route path="/rental-goods" element={<RentalGoods />}></Route>
               <Route path="/return-goods" element={<ReturnGoods />}></Route>
+              <Route path="/api-test" element={<APITest />}></Route>
             </Routes>
           </BrowserRouter>
         </div>
