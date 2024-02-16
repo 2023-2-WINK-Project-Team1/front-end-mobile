@@ -51,12 +51,12 @@ function SignUp() {
   const [passwordCheckValue, setPasswordCheckValue] = useState('');
 
   const errorList = [
-    '이름',
-    '학번',
-    '이메일',
-    '인증번호',
-    '비밀번호',
-    '비밀번호 확인',
+    '이름을',
+    '학번을',
+    '이메일을',
+    '인증번호를',
+    '비밀번호를',
+    '비밀번호 확인을',
   ];
   const checkEmpty = () => {
     const valueList = [
@@ -69,7 +69,7 @@ function SignUp() {
     ];
     for (let i = 0; i < valueList.length; i++) {
       if (valueList[i].trim() === '') {
-        alert(`${errorList[i]}을(를) 입력해주세요.`);
+        alert(`${errorList[i]} 입력해주세요.`);
         return false;
       }
     }
@@ -77,14 +77,17 @@ function SignUp() {
   };
 
   const handleSignInClick = () => {
+    // 빈 칸이 없는지 검사. 없으면 다음 형식들 검사 실행
     if (!checkEmpty()) return;
     // 이름에 숫자가 포함되어 있는지 확인
     const hasNumber = /\d/.test(nameValue);
     const hasLetterInStudentId = /[a-zA-Z]/.test(studentIdValue);
 
-    if (hasNumber || hasLetterInStudentId) {
+    if (hasNumber) {
       // 숫자와 문자 포함되어 있으면 알림 창 띄우기
-      alert('다시 한번 확인해주세요.');
+      alert('이름을 한글로 작성해주세요.');
+    } else if (hasLetterInStudentId) {
+      alert('학번 형식이 틀렸습니다.');
     }
     // } else if (hasLetterInStudentId) {
     //   alert('학번 형식이 틀렸습니다.');
