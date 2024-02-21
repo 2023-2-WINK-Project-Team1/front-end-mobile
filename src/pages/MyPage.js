@@ -10,7 +10,7 @@ import { selectedButtonState } from '../recoil/recoil';
 const MyPageContainer = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    //justify-content: center;  틈이 생기는 게 이거 때문인 거 같아서 수정
     gap: 30px;
 `;
 
@@ -70,7 +70,7 @@ function MyPage() {
     setIsAdmin(value);
   };
 
-  // user 대여 신청이므로 false
+  //user 대여 신청이므로 false
   setAdminStatus(false);
 
   // footer에서 활성화시킬 버튼 선택 (mypage 버튼 활성화)
