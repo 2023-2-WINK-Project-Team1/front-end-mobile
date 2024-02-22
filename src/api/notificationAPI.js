@@ -11,6 +11,7 @@ export default {
       },
     });
   },
+
   // 사용자 알림 설정하기 - 알림 설정
   setNotification(authToken, notification) {
     return customAxios.post(

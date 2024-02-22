@@ -11,6 +11,7 @@ export default {
       },
     });
   },
+
   // 사용자 대여 내역 조회하기
   getUserRentalList(authToken, notification) {
     return customAxios.get('rental', {
@@ -19,6 +20,7 @@ export default {
       },
     });
   },
+
   // 사용자 대여 신청하기
   requestRental(authToken, rentalData) {
     return customAxios.post(
@@ -31,6 +33,7 @@ export default {
       },
     );
   },
+
   // 사용자 대여 신청 취소하기 - 사용자
   cancelRental(authToken, rentalId) {
     return customAxios.delete(`rental/${rentalId}`, {
