@@ -1,9 +1,14 @@
+// userAPI.js
+
 import { customAxios } from './customAxios';
-//
-// export const getUserInfo = async (data) => {
-//   const headers = {
-//     // 여기에 필요한 헤더를 추가하세요. 예: 'Authorization': 'Bearer <token>'
-//   };
-//   const res = await customAxios.post('/join', data, { headers });
-//   return res;
-// };
+
+export default {
+  // 사용자 프로필 조회하기
+  getUserInfo(authToken) {
+    return customAxios.get('user', {
+      headers: {
+        Authorization: authToken,
+      },
+    });
+  },
+};

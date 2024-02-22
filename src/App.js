@@ -3,6 +3,7 @@ import { ThemeProvider } from 'styled-components'; // 1. Global color를 사용�
 import theme from './Theme.js'; // 2. Global color를 사용하기 위한 import.
 import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
 import Main from './pages/Main';
 import MainPage from './pages/MainPage';
 import SignIn from './pages/SignIn';
@@ -15,8 +16,8 @@ import APITest from './pages/APITest';
 import GoodsRegistration from './pages/GoodsRegistration';
 import AppInfo from './pages/AppInfo';
 import { RecoilRoot } from 'recoil';
-import RentalGoods from "./pages/RentalGoods";
-import ReturnGoods from "./pages/ReturnGoods";
+import RentalGoods from './pages/RentalGoods';
+import ReturnGoods from './pages/ReturnGoods';
 
 function App() {
   return (
@@ -24,23 +25,28 @@ function App() {
     <ThemeProvider theme={theme}>
       <RecoilRoot>
         <div id="App">
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Main />}></Route>
-              <Route path="/main" element={<MainPage />}></Route>
-              <Route path="/setting" element={<Setting />}></Route>
-              <Route path="/user-rental" element={<UserRental />}></Route>
-              <Route path="/mypage" element={<MyPage />}></Route>
-              <Route path="/notification" element={<Notification />}></Route>
-              <Route path="/sign-in" element={<SignIn />}></Route>
-              <Route path="/sign-up" element={<SignUp />}></Route>
-              <Route path="/goods-registration" element={<GoodsRegistration />}></Route>
-              <Route path="/app-info" element={<AppInfo />}></Route>
-              <Route path="/rental-goods" element={<RentalGoods />}></Route>
-              <Route path="/return-goods" element={<ReturnGoods />}></Route>
-              <Route path="/api-test" element={<APITest />}></Route>
-            </Routes>
-          </BrowserRouter>
+          <CookiesProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Main />}></Route>
+                <Route path="/main" element={<MainPage />}></Route>
+                <Route path="/setting" element={<Setting />}></Route>
+                <Route path="/user-rental" element={<UserRental />}></Route>
+                <Route path="/mypage" element={<MyPage />}></Route>
+                <Route path="/notification" element={<Notification />}></Route>
+                <Route path="/sign-in" element={<SignIn />}></Route>
+                <Route path="/sign-up" element={<SignUp />}></Route>
+                <Route
+                  path="/goods-registration"
+                  element={<GoodsRegistration />}
+                ></Route>
+                <Route path="/app-info" element={<AppInfo />}></Route>
+                <Route path="/rental-goods" element={<RentalGoods />}></Route>
+                <Route path="/return-goods" element={<ReturnGoods />}></Route>
+                <Route path="/api-test" element={<APITest />}></Route>
+              </Routes>
+            </BrowserRouter>
+          </CookiesProvider>
         </div>
       </RecoilRoot>
     </ThemeProvider>
