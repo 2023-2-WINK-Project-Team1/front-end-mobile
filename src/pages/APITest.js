@@ -30,7 +30,7 @@ function APITest() {
   const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
   const [isNotification, setIsNotification] = useState(false); // 알림 여부 [true: 알림 있음, false: 알림 없음
   const [itemId, setItemId] = useState('65bf3198c9068e44fff72bce'); // 물품 아이디
-  const rentalId = '65d71d9d44dbab7adaf7b649'; // 대여 아이디
+  const rentalId = '65c337ce52c7b5d08e08be3a'; // 대여 아이디
   const adminCookie =
     'eyJhbGciOiJIUzI1NiJ9.NjVjMzQwMWZlNzFjZjE2YjVlODFkNWI0.ctbykqlWUc5wgVsfnZgrysNRU3u33-SJHbphNuVs61M';
 
@@ -138,10 +138,15 @@ function APITest() {
   };
   // 대여 승인 - 관리자
   const approveRental = async (rentalId) => {
-    const cookie =
-      'eyJhbGciOiJIUzI1NiJ9.NjVjMzQwMWZlNzFjZjE2YjVlODFkNWI0.ctbykqlWUc5wgVsfnZgrysNRU3u33-SJHbphNuVs61M';
+    const cookie = adminCookie;
     const res = await rentalAPI.approveRental(cookie, rentalId);
     console.log('approveRental res : ', res);
+  };
+
+  const returnRental = async (rentalId) => {
+    const cookie = adminCookie;
+    const res = await rentalAPI.returnRental(cookie, rentalId);
+    console.log('returnRental res : ', res);
   };
 
   // item - 보류
@@ -175,6 +180,9 @@ function APITest() {
             </APIButton>
             <APIButton onClick={() => approveRental(rentalId)}>
               approveRental
+            </APIButton>
+            <APIButton onClick={() => returnRental(rentalId)}>
+              returnRental
             </APIButton>
           </ButtonContainer>
         </MainContainer>
