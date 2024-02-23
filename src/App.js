@@ -16,11 +16,11 @@ import APITest from './pages/APITest';
 import GoodsRegistration from './pages/GoodsRegistration';
 import AppInfo from './pages/AppInfo';
 import { RecoilRoot } from 'recoil';
-import RentalGoods from "./pages/RentalGoods";
-import ReturnGoods from "./pages/ReturnGoods";
-import AdminSetting from "./pages/AdminSetting";
-import AdminMain from "./pages/AdminMain";
-import GoodsManagement from "./pages/GoodsManagement";
+import RentalGoods from './pages/RentalGoods';
+import ReturnGoods from './pages/ReturnGoods';
+import AdminSetting from './pages/AdminSetting';
+import AdminMain from './pages/AdminMain';
+import GoodsManagement from './pages/GoodsManagement';
 
 function App() {
   return (
@@ -29,29 +29,33 @@ function App() {
       <RecoilRoot>
         <div id="App">
           <CookiesProvider>
-
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Main />}></Route>
-              <Route path="/main" element={<MainPage />}></Route>
-              <Route path="/setting" element={<Setting />}></Route>
-              <Route path="/user-rental" element={<UserRental />}></Route>
-              <Route path="/mypage" element={<MyPage />}></Route>
-              <Route path="/notification" element={<Notification />}></Route>
-              <Route path="/sign-in" element={<SignIn />}></Route>
-              <Route path="/sign-up" element={<SignUp />}></Route>
-              <Route path="/goods-registration" element={<GoodsRegistration />}></Route>
-              <Route path="/app-info" element={<AppInfo />}></Route>
-              <Route path="/rental-goods" element={<RentalGoods />}></Route>
-              <Route path="/return-goods" element={<ReturnGoods />}></Route>
-              <Route path="/admin-setting" element={<AdminSetting />}></Route>
-              <Route path="/admin-main" element={<AdminMain />}></Route>
-              <Route path="/goods-management" element={<GoodsManagement />}></Route>
-              <Route path="/api-test" element={<APITest />}></Route>
-            </Routes>
-          </BrowserRouter>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Main />}></Route>
+                <Route path="/main" element={<MainPage />}></Route>
+                <Route path="/setting" element={<Setting />}></Route>
+                <Route path="/user-rental" element={<UserRental />}></Route>
+                <Route path="/mypage" element={<MyPage />}></Route>
+                <Route path="/notification" element={<Notification />}></Route>
+                <Route path="/sign-in" element={<SignIn />}></Route>
+                <Route path="/sign-up" element={<SignUp />}></Route>
+                <Route
+                  path="/goods-registration"
+                  element={<GoodsRegistration />}
+                ></Route>
+                <Route path="/app-info" element={<AppInfo />}></Route>
+                <Route path="/rental-goods" element={<RentalGoods />}></Route>
+                <Route path="/return-goods" element={<ReturnGoods />}></Route>
+                <Route path="/admin-setting" element={<AdminSetting />}></Route>
+                <Route path="/admin-main" element={<AdminMain />}></Route>
+                <Route
+                  path="/goods-management"
+                  element={<GoodsManagement />}
+                ></Route>
+                <Route path="/api-test" element={<APITest />}></Route>
+              </Routes>
+            </BrowserRouter>
           </CookiesProvider>
-
         </div>
       </RecoilRoot>
     </ThemeProvider>
