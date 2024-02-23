@@ -33,7 +33,8 @@ function APITest() {
   const rentalId = '65c337ce52c7b5d08e08be3a'; // 대여 아이디
   const adminCookie =
     'eyJhbGciOiJIUzI1NiJ9.NjVjMzQwMWZlNzFjZjE2YjVlODFkNWI0.ctbykqlWUc5wgVsfnZgrysNRU3u33-SJHbphNuVs61M';
-
+  const userCookie =
+    'eyJhbGciOiJIUzI1NiJ9.NjVkNWE5NTAwNGUyOGIwYzg4MDUzMjFh.AwPvSYy-njOu170MarDY22HfwqNuvA0NKc4p8BkG2ig';
   const headerProps = {
     // header에 들어갈 페이지 제목은 여기서 수정
     title: '물품 대여',
