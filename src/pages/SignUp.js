@@ -9,7 +9,6 @@ import PasswordInput from '../components/input/PasswordInput';
 import PasswordInputCheck from '../components/input/PasswordInputCheck';
 import Button from '../components/Button';
 import accountAPI from '../api/accountAPI';
-import email from '../components/input/Email';
 
 const MainContainer = styled.div`
   display: flex;
