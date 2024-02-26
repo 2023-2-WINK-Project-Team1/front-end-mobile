@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { ReactComponent as BackIcon } from '../../assets/back.svg';
 import { ReactComponent as SettingIcon } from '../../assets/setting.svg';
+import { isAdminState } from '../../recoil/recoil';
+import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -33,12 +36,24 @@ const Title = styled.h1`
 
 // title을 전달 받아서 제목이 달라지게 함
 function Header({ title }) {
+  const navigate = useNavigate(); // 대여중 및 대여신청 버튼 클릭시 이동하기 위함
+  const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
+  const clickSetting = () => {
+    if (isAdmin) {
+      navigate('/admin-setting');
+    } else {
+      navigate('/setting');
+    }
+  };
+  const backClick = () => {
+    navigate(-1);
+  };
   return (
     <HeaderContainer>
       <ButtonContainer>
-        <BackButton />
+        <BackButton onClick={() => backClick()} />
         <Title>{title}</Title>
-        <SettingButton />
+        <SettingButton onClick={() => clickSetting()} />
       </ButtonContainer>
     </HeaderContainer>
   );
