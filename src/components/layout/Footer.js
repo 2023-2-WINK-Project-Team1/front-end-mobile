@@ -6,6 +6,7 @@ import { ReactComponent as MypageIcon } from '../../assets/mypage.svg';
 import { ReactComponent as ListIcon } from '../../assets/list.svg';
 import { ReactComponent as UploadIcon } from '../../assets/upload.svg';
 // 푸터에서 어떤 아이콘을 눌렀는지 확인하기 위해 recoil 사용
+import { useNavigate } from 'react-router-dom'; // useNavigate 훅 추가
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { selectedButtonState, isAdminState } from '../../recoil/recoil';
 
@@ -74,6 +75,7 @@ function Footer() {
   /* useRecoilState 훅을 사용하여 selectedButtonState의 Recoil 상태를 가져와 값을 관리하는 React 상태를 선언
      - selectedButton: 현재 selectedButtonState의 값을 저장하는 변수
      - setSelectedButton: selectedButtonState의 값을 업데이트하는 함수 */
+  const navigate = useNavigate();
   const selectedButton = useRecoilValue(selectedButtonState);
   const setSelectedButton = useSetRecoilState(selectedButtonState);
   const isAdmin = useRecoilState(isAdminState);
@@ -88,6 +90,25 @@ function Footer() {
      useRecoilState(selectedButtonState)에서 반환된 setSelectedButton 함수를 호출하여 selectedButtonState의 값을 업데이트*/
   const isClicked = (button) => {
     setSelectedButton(button);
+    switch (button) {
+      case 'alarm':
+        navigate('/notification');
+        break;
+      case 'list':
+        navigate('/admin-main');
+        break;
+      case 'home':
+        navigate('/main');
+        break;
+      case 'upload':
+        navigate('/goods-registration');
+        break;
+      case 'mypage':
+        navigate('/mypage');
+        break;
+      default:
+        break;
+    }
   };
 
   return (

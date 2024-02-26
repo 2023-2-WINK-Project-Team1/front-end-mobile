@@ -9,6 +9,8 @@ import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
 
 const Container = styled.div`
   width: 100%;
@@ -179,6 +181,7 @@ function MainPage() {
 
   return (
     <>
+      <Header {...headerProps} />
       <Container>
         <ImageContainer>
           <WinkLogo src={winkLogo} alt="Wink Logo" />
@@ -208,6 +211,7 @@ function MainPage() {
           </ListItem>
         ))}
       </ListContainer>
+      <Footer />
     </>
   );
 }
