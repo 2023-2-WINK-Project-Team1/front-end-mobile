@@ -78,8 +78,6 @@ function MyPage() {
     console.log('userInfo : ', userInfo);
   }, []);
 
-  const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
-
   // footer에서 활성화시킬 버튼 선택 (mypage 버튼 활성화)
   const [selectedButton, setSelectedButton] =
     useRecoilState(selectedButtonState);
@@ -114,7 +112,7 @@ function MyPage() {
     return userNumber?.substring(2, 4) + '학번';
   };
   return (
-    <Layout headerProps={headerProps} isAdmin={isAdmin}>
+    <Layout headerProps={headerProps}>
       <MyPageContainer>
         <InfoContainer>
           {/* 아래 이름, 학번, 학부, 이메일은 나중에 받아오는 것으로 수정해야함 */}
