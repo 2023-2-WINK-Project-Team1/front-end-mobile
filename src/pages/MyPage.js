@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Layout from '../components/layout/Layout';
 import { useRecoilState } from 'recoil';
-import { isAdminState } from '../recoil/recoil';
 import Item from '../components/Item';
 import { ReactComponent as TitleIcon } from '../assets/title.svg';
 import { selectedButtonState } from '../recoil/recoil';
