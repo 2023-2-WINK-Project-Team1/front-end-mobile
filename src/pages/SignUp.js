@@ -36,7 +36,6 @@ const SignUpLink = styled.span`
 const InputContainer = styled.div`
   margin-top: 42px;
   margin-bottom: 42px;
-  padding: 42px;
   display: flex;
   flex-direction: column;
   gap: 40px;
