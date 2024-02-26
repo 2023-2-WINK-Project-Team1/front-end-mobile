@@ -8,53 +8,53 @@ import { ReactComponent as TitleIcon } from '../assets/title.svg';
 import { selectedButtonState } from '../recoil/recoil';
 
 const MyPageContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    //justify-content: center;  틈이 생기는 게 이거 때문인 거 같아서 수정
-    gap: 30px;
+  display: flex;
+  flex-direction: column;
+  //justify-content: center;  틈이 생기는 게 이거 때문인 거 같아서 수정
+  gap: 30px;
 `;
 
 const InfoContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 146px;
-    background-color: ${(props) => props.theme.primary};
-    padding: 36px 0 0 20px; 
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 146px;
+  background-color: ${(props) => props.theme.primary};
+  padding: 36px 0 0 20px;
+  box-sizing: border-box;
 `;
 
 const PersonWrapper = styled.div`
-    color: ${(props) => props.theme.white};
-    font-size: 24px;
-    font-weight: 600;
-    padding-bottom: 12px;
+  color: ${(props) => props.theme.white};
+  font-size: 24px;
+  font-weight: 600;
+  padding-bottom: 12px;
 `;
 
 const InfoWrapper = styled.div`
-    color: ${(props) => props.theme.white};
-    font-size: 16px;
-    font-weight: 500;
+  color: ${(props) => props.theme.white};
+  font-size: 16px;
+  font-weight: 500;
 `;
 
 const HistoryContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 28px;
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 28px;
+  box-sizing: border-box;
 `;
 
 const HistoryTitleContainer = styled.div`
-    display: flex;
-    color: ${(props) => props.theme.black};
-    font-size: 16px;
-    font-weight: 600;
-    padding-bottom: 12px;
+  display: flex;
+  color: ${(props) => props.theme.black};
+  font-size: 16px;
+  font-weight: 600;
+  padding-bottom: 12px;
 `;
 
-const  Divider= styled.div`
-    height: 1px;
-    background-color: ${(props) => props.theme.black};
+const Divider = styled.div`
+  height: 1px;
+  background-color: ${(props) => props.theme.black};
 `;
 
 function MyPage() {
@@ -74,9 +74,9 @@ function MyPage() {
   setAdminStatus(false);
 
   // footer에서 활성화시킬 버튼 선택 (mypage 버튼 활성화)
-  const [selectedButton, setSelectedButton] = useRecoilState(selectedButtonState);
+  const [selectedButton, setSelectedButton] =
+    useRecoilState(selectedButtonState);
   setSelectedButton('mypage');
-
 
   /*
     대여중: rentalState === 1
@@ -84,9 +84,24 @@ function MyPage() {
     반납완료: rentalState === 3
   */
   const dummyData = [
-    {goodsName: '고데기', rentalDate:'2023.11.13 12:41', returnDate:'-', rentalState: 1},
-    {goodsName: '인공눈물', rentalDate:'2023.11.13 12:41', returnDate:'-', rentalState: 2},
-    {goodsName: '우산', rentalDate:'2023.11.13 12:41', returnDate:'2023.11.14 10:12', rentalState: 3}
+    {
+      goodsName: '고데기',
+      rentalDate: '2023.11.13 12:41',
+      returnDate: '-',
+      rentalState: 1,
+    },
+    {
+      goodsName: '인공눈물',
+      rentalDate: '2023.11.13 12:41',
+      returnDate: '-',
+      rentalState: 2,
+    },
+    {
+      goodsName: '우산',
+      rentalDate: '2023.11.13 12:41',
+      returnDate: '2023.11.14 10:12',
+      rentalState: 3,
+    },
   ];
 
   return (
@@ -99,16 +114,19 @@ function MyPage() {
           <InfoWrapper>jjini6530@kookmin.ac.kr</InfoWrapper>
         </InfoContainer>
         <HistoryContainer>
-          <HistoryTitleContainer><TitleIcon />대여내역</HistoryTitleContainer>
+          <HistoryTitleContainer>
+            <TitleIcon />
+            대여내역
+          </HistoryTitleContainer>
           <Divider />
           {dummyData.map((item, index) => (
             <Item
-            key={index}
-            goodsName={item.goodsName}
-            rentalDate={item.rentalDate}
-            returnDate={item.returnDate}
-            rentalState={item.rentalState}
-              />
+              key={index}
+              goodsName={item.goodsName}
+              rentalDate={item.rentalDate}
+              returnDate={item.returnDate}
+              rentalState={item.rentalState}
+            />
           ))}
         </HistoryContainer>
       </MyPageContainer>

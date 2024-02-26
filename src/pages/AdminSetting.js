@@ -92,9 +92,9 @@ function AdminSetting() {
 
   const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
 
-  // 사용자모드를 버튼을 클릭하면 isAdmin의 값을 사용자(false) 값으로 변경해줌
-  const changeMode = (value) => {
-    setIsAdmin(!isAdmin);
+  const changeAdminMode = () => {
+    setIsAdmin(false);
+    navigate('/main');
   };
 
   const logout = async () => {
@@ -133,7 +133,7 @@ function AdminSetting() {
               <img src={arrow} />
             </BoxComponent>
 
-            <BoxComponent onClick={changeMode}>
+            <BoxComponent onClick={() => changeAdminMode()}>
               <MiniContainer>
                 <img src={people} />
                 <Text>사용자 모드</Text>

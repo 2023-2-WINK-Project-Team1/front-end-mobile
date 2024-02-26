@@ -7,9 +7,10 @@ import onRadio from '../../src/assets/Settings/radio.svg';
 import arrow from '../../src/assets/Settings/arrow.svg';
 import questionmark from '../../src/assets/Settings/questionmark.svg';
 import offRadio from '../../src/assets/Settings/offRadio.svg';
-import { isAlarmOnState } from '../recoil/recoil';
+import { isAdminState, isAlarmOnState } from '../recoil/recoil';
 import Layout from '../components/layout/Layout';
 import accountAPI from '../api/accountAPI';
+import userAPI from '../api/userAPI';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom'; // useNavigate 훅 추가
 
@@ -79,6 +80,9 @@ const LogOutBox = styled.button`
 function Setting() {
   const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
   const [isAlarmOn, setIsAlarmOn] = useRecoilState(isAlarmOnState);
+  const [adminState, setAdminState] = useRecoilState(isAdminState);
+  const adminCookie =
+    'eyJhbGciOiJIUzI1NiJ9.NjVjMzQwMWZlNzFjZjE2YjVlODFkNWI0.ctbykqlWUc5wgVsfnZgrysNRU3u33-SJHbphNuVs61M';
   const navigate = useNavigate();
   // isRadioOn이 true이면 alarm 설정됨.
   const RadioClick = () => {
@@ -99,6 +103,19 @@ function Setting() {
     } catch (e) {
       console.log('logout error : ', e);
       alert('로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    }
+  };
+  const changeAdminMode = async () => {
+    const cookie = cookies.auth_token;
+    console.log('gmlgml');
+    try {
+      const res = await userAPI.getUserInfo(adminCookie);
+      console.log('getUserInfo res : ', res);
+      setAdminState(res.data.is_manager);
+      navigate('/admin-main');
+    } catch (e) {
+      alert('관리자로 인증된 사용자가 아닙니다.');
+      console.log('getUserInfo error : ', e);
     }
   };
 
@@ -124,10 +141,10 @@ function Setting() {
               <img src={arrow} />
             </BoxComponent>
 
-            <BoxComponent>
+            <BoxComponent onClick={() => changeAdminMode()}>
               <MiniContainer>
                 <img src={people} />
-                <Text>사용자 모드</Text>
+                <Text>관리자 모드</Text>
               </MiniContainer>
               <img src={arrow} />
             </BoxComponent>
