@@ -11,7 +11,7 @@ const HeaderContainer = styled.div`
   width: 100%; // 화면 크기에 맞추기 위해서
   height: 56px;
   border-bottom: 1px solid #e6e6e6;
-  background: ${(props) => props.theme.white};
+  background: var(--white-color);
   box-sizing: border-box;
   justify-content: center; // 가운데 정렬
 `;
@@ -29,7 +29,7 @@ const BackButton = styled(BackIcon)``;
 const SettingButton = styled(SettingIcon)``;
 
 const Title = styled.h1`
-  color: ${(props) => props.theme.black};
+  color: var(--black-color);
   font-size: 20px;
   text-align: center; // 텍스트 중앙 정렬
 `;

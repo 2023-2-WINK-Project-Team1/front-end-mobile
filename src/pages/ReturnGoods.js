@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Layout from '../components/layout/Layout';
-import defaultImage from "../assets/defaultImage.svg";
+import defaultImage from '../assets/defaultImage.svg';
 import Button from '../components/Button';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
 const MyPageContainer = styled.div`
@@ -60,69 +60,75 @@ const Image = styled.img`
   display: flex;
 `;
 
-const dummyData =
-    { imgSrc: defaultImage, label: "우산", user:"찬우", time:"23:00"}
-;
-
+const dummyData = {
+  imgSrc: defaultImage,
+  label: '우산',
+  user: '찬우',
+  time: '23:00',
+};
 function ReturnGoods() {
-    const headerProps = {
-        title: '물품 반납',
-    };
+  const headerProps = {
+    title: '물품 반납',
+  };
 
-    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-    const navigate = useNavigate();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const navigate = useNavigate();
 
-    const clickRentalButton = () => {
-        setIsButtonDisabled(true);
+  const clickRentalButton = () => {
+    setIsButtonDisabled(true);
 
-        Swal.fire({
-            title: '반납 신청을 처리하겠습니까?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#005950',
-            cancelButtonColor: '#D43434',
-            confirmButtonText: '완료',
-            cancelButtonText: '취소',
-            reverseButtons: true,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                setTimeout(() => {
-                    Swal.fire(
-                        {
-                            title: '반납 신청 처리가 완료되었습니다.',
-                            icon: 'success',
-                            confirmButtonColor: '#005950',
-                            confirmButtonText: '확인'
-                        }).then(() => {
-                        setIsButtonDisabled(false);
-                        navigate('/');
-                    });
-                }, 2000);
-            } else {
-                setIsButtonDisabled(false);
-            }
-        });
-    };
+    Swal.fire({
+      title: '반납 신청을 처리하겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: 'var(--primary-color)',
+      cancelButtonColor: 'var(--red-color)',
+      confirmButtonText: '완료',
+      cancelButtonText: '취소',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setTimeout(() => {
+          Swal.fire({
+            title: '반납 신청 처리가 완료되었습니다.',
+            icon: 'success',
+            confirmButtonColor: 'var(--primary-color)',
+            confirmButtonText: '확인',
+          }).then(() => {
+            setIsButtonDisabled(false);
+            navigate('/');
+          });
+        }, 2000);
+      } else {
+        setIsButtonDisabled(false);
+      }
+    });
+  };
 
-    return (
-        <Layout headerProps={headerProps}>
-            <MyPageContainer>
-                    <ListContainer>
-                        <ImageBox>
-                            <Image src={dummyData.imgSrc} alt={defaultImage} />
-                        </ImageBox>
-                        <ListItem>
-                            <ItemLabel>대여 물품: {dummyData.label}</ItemLabel>
-                            <ItemUser>대여자: {dummyData.user}</ItemUser>
-                            <ItemTime>대여 시간: {dummyData.time}</ItemTime>
-                        </ListItem>
-                    </ListContainer>
-                <Button onClick={clickRentalButton} disabled={isButtonDisabled} size="Large" cancel={false}>
-                    반납 완료 처리
-                </Button>
-            </MyPageContainer>
-        </Layout>
-    );
+  return (
+    <Layout headerProps={headerProps}>
+      <MyPageContainer>
+        <ListContainer>
+          <ImageBox>
+            <Image src={dummyData.imgSrc} alt={defaultImage} />
+          </ImageBox>
+          <ListItem>
+            <ItemLabel>대여 물품: {dummyData.label}</ItemLabel>
+            <ItemUser>대여자: {dummyData.user}</ItemUser>
+            <ItemTime>대여 시간: {dummyData.time}</ItemTime>
+          </ListItem>
+        </ListContainer>
+        <Button
+          onClick={clickRentalButton}
+          disabled={isButtonDisabled}
+          size="Large"
+          cancel={false}
+        >
+          반납 완료 처리
+        </Button>
+      </MyPageContainer>
+    </Layout>
+  );
 }
 
 export default ReturnGoods;

@@ -7,7 +7,7 @@ const MainContainer = styled.div`
   width: 100%;
   justify-content: flex-start; //화면 사이즈가 바뀔 경우에도 일정하게 정렬
   box-sizing: border-box;
-  color: #d9d9d9;
+  color: var(--light-gray-color);
 `;
 
 function Notification() {

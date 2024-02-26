@@ -19,7 +19,7 @@ const InputDiv = styled.input`
   outline: none;
   color: black;
   ::placeholder {
-    color: #9c9c9c;
+    color: var(--gray-color);
   }
 `;
 
@@ -44,7 +44,7 @@ const ToggleButton = styled.button`
   bottom: 4px;
   cursor: pointer;
   color: white;
-  background-color: #005950;
+  background-color: var(--primary-color);
   &:active {
     opacity: 0.3;
   }

@@ -44,7 +44,7 @@ const MiniContainer = styled.div`
 const BoxComponent = styled.div`
   width: 100%;
   box-sizing: border-box;
-  border: 1px solid #005950;
+  border: 1px solid var(--primary-color);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -66,15 +66,15 @@ const LogOutContainer = styled.div`
 
 const LogOutText = styled.p`
   font-size: 16px;
-  color: #005950;
+  color: var(--primary-color);
   text-align: center;
 `;
 
 const LogOutBox = styled.button`
   width: 100%;
-  border: 1px solid #005950;
+  border: 1px solid var(--primary-color);
   border-radius: 5px;
-  background-color: #ffffff;
+  background-color: var(--white-color);
 `;
 
 function Setting() {

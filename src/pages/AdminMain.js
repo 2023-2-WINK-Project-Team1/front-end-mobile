@@ -23,7 +23,7 @@ const HistoryContainer = styled.div`
 
 const HistoryTitleContainer = styled.div`
   display: flex;
-  color: ${(props) => props.theme.black};
+  color: var(--black-color);
   font-size: 16px;
   font-weight: 600;
   padding-bottom: 12px;
@@ -31,7 +31,7 @@ const HistoryTitleContainer = styled.div`
 
 const Divider = styled.div`
   height: 1px;
-  background-color: ${(props) => props.theme.black};
+  background-color: var(--black-color);
 `;
 
 function AdminMain() {

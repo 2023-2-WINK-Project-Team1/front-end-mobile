@@ -16,7 +16,7 @@ const FooterContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 65px;
-  background: ${(props) => props.theme.primary};
+  background: var(--primary-color);
   justify-content: center; // 가운데 정렬 추가
   position: absolute;
   bottom: 0; // footer를 화면 하단에 고정

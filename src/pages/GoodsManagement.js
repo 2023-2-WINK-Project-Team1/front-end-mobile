@@ -41,7 +41,7 @@ const ButtonContainer = styled.div`
 `;
 
 const Remaining = styled.div`
-  color: #9c9c9c;
+  color: var(--gray-color);
   font-size: 12px;
   font-weight: 500;
 `;
@@ -66,8 +66,8 @@ const FloatingButton = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: ${(props) => props.theme.white};
-  border: 2px solid ${(props) => props.theme.primary};
+  background-color: var(--white-color);
+  border: 2px solid var(--primary-color);
   box-shadow: 3px 3px 5px gray;
   display: flex;
   justify-content: center;

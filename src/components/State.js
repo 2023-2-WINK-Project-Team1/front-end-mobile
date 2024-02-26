@@ -18,11 +18,11 @@ const State = styled.div`
   ${(props) => css`
     // 상태에 따라 색상과 문구 변경
     background-color: ${props.status === 1
-      ? '#005950'
+      ? 'var(--primary-color)'
       : props.status === 2
-      ? '#00595099'
+      ? 'var(--primary-similar-color)'
       : props.status === 3
-      ? '#D9D9D9'
+      ? 'var(--light-gray-color)'
       : 'blue'};
   `}
 `;

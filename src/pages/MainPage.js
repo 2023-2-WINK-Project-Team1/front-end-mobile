@@ -14,7 +14,7 @@ import Footer from '../components/layout/Footer';
 
 const Container = styled.div`
   width: 100%;
-  background-color: #005950;
+  background-color: var(--primary-color);
   height: 200px;
 `;
 
@@ -83,7 +83,7 @@ const ButtonContainer = styled.div`
 `;
 
 const Remaining = styled.div`
-  color: #9c9c9c;
+  color: var(--gray-color);
   font-size: 12px;
   font-weight: 500;
 `;
@@ -127,8 +127,8 @@ function MainPage() {
         title: '신청을 취소하시겠습니까?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#005950', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
-        cancelButtonColor: '#D43434',
+        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        cancelButtonColor: 'var(--red-color)',
         confirmButtonText: '예',
         cancelButtonText: '아니요',
         reverseButtons: true,
@@ -139,7 +139,7 @@ function MainPage() {
             Swal.fire({
               title: '취소 신청이 완료되었습니다.',
               icon: 'success',
-              confirmButtonColor: '#005950', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+              confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
               confirmButtonText: '확인',
             }).then(() => {
               navigate('/');
@@ -154,8 +154,8 @@ function MainPage() {
         title: '반납을 신청하시겠습니까?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#005950', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
-        cancelButtonColor: '#D43434',
+        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        cancelButtonColor: 'var(--red-color)',
         confirmButtonText: '예',
         cancelButtonText: '아니요',
         reverseButtons: true,
@@ -166,7 +166,7 @@ function MainPage() {
             Swal.fire({
               title: '반납을 완료하였습니다.',
               icon: 'success',
-              confirmButtonColor: '#005950', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+              confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
               confirmButtonText: '확인',
             }).then(() => {
               navigate('/');

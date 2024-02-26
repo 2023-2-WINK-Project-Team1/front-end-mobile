@@ -43,7 +43,7 @@ const SignUpText = styled.p`
 `;
 
 const SignUpLink = styled.span`
-  color: #005950;
+  color: var(--primary-color);
   text-decoration: none;
   font-size: 16px;
   cursor: pointer;

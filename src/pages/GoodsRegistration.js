@@ -25,7 +25,7 @@ const ImageBox = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  background: ${(props) => props.theme.lightGray};
+  background: var(--light-gray-color);
   cursor: pointer;
 `;
 
@@ -55,7 +55,7 @@ const GoodsInfoContainer = styled.div`
 const ReturnContainer = styled.div`
   display: flex;
   align-items: center;
-  color: ${(props) => props.theme.black};
+  color: var(--black-color);
   font-size: 16px;
   font-weight: 600;
   padding-top: 32px;
@@ -121,7 +121,7 @@ function GoodsRegistration() {
       Swal.fire({
         title: '물품의 정보를 모두 입력해주세요.',
         icon: 'error',
-        confirmButtonColor: '#005950', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
         confirmButtonText: '확인',
       });
       return;
@@ -133,8 +133,8 @@ function GoodsRegistration() {
       title: '물품을 등록하시겠습니까?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#005950', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
-      cancelButtonColor: '#D43434',
+      confirmButtonColor: 'var(--primary-color)',
+      cancelButtonColor: 'var(--red-color)',
       confirmButtonText: '등록',
       cancelButtonText: '취소',
       reverseButtons: true,
@@ -145,7 +145,7 @@ function GoodsRegistration() {
           Swal.fire({
             title: '물품 등록이 완료되었습니다.',
             icon: 'success',
-            confirmButtonColor: '#005950', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+            confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
             confirmButtonText: '확인',
           }).then(() => {
             navigate('/main');

@@ -24,7 +24,7 @@ const ImageBox = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  background: ${(props) => props.theme.lightGray};
+  background: var(--light-gray-color);
   cursor: pointer;
 `;
 
@@ -49,7 +49,7 @@ const TimeContainer = styled.div`
 `;
 
 const Text = styled.div`
-  color: ${(props) => props.theme.black};
+  color: var(--black-color);
   font-size: 20px;
   font-weight: 700;
 `;
@@ -103,8 +103,8 @@ function UserRental() {
       title: '대여를 신청하시겠습니까?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#005950', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
-      cancelButtonColor: '#D43434',
+      confirmButtonColor: 'var(--primary-color)',
+      cancelButtonColor: 'var(--red-color)',
       confirmButtonText: '신청',
       cancelButtonText: '취소',
       reverseButtons: true,
@@ -115,7 +115,7 @@ function UserRental() {
           Swal.fire({
             title: '대여 신청이 완료되었습니다.',
             icon: 'success',
-            confirmButtonColor: '#005950', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+            confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
             confirmButtonText: '확인',
           }).then(() => {
             navigate('/main');

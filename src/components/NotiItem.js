@@ -9,7 +9,7 @@ const MainWrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   padding: 12px 0px 16px 20px;
-  border-bottom: 1px solid #d9d9d9;
+  border-bottom: 1px solid var(--light-gray-color);
 `;
 
 const TextWrapper = styled.div`
