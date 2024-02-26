@@ -97,6 +97,7 @@ function SignUp() {
       // 숫자가 포함되어 있지 않고 비밀번호가 일치하면 회원가입 페이지로 이동
       navigate('/sign-in');
     }
+
   };
 
   return (
@@ -118,6 +119,7 @@ function SignUp() {
           onChange={setPasswordCheckValue}
           value={passwordCheckValue}
         />
+
       </InputContainer>
 
       <Button size="Large" onClick={handleSignInClick}>

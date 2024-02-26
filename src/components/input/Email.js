@@ -82,7 +82,6 @@ function Email({
       setCodeSent(true);
     }
   };
-
   return (
     <InputContainer>
       <InputWrapper>

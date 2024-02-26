@@ -25,7 +25,11 @@ const InputWrapper = styled.div`
   width: 100%; /* 필요에 따라 조절 */
 `;
 
-function Count() {
+function Count({ value, setValue }) {
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
+
   return (
     <InputContainer>
       <InputWrapper>
@@ -34,6 +38,8 @@ function Count() {
           className="input"
           placeholder="수량"
           min="0" // 최소값을 0로 설정
+          value={value}
+          onChange={handleChange}
         />
       </InputWrapper>
     </InputContainer>

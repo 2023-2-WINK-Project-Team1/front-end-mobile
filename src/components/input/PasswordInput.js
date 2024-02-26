@@ -38,7 +38,6 @@ const InputWrapper = styled.div`
 `;
 
 function Password({ onChange, value }) {
-  //비밀번호
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);

@@ -85,7 +85,6 @@ function SignIn() {
           자동로그인
         </CheckBoxContainer>
       </InputContainer>
-
       <Button size="Large">로그인</Button>
       <SignUpText>
         회원이 아니신가요?
