@@ -5,7 +5,6 @@ import logoGreen from '../assets/logo_green.svg';
 import StudentId from '../components/input/StudentId';
 import Name from '../components/input/Name';
 import Email from '../components/input/Email';
-import Certification from '../components/input/Certification';
 import PasswordInput from '../components/input/PasswordInput';
 import PasswordInputCheck from '../components/input/PasswordInputCheck';
 import Button from '../components/Button';
@@ -44,59 +43,83 @@ const InputContainer = styled.div`
 
 function SignUp() {
   const navigate = useNavigate();
-  const [userName, setUserName] = useState('');
-  const [studentId, setStudentId] = useState('');
-  const [email, setEmail] = useState('');
-  const [certification, setCertification] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState('');
+  const [nameValue, setNameValue] = useState('');
+  const [studentIdValue, setStudentIdValue] = useState('');
+  const [emailValue, setEmailValue] = useState('');
   const [emailError, setEmailError] = useState(false);
-  const [codeSent, setCodeSent] = useState(false);
+  const [certificateNumber, setCertificateNumber] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+  const [passwordCheckValue, setPasswordCheckValue] = useState('');
 
-  const validateEmail = () => {
-    const emailRegex = /^[^\s@]+@kookmin\.ac\.kr$/;
-    const isValid = emailRegex.test(email);
-
-    if (!isValid) {
-      setEmailError(true);
-      setCodeSent(false);
-    } else {
-      setEmailError(false);
-      setCodeSent(true);
+  const errorList = [
+    '이름을',
+    '학번을',
+    '이메일을',
+    '인증번호를',
+    '비밀번호를',
+    '비밀번호 확인을',
+  ];
+  const checkEmpty = () => {
+    const valueList = [
+      nameValue,
+      studentIdValue,
+      emailValue,
+      certificateNumber,
+      passwordValue,
+      passwordCheckValue,
+    ];
+    console.log('valueList', valueList);
+    for (let i = 0; i < valueList.length; i++) {
+      if (valueList[i].trim() === '') {
+        alert(`${errorList[i]} 입력해주세요.`);
+        return false;
+      }
     }
+    return true;
   };
-  const handleSignInClick = () => {
-    // studentId가 숫자만 포함하고 있는지 검사하는 정규식
-    const isNumeric = /^\d+$/;
 
-    if (!isNumeric.test(studentId)) {
-      alert('학번은 숫자만 포함해야 합니다.');
-      return; // 숫자가 아니면 여기서 함수 종료
+  const handleSignInClick = () => {
+    // 빈 칸이 없는지 검사. 없으면 다음 형식들 검사 실행
+    if (!checkEmpty()) return;
+    // 이름에 숫자가 포함되어 있는지 확인
+    const hasNumber = /\d/.test(nameValue);
+    const hasLetterInStudentId = /[a-zA-Z]/.test(studentIdValue);
+
+    if (hasNumber) {
+      // 숫자와 문자 포함되어 있으면 알림 창 띄우기
+      alert('이름을 한글로 작성해주세요.');
+    } else if (hasLetterInStudentId) {
+      alert('학번 형식이 틀렸습니다.');
+    } else if (passwordValue !== passwordCheckValue) {
+      // 비밀번호와 비밀번호 확인 값이 다를 때 알림창 띄우기
+      alert('비밀번호가 틀렸습니다. 다시 입력해주세요.');
+    } else {
+      // 숫자가 포함되어 있지 않고 비밀번호가 일치하면 회원가입 페이지로 이동
+      navigate('/sign-in');
     }
-    console.log('userName:', userName);
-    console.log('studentId:', studentId);
-    console.log('email:', email);
-    console.log('password:', password);
-    console.log('passwordCheck:', passwordCheck);
-    // navigate('/sign-in');
+
   };
 
   return (
     <MainContainer>
       <img src={logoGreen} alt="로고" />
       <InputContainer>
-        <Name value={userName} setValue={setUserName} />
-        <StudentId value={studentId} setValue={setStudentId} />
+        <Name onChange={setNameValue} value={nameValue} />
+        <StudentId onChange={setStudentIdValue} value={studentIdValue} />
         <Email
-          value={email}
-          setValue={setEmail}
+          value={emailValue}
+          onChange={setEmailValue}
+          certificationNumber={certificateNumber}
+          setCertificationNumber={setCertificateNumber}
           emailError={emailError}
-          validateEmail={validateEmail}
-          codeSent={codeSent}
+          setEmailError={setEmailError}
         />
-        <Certification value={certification} setValue={setCertification} />
-        <PasswordInput value={password} setValue={setPassword} />
-        <PasswordInputCheck value={passwordCheck} setValue={setPasswordCheck} />
+        <PasswordInput onChange={setPasswordValue} value={passwordValue} />
+        <PasswordInputCheck
+          onChange={setPasswordCheckValue}
+          value={passwordCheckValue}
+        />
+
       </InputContainer>
 
       <Button size="Large" onClick={handleSignInClick}>
@@ -104,7 +127,7 @@ function SignUp() {
       </Button>
       <SignUpText>
         이미 회원이신가요?
-        <SignUpLink onClick={handleSignInClick}> 로그인</SignUpLink>
+        <SignUpLink onClick={() => navigate('/sign-in')}> 로그인</SignUpLink>
       </SignUpText>
     </MainContainer>
   );

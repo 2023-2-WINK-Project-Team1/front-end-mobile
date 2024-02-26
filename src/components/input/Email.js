@@ -61,16 +61,36 @@ const SuccessMessage = styled.div`
   font-size: 10px;
 `;
 
-function Email({ value, setValue, emailError, codeSent, validateEmail }) {
+function Email({
+  onChange,
+  value,
+  setCertificationNumber,
+  emailError,
+  setEmailError,
+}) {
+  const [codeSent, setCodeSent] = useState(false);
+
+  const validateEmail = () => {
+    const emailRegex = /^[^\s@]+@kookmin\.ac\.kr$/;
+    const isValid = emailRegex.test(value);
+
+    if (!isValid) {
+      setEmailError(true);
+      setCodeSent(false);
+    } else {
+      setEmailError(false);
+      setCodeSent(true);
+    }
+  };
   return (
     <InputContainer>
       <InputWrapper>
         <InputDivWithButton>
           <InputDiv
             type="text"
+            className="input"
             placeholder="학교 이메일"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => onChange(e.target.value)}
           />
           <ToggleButton onClick={() => validateEmail()}>
             {'인증번호 전송'}
@@ -83,6 +103,11 @@ function Email({ value, setValue, emailError, codeSent, validateEmail }) {
           <SuccessMessage>인증번호가 발송되었습니다.</SuccessMessage>
         )}
       </InputWrapper>
+      <InputDiv
+        type="text"
+        placeholder="인증번호"
+        onChange={(e) => setCertificationNumber(e.target.value)}
+      />
     </InputContainer>
   );
 }
