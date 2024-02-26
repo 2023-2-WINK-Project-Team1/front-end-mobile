@@ -97,7 +97,6 @@ function SignIn() {
       console.log('res : ', res);
       // 로그인 성공 후 받은 토큰을 쿠키에 저장
       await setCookies('auth_token', res.data.user.token);
-      await setCookies('is_manager', res.data.user.is_manager);
       setDisabled(false);
       navigate('/main');
     } catch (error) {

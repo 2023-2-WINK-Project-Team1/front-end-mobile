@@ -9,6 +9,9 @@ import questionmark from '../../src/assets/Settings/questionmark.svg';
 import offRadio from '../../src/assets/Settings/offRadio.svg';
 import { isAlarmOnState } from '../recoil/recoil';
 import Layout from '../components/layout/Layout';
+import accountAPI from '../api/accountAPI';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom'; // useNavigate 훅 추가
 
 const MainContainer = styled.div`
   width: 100%;
@@ -74,7 +77,9 @@ const LogOutBox = styled.button`
 `;
 
 function Setting() {
+  const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
   const [isAlarmOn, setIsAlarmOn] = useRecoilState(isAlarmOnState);
+  const navigate = useNavigate();
   // isRadioOn이 true이면 alarm 설정됨.
   const RadioClick = () => {
     setIsAlarmOn(!isAlarmOn);
@@ -83,6 +88,20 @@ function Setting() {
     // header에 들어갈 페이지 제목은 여기서 수정
     title: '설정',
   };
+  const logout = async () => {
+    const cookie = cookies.auth_token;
+    console.log('cookie : ', cookie);
+    try {
+      const res = await accountAPI.logout(cookie);
+      console.log('logout res : ', res);
+      removeCookie('auth_token'); // 쿠키를 삭제
+      navigate('/sign-in'); // 로그인 페이지로 이동
+    } catch (e) {
+      console.log('logout error : ', e);
+      alert('로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    }
+  };
+
   // alarm on/off를 RadioClick으로 제어
   return (
     <div>
@@ -115,7 +134,7 @@ function Setting() {
           </BoxContainer>
           <LogOutContainer>
             <LogOutBox>
-              <LogOutText>로그아웃</LogOutText>
+              <LogOutText onClick={() => logout()}>로그아웃</LogOutText>
             </LogOutBox>
           </LogOutContainer>
         </MainContainer>
