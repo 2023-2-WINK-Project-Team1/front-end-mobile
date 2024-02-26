@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Layout from '../components/layout/Layout';
 import { useRecoilState } from 'recoil';
@@ -6,6 +6,8 @@ import { isAdminState } from '../recoil/recoil';
 import Item from '../components/Item';
 import { ReactComponent as TitleIcon } from '../assets/title.svg';
 import { selectedButtonState } from '../recoil/recoil';
+import userAPI from '../api/userAPI';
+import { useCookies } from 'react-cookie';
 
 const MyPageContainer = styled.div`
   display: flex;
@@ -58,20 +60,25 @@ const Divider = styled.div`
 `;
 
 function MyPage() {
+  const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
+  const [userInfo, setUserInfo] = useState({}); // 유저 정보
   const headerProps = {
     // header에 들어갈 페이지 제목은 여기서 수정
     title: '마이페이지',
   };
 
-  const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
-
-  // 특정 값으로 isAdmin 설정하는 함수
-  const setAdminStatus = (value) => {
-    setIsAdmin(value);
+  const getUserInfo = async () => {
+    const cookie = cookies.auth_token;
+    const res = await userAPI.getUserInfo(cookie);
+    setUserInfo(res.data);
+    console.log('getUserInfo res : ', res);
   };
+  useEffect(() => {
+    getUserInfo();
+    console.log('userInfo : ', userInfo);
+  }, []);
 
-  //user 대여 신청이므로 false
-  setAdminStatus(false);
+  const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
 
   // footer에서 활성화시킬 버튼 선택 (mypage 버튼 활성화)
   const [selectedButton, setSelectedButton] =
@@ -103,15 +110,22 @@ function MyPage() {
       rentalState: 3,
     },
   ];
-
+  const modifyUserNumber = (userNumber) => {
+    return userNumber?.substring(2, 4) + '학번';
+  };
   return (
     <Layout headerProps={headerProps} isAdmin={isAdmin}>
       <MyPageContainer>
         <InfoContainer>
           {/* 아래 이름, 학번, 학부, 이메일은 나중에 받아오는 것으로 수정해야함 */}
-          <PersonWrapper>황현진 (20223158)</PersonWrapper>
-          <InfoWrapper>소프트웨어학부 22학번</InfoWrapper>
-          <InfoWrapper>jjini6530@kookmin.ac.kr</InfoWrapper>
+          <PersonWrapper onClick={() => console.log('userInfo : ', userInfo)}>
+            {userInfo.name} ({userInfo.user_number})
+          </PersonWrapper>
+          <InfoWrapper>
+            {/* Todo : 학번 잘라서 소속 구분 */}
+            소프트웨어학부 {modifyUserNumber(userInfo.user_number)}
+          </InfoWrapper>
+          <InfoWrapper>{userInfo.email}</InfoWrapper>
         </InfoContainer>
         <HistoryContainer>
           <HistoryTitleContainer>
