@@ -50,16 +50,16 @@ function Password({ onChange, value }) {
   return (
     <InputContainer>
       <InputWrapper>
+        <InputDiv
+          type={showPassword ? 'text' : 'password'}
+          placeholder="비밀번호"
+          onChange={(e) => onChange(e.target.value)} // 입력값이 변경될 때마다 onChange prop으로 전달된 함수 호출
+          value={value}
+        />
         <InputImage
           src={getPasswordIcon()}
           alt="Icon"
           onClick={togglePasswordVisibility}
-        />
-        <InputDiv
-          type={showPassword ? 'text' : 'password'}
-          className="input"
-          placeholder="비밀번호"
-          onChange={(e) => onChange(e.target.value)} // 입력값이 변경될 때마다 onChange prop으로 전달된 함수 호출
         />
       </InputWrapper>
     </InputContainer>

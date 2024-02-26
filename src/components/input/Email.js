@@ -61,8 +61,13 @@ const SuccessMessage = styled.div`
   font-size: 10px;
 `;
 
-function Email({ onChange, value, setCertificationNumber }) {
-  const [emailError, setEmailError] = useState(false);
+function Email({
+  onChange,
+  value,
+  setCertificationNumber,
+  emailError,
+  setEmailError,
+}) {
   const [codeSent, setCodeSent] = useState(false);
 
   const validateEmail = () => {

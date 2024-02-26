@@ -21,12 +21,9 @@ const InputDiv = styled.input`
 `;
 
 function StudentId({ onChange, value }) {
-  const [studentIdValue, setStudentIdValue] = useState('');
-
   const handleInputChange = (event) => {
     const newValue = event.target.value;
-    setStudentIdValue(newValue);
-    onChange(newValue);
+    onChange(newValue); // 상위 컴포넌트에 값을 전달
   };
   return (
     <InputContainer>

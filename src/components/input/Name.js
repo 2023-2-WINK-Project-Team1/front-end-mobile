@@ -37,9 +37,8 @@ const InputWrapper = styled.div`
 
 function Name({ onChange, value }) {
   // 이름 지우기
-  const [name, setName] = useState('');
   const handleClear = () => {
-    setName('');
+    onChange('');
   };
   // 이름 최신화 시켜서 sign-up으로 넘겨주기
   const handleInputChange = (event) => {
@@ -50,7 +49,7 @@ function Name({ onChange, value }) {
   return (
     <InputContainer>
       <InputWrapper>
-        <InputImage src={iconX} alt="Icon" />
+        <InputImage src={iconX} alt="Icon" onClick={() => handleClear()} />
         <InputDiv
           type="text"
           className="input"

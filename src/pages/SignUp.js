@@ -46,6 +46,7 @@ function SignUp() {
   const [nameValue, setNameValue] = useState('');
   const [studentIdValue, setStudentIdValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
+  const [emailError, setEmailError] = useState(false);
   const [certificateNumber, setCertificateNumber] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [passwordCheckValue, setPasswordCheckValue] = useState('');
@@ -67,6 +68,7 @@ function SignUp() {
       passwordValue,
       passwordCheckValue,
     ];
+    console.log('valueList', valueList);
     for (let i = 0; i < valueList.length; i++) {
       if (valueList[i].trim() === '') {
         alert(`${errorList[i]} 입력해주세요.`);
@@ -88,12 +90,9 @@ function SignUp() {
       alert('이름을 한글로 작성해주세요.');
     } else if (hasLetterInStudentId) {
       alert('학번 형식이 틀렸습니다.');
-    }
-    // } else if (hasLetterInStudentId) {
-    //   alert('학번 형식이 틀렸습니다.');
-    else if (passwordValue !== passwordCheckValue) {
+    } else if (passwordValue !== passwordCheckValue) {
       // 비밀번호와 비밀번호 확인 값이 다를 때 알림창 띄우기
-      alert('비밀번호가 틀렸습니다.다시 입력해주세요.');
+      alert('비밀번호가 틀렸습니다. 다시 입력해주세요.');
     } else {
       // 숫자가 포함되어 있지 않고 비밀번호가 일치하면 회원가입 페이지로 이동
       navigate('/sign-in');
@@ -103,15 +102,16 @@ function SignUp() {
   return (
     <MainContainer>
       <img src={logoGreen} alt="로고" />
-
       <InputContainer>
         <Name onChange={setNameValue} value={nameValue} />
         <StudentId onChange={setStudentIdValue} value={studentIdValue} />
         <Email
-          onChange={setEmailValue}
           value={emailValue}
-          setCertificationNumber={setCertificateNumber}
+          onChange={setEmailValue}
           certificationNumber={certificateNumber}
+          setCertificationNumber={setCertificateNumber}
+          emailError={emailError}
+          setEmailError={setEmailError}
         />
         <PasswordInput onChange={setPasswordValue} value={passwordValue} />
         <PasswordInputCheck
