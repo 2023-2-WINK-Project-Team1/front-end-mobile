@@ -2,12 +2,10 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Layout from '../components/layout/Layout';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { isAdminState } from '../recoil/recoil';
 import Time from '../components/input/Time';
 import Button from '../components/Button';
 import { ReactComponent as ImageIcon } from '../assets/image.svg';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 const RentalContainer = styled.div`
   display: flex;
@@ -26,7 +24,7 @@ const ImageBox = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  background: ${(props) => props.theme.lightGray};
+  background: var(--light-gray-color);
   cursor: pointer;
 `;
 
@@ -51,7 +49,7 @@ const TimeContainer = styled.div`
 `;
 
 const Text = styled.div`
-  color: ${(props) => props.theme.black};
+  color: var(--black-color);
   font-size: 20px;
   font-weight: 700;
 `;
@@ -65,16 +63,6 @@ function UserRental() {
     // header에 들어갈 페이지 제목은 여기서 수정
     title: '대여 신청',
   };
-
-  const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
-
-  // 특정 값으로 isAdmin 설정하는 함수
-  const setAdminStatus = (value) => {
-    setIsAdmin(value);
-  };
-
-  // user 대여 신청이므로 false
-  setAdminStatus(false);
 
   /* 이미지 업로드 기능
      uploadedImage: 현재 업로드된 이미지의 Base64 인코딩 데이터 저장
@@ -105,44 +93,42 @@ function UserRental() {
 
   const navigate = useNavigate();
 
-
   // 대여신청 버튼을 클릭하였을 때
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const clickRentalButton = () => {
-      setIsButtonDisabled(true);  // 버튼 클릭하면 disabled 되게
+    setIsButtonDisabled(true); // 버튼 클릭하면 disabled 되게
 
-      Swal.fire({
-        title: '대여를 신청하시겠습니까?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#005950',  // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
-        cancelButtonColor: '#D43434',
-        confirmButtonText: '신청',
-        cancelButtonText: '취소',
-        reverseButtons: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // '신청' 버튼을 누르면 2초 뒤에 확인창 뜸
-          setTimeout(() => {
-          Swal.fire(
-            {
-              title: '대여 신청이 완료되었습니다.',
-              icon: 'success',
-              confirmButtonColor: '#005950',  // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
-              confirmButtonText: '확인'
-            }).then(() => {navigate('/main');
-            });
-          }, 2000);
-        } else {
-          setIsButtonDisabled(false);  // 대여신청 취소 버튼을 누르면 버튼이 다시 활성화 되도록
-        }
-      });
+    Swal.fire({
+      title: '대여를 신청하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: 'var(--primary-color)',
+      cancelButtonColor: 'var(--red-color)',
+      confirmButtonText: '신청',
+      cancelButtonText: '취소',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // '신청' 버튼을 누르면 2초 뒤에 확인창 뜸
+        setTimeout(() => {
+          Swal.fire({
+            title: '대여 신청이 완료되었습니다.',
+            icon: 'success',
+            confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+            confirmButtonText: '확인',
+          }).then(() => {
+            navigate('/main');
+          });
+        }, 2000);
+      } else {
+        setIsButtonDisabled(false); // 대여신청 취소 버튼을 누르면 버튼이 다시 활성화 되도록
+      }
+    });
   };
 
-
   return (
-    <Layout headerProps={headerProps} isAdmin={isAdmin}>
+    <Layout headerProps={headerProps}>
       <RentalContainer>
         <ImageContainer>
           <ImageBox onClick={clickImageWrapper}>
@@ -158,7 +144,12 @@ function UserRental() {
           <Text>대여 시간</Text>
           <Time />
         </TimeContainer>
-        <Button onClick={clickRentalButton} disabled={isButtonDisabled} size="Large" cancel={false}>
+        <Button
+          onClick={clickRentalButton}
+          disabled={isButtonDisabled}
+          size="Large"
+          cancel={false}
+        >
           대여 신청
         </Button>
         <Input

@@ -8,6 +8,7 @@ import Email from '../components/input/Email';
 import PasswordInput from '../components/input/PasswordInput';
 import PasswordInputCheck from '../components/input/PasswordInputCheck';
 import Button from '../components/Button';
+import accountAPI from '../api/accountAPI';
 
 const MainContainer = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ const SignUpText = styled.p`
 `;
 
 const SignUpLink = styled.span`
-  color: #005950;
+  color: var(--primary-color);
   text-decoration: none;
   cursor: pointer;
   font-size: 16px;
@@ -34,7 +35,6 @@ const SignUpLink = styled.span`
 const InputContainer = styled.div`
   margin-top: 42px;
   margin-bottom: 42px;
-  padding: 42px;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -68,12 +68,15 @@ function SignUp() {
       passwordValue,
       passwordCheckValue,
     ];
-    console.log('valueList', valueList);
     for (let i = 0; i < valueList.length; i++) {
       if (valueList[i].trim() === '') {
         alert(`${errorList[i]} 입력해주세요.`);
         return false;
       }
+    }
+    if (emailError) {
+      alert('이메일 인증을 완료해주세요.');
+      return false;
     }
     return true;
   };
@@ -95,9 +98,28 @@ function SignUp() {
       alert('비밀번호가 틀렸습니다. 다시 입력해주세요.');
     } else {
       // 숫자가 포함되어 있지 않고 비밀번호가 일치하면 회원가입 페이지로 이동
-      navigate('/sign-in');
+      return true;
     }
+  };
 
+  const signUp = async () => {
+    if (!handleSignInClick()) return;
+
+    const data = {
+      user_number: studentIdValue,
+      name: nameValue,
+      email: emailValue,
+      code: certificateNumber,
+      password: passwordValue,
+      password2: passwordCheckValue,
+    };
+    try {
+      const res = await accountAPI.signUp(data);
+      console.log('signUp res : ', res);
+      navigate('/login');
+    } catch (error) {
+      alert('회원가입에 실패했습니다. 다시 시도해주세요.');
+    }
   };
 
   return (
@@ -119,10 +141,8 @@ function SignUp() {
           onChange={setPasswordCheckValue}
           value={passwordCheckValue}
         />
-
       </InputContainer>
-
-      <Button size="Large" onClick={handleSignInClick}>
+      <Button size="Large" onClick={() => signUp()}>
         회원가입완료
       </Button>
       <SignUpText>

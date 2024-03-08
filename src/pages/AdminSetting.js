@@ -9,6 +9,9 @@ import questionmark from '../../src/assets/Settings/questionmark.svg';
 import offRadio from '../../src/assets/Settings/offRadio.svg';
 import { isAlarmOnState, isAdminState } from '../recoil/recoil';
 import Layout from '../components/layout/Layout';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import accountAPI from '../api/accountAPI';
 
 const MainContainer = styled.div`
   width: 100%;
@@ -40,7 +43,7 @@ const MiniContainer = styled.div`
 const BoxComponent = styled.div`
   width: 100%;
   box-sizing: border-box;
-  border: 1px solid #005950;
+  border: 1px solid var(--primary-color);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -62,19 +65,22 @@ const LogOutContainer = styled.div`
 
 const LogOutText = styled.p`
   font-size: 16px;
-  color: #005950;
+  color: var(--primary-color);
   text-align: center;
 `;
 
 const LogOutBox = styled.button`
   width: 100%;
-  border: 1px solid #005950;
+  border: 1px solid var(--primary-color);
   border-radius: 5px;
-  background-color: #ffffff;
+  background-color: var(--white-color);
 `;
 
 function AdminSetting() {
+  const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
   const [isAlarmOn, setIsAlarmOn] = useRecoilState(isAlarmOnState);
+  const navigate = useNavigate(); // 대여중 및 대여신청 버튼 클릭시 이동하기 위함
+
   // isRadioOn이 true이면 alarm 설정됨.
   const RadioClick = () => {
     setIsAlarmOn(!isAlarmOn);
@@ -86,12 +92,24 @@ function AdminSetting() {
 
   const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
 
-  // 사용자모드를 버튼을 클릭하면 isAdmin의 값을 사용자(false) 값으로 변경해줌
-  const changeMode = (value) => {
-    setIsAdmin(!isAdmin);
+  const changeUserMode = () => {
+    setIsAdmin(false);
+    navigate('/main');
   };
 
-  console.log(isAdmin);
+  const logout = async () => {
+    const cookie = cookies.auth_token;
+    console.log('cookie : ', cookie);
+    try {
+      const res = await accountAPI.logout(cookie);
+      console.log('logout res : ', res);
+      removeCookie('auth_token'); // 쿠키를 삭제
+      navigate('/sign-in'); // 로그인 페이지로 이동
+    } catch (e) {
+      console.log('logout error : ', e);
+      alert('로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    }
+  };
 
   // alarm on/off를 RadioClick으로 제어
   return (
@@ -115,7 +133,7 @@ function AdminSetting() {
               <img src={arrow} />
             </BoxComponent>
 
-            <BoxComponent onClick={changeMode}>
+            <BoxComponent onClick={() => changeUserMode()}>
               <MiniContainer>
                 <img src={people} />
                 <Text>사용자 모드</Text>
@@ -125,7 +143,7 @@ function AdminSetting() {
           </BoxContainer>
           <LogOutContainer>
             <LogOutBox>
-              <LogOutText>로그아웃</LogOutText>
+              <LogOutText onClick={() => logout()}>로그아웃</LogOutText>
             </LogOutBox>
           </LogOutContainer>
         </MainContainer>

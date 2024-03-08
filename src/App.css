@@ -10,3 +10,12 @@
   font-family: 'Noto Sans KR', sans-serif;
   border: 1px solid red;
 }
+:root{
+  --primary-color: #005950; /* 학생회 대표 색상 */
+  --primary-similar-color: #00595099; /* 학생회 대표 색상 60% - State.js 에서 사용*/
+  --red-color: #D43434; /* 신청취소 button 색상 */
+  --gray-color: #9C9C9C; /* Button disabled 색상 */
+  --light-gray-color: #D9D9D9; /* 반납완료 button 색상 */
+  --white-color: #ffffff; /* 버튼 글자 색상 */
+  --black-color: #000000; /* 검은색 */
+}

@@ -5,6 +5,8 @@ import logoGreen from '../assets/logo_green.svg';
 import StudentId from '../components/input/StudentId';
 import PasswordInput from '../components/input/PasswordInput';
 import Button from '../components/Button';
+import accountAPI from '../api/accountAPI';
+import { useCookies } from 'react-cookie';
 
 const MainContainer = styled.div`
   display: flex;
@@ -41,7 +43,7 @@ const SignUpText = styled.p`
 `;
 
 const SignUpLink = styled.span`
-  color: #005950;
+  color: var(--primary-color);
   text-decoration: none;
   font-size: 16px;
   cursor: pointer;
@@ -60,35 +62,69 @@ function SignIn() {
   const navigate = useNavigate();
   const [autoLogin, setAutoLogin] = useState(false);
   const [studentIdValue, setStudentIdValue] = useState('');
-
-  const handleSignUpClick = () => {
-    navigate('/sign-up');
+  const [passwordValue, setPasswordValue] = useState('');
+  const [cookies, setCookies] = useCookies(['auth_token']);
+  const [disabled, setDisabled] = useState(false);
+  // const handleCheckBoxClick = () => {
+  //   setAutoLogin(!autoLogin);
+  // };
+  const errorList = ['학번을', '비밀번호를'];
+  const checkEmpty = () => {
+    const valueList = [studentIdValue, passwordValue];
+    for (let i = 0; i < valueList.length; i++) {
+      if (valueList[i].trim() === '') {
+        alert(`${errorList[i]} 입력해주세요.`);
+        return false;
+      }
+    }
+    if (studentIdValue.length !== 8 || !/^\d+$/.test(studentIdValue)) {
+      alert('학번을 올바르게 입력해주세요.');
+      return false;
+    }
+    setDisabled(true);
+    return true;
   };
 
-  const handleCheckBoxClick = () => {
-    setAutoLogin(!autoLogin);
-  };
-
-  const handleStudentIdChange = (newValue) => {
-    setStudentIdValue(newValue);
+  const signIn = async () => {
+    if (!checkEmpty()) return;
+    const data = {
+      user_number: studentIdValue,
+      password: passwordValue,
+    };
+    console.log('data : ', data);
+    try {
+      const res = await accountAPI.signIn(data);
+      console.log('res : ', res);
+      // 로그인 성공 후 받은 토큰을 쿠키에 저장
+      await setCookies('auth_token', res.data.user.token);
+      setDisabled(false);
+      navigate('/main');
+    } catch (error) {
+      if (error.response) {
+        alert(error.response.data);
+      }
+      console.error('error :', error);
+      setDisabled(false);
+    }
   };
 
   return (
     <MainContainer>
       <img src={logoGreen} alt="로고" />
-
       <InputContainer>
-        <StudentId onChange={handleStudentIdChange} />
-        <PasswordInput onChange={handleStudentIdChange} />
-        <CheckBoxContainer onClick={handleCheckBoxClick}>
-          <CheckBox type="checkbox" checked={autoLogin} />
-          자동로그인
-        </CheckBoxContainer>
+        <StudentId value={studentIdValue} onChange={setStudentIdValue} />
+        <PasswordInput value={passwordValue} onChange={setPasswordValue} />
+        {/*<CheckBoxContainer onClick={handleCheckBoxClick}>*/}
+        {/*  <CheckBox type="checkbox" checked={autoLogin} />*/}
+        {/*  자동로그인*/}
+        {/*</CheckBoxContainer>*/}
       </InputContainer>
-      <Button size="Large">로그인</Button>
+      <Button size="Large" onClick={() => signIn()} disabled={disabled}>
+        로그인
+      </Button>
       <SignUpText>
         회원이 아니신가요?
-        <SignUpLink onClick={handleSignUpClick}> 회원가입</SignUpLink>
+        <SignUpLink onClick={() => navigate('/sign-up')}> 회원가입</SignUpLink>
       </SignUpText>
     </MainContainer>
   );

@@ -31,7 +31,7 @@ const AppTitle = styled.span`
 const InfoItem = styled.span`
   font-size: 16px;
   font-weight: 600;
-  color: ${(props) => props.theme.gray};
+  color: var(--gray-color);
 `;
 
 const ContactWrapper = styled.div`

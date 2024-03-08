@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import 'react-datepicker/dist/react-datepicker.css';
+import accountAPI from '../../api/accountAPI';
 
 const InputContainer = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ const InputDiv = styled.input`
   outline: none;
   color: black;
   ::placeholder {
-    color: #9c9c9c;
+    color: var(--gray-color);
   }
 `;
 
@@ -43,12 +44,16 @@ const ToggleButton = styled.button`
   bottom: 4px;
   cursor: pointer;
   color: white;
-  background-color: #005950;
+  background-color: var(--primary-color);
   &:active {
     opacity: 0.3;
   }
   border-radius: 4px;
   border: none;
+  &:disabled {
+    background-color: #c4c4c4;
+    cursor: not-allowed;
+  }
 `;
 
 const ErrorMessage = styled.div`
@@ -69,17 +74,36 @@ function Email({
   setEmailError,
 }) {
   const [codeSent, setCodeSent] = useState(false);
-
+  const [disabled, setDisabled] = useState(false);
+  const emailAuth = async () => {
+    if (!validateEmail()) return;
+    const data = {
+      email: value,
+    };
+    try {
+      const res = await accountAPI.emailAuth(data);
+      console.log('emailAuth res : ', res);
+      setDisabled(false);
+      console.log('disabled : ', disabled);
+    } catch (e) {
+      alert('인증번호 전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      console.log('emailAuth error : ', e);
+      setDisabled(false);
+      console.log('disabled : ', disabled);
+    }
+  };
   const validateEmail = () => {
     const emailRegex = /^[^\s@]+@kookmin\.ac\.kr$/;
     const isValid = emailRegex.test(value);
-
     if (!isValid) {
       setEmailError(true);
       setCodeSent(false);
+      return false;
     } else {
       setEmailError(false);
       setCodeSent(true);
+      setDisabled(true);
+      return true;
     }
   };
   return (
@@ -92,7 +116,7 @@ function Email({
             placeholder="학교 이메일"
             onChange={(e) => onChange(e.target.value)}
           />
-          <ToggleButton onClick={() => validateEmail()}>
+          <ToggleButton onClick={() => emailAuth()} disabled={disabled}>
             {'인증번호 전송'}
           </ToggleButton>
         </InputDivWithButton>

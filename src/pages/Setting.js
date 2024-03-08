@@ -7,9 +7,12 @@ import onRadio from '../../src/assets/Settings/radio.svg';
 import arrow from '../../src/assets/Settings/arrow.svg';
 import questionmark from '../../src/assets/Settings/questionmark.svg';
 import offRadio from '../../src/assets/Settings/offRadio.svg';
-import { isAlarmOnState } from '../recoil/recoil';
+import { isAdminState, isAlarmOnState } from '../recoil/recoil';
 import Layout from '../components/layout/Layout';
-import { useNavigate } from 'react-router-dom';
+import accountAPI from '../api/accountAPI';
+import userAPI from '../api/userAPI';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom'; // useNavigate 훅 추가
 
 const MainContainer = styled.div`
   width: 100%;
@@ -41,7 +44,7 @@ const MiniContainer = styled.div`
 const BoxComponent = styled.div`
   width: 100%;
   box-sizing: border-box;
-  border: 1px solid #005950;
+  border: 1px solid var(--primary-color);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -63,19 +66,23 @@ const LogOutContainer = styled.div`
 
 const LogOutText = styled.p`
   font-size: 16px;
-  color: #005950;
+  color: var(--primary-color);
   text-align: center;
 `;
 
 const LogOutBox = styled.button`
   width: 100%;
-  border: 1px solid #005950;
+  border: 1px solid var(--primary-color);
   border-radius: 5px;
-  background-color: #ffffff;
+  background-color: var(--white-color);
 `;
 
 function Setting() {
+  const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
   const [isAlarmOn, setIsAlarmOn] = useRecoilState(isAlarmOnState);
+  const [adminState, setAdminState] = useRecoilState(isAdminState);
+  const adminCookie =
+    'eyJhbGciOiJIUzI1NiJ9.NjVjMzQwMWZlNzFjZjE2YjVlODFkNWI0.ctbykqlWUc5wgVsfnZgrysNRU3u33-SJHbphNuVs61M';
   const navigate = useNavigate();
   // isRadioOn이 true이면 alarm 설정됨.
   const RadioClick = () => {
@@ -85,6 +92,33 @@ function Setting() {
     // header에 들어갈 페이지 제목은 여기서 수정
     title: '설정',
   };
+  const logout = async () => {
+    const cookie = cookies.auth_token;
+    console.log('cookie : ', cookie);
+    try {
+      const res = await accountAPI.logout(cookie);
+      console.log('logout res : ', res);
+      removeCookie('auth_token'); // 쿠키를 삭제
+      navigate('/sign-in'); // 로그인 페이지로 이동
+    } catch (e) {
+      console.log('logout error : ', e);
+      alert('로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    }
+  };
+  const changeAdminMode = async () => {
+    const cookie = cookies.auth_token;
+    console.log('gmlgml');
+    try {
+      const res = await userAPI.getUserInfo(adminCookie);
+      console.log('getUserInfo res : ', res);
+      setAdminState(res.data.is_manager);
+      navigate('/admin-main');
+    } catch (e) {
+      alert('관리자로 인증된 사용자가 아닙니다.');
+      console.log('getUserInfo error : ', e);
+    }
+  };
+
   // alarm on/off를 RadioClick으로 제어
   const appInfoClick = () => {
     navigate('/app-info');
@@ -110,17 +144,17 @@ function Setting() {
               <img src={arrow} />
             </BoxComponent>
 
-            <BoxComponent>
+            <BoxComponent onClick={() => changeAdminMode()}>
               <MiniContainer>
                 <img src={people} />
-                <Text>사용자 모드</Text>
+                <Text>관리자 모드</Text>
               </MiniContainer>
               <img src={arrow} />
             </BoxComponent>
           </BoxContainer>
           <LogOutContainer>
             <LogOutBox>
-              <LogOutText>로그아웃</LogOutText>
+              <LogOutText onClick={() => logout()}>로그아웃</LogOutText>
             </LogOutBox>
           </LogOutContainer>
         </MainContainer>
