@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import iconX from '../../assets/IconX.svg';
-import 'react-datepicker/dist/react-datepicker.css';
 
 const InputContainer = styled.div`
   display: flex;
@@ -24,7 +23,7 @@ const InputDiv = styled.input`
 const InputImage = styled.img`
   position: absolute;
   top: 30%;
-  right: 10px; /* 이미지의 오른쪽 여백 조절 */
+  right: 10px;
   transform: translateY(-50%);
   width: 14px;
   height: 14px;
@@ -36,26 +35,27 @@ const InputWrapper = styled.div`
   width: 100%; /* 필요에 따라 조절 */
 `;
 
-function Name({ value, setValue }) {
+function Name({ onChange, value }) {
   // 이름 지우기
   const handleClear = () => {
-    setValue('');
+    onChange('');
+  };
+  // 이름 최신화 시켜서 sign-up으로 넘겨주기
+  const handleInputChange = (event) => {
+    const newValue = event.target.value;
+    onChange(newValue); // 상위 컴포넌트에 값을 전달
   };
 
   return (
     <InputContainer>
       <InputWrapper>
-        <InputImage
-          src={iconX}
-          alt="Icon"
-          onClick={() => handleClear('name')}
-        />
+        <InputImage src={iconX} alt="Icon" onClick={() => handleClear()} />
         <InputDiv
           type="text"
           className="input"
           placeholder="이름"
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={handleInputChange} // 입력값이 변경될 때 호출되는 함수
         />
       </InputWrapper>
     </InputContainer>

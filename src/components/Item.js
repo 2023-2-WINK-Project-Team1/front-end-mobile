@@ -15,13 +15,24 @@ const GoodsContainer = styled.div`
     padding-left: 16px;
 `
 
+const InfoContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding-left: 16px;
+    margin-top: 8px;
+    color: ${(props) => props.theme.black};
+`
+
+const UserWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
 const DateContainer = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: flex-end;  // 요소들을 세로로 오른쪽 정렬
-    margin-top: 8px;
-    color: ${(props) => props.theme.black};
-    font-size: 11px;
+    align-self: flex-end;
 `
 
 const DateBox = styled.div`
@@ -36,7 +47,7 @@ const NameWrapper = styled.div`
     font-size: 16px;
 `
 
-function Item({goodsName, rentalDate, returnDate, rentalState}) {
+function Item({goodsName, rentalDate, returnDate, rentalState, user, onClick}) {
 
   // 상태값 리스트
   const stateList = ['대여중', '대여신청', '반납완료']
@@ -59,19 +70,22 @@ function Item({goodsName, rentalDate, returnDate, rentalState}) {
 
 
   return (
-    <ItemContainer>
+    <ItemContainer onClick={onClick}>
       <GoodsContainer>
         <NameWrapper>
           {goodsName}
         </NameWrapper>
         <State status = {rentalState}>{stateText}</State>
       </GoodsContainer>
+      <InfoContainer>
+        <UserWrapper>{user}</UserWrapper>
       <DateContainer>
         <DateBox>
           <div>대여시간 | {rentalDate}</div>
          <div>반납시간 | {returnDate}</div>
         </DateBox>
       </DateContainer>
+      </InfoContainer>
     </ItemContainer>
   );
 }

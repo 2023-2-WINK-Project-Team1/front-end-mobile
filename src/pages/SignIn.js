@@ -59,8 +59,8 @@ const InputContainer = styled.div`
 function SignIn() {
   const navigate = useNavigate();
   const [autoLogin, setAutoLogin] = useState(false);
-  const [studentId, setStudentId] = useState('');
-  const [password, setPassword] = useState('');
+  const [studentIdValue, setStudentIdValue] = useState('');
+
   const handleSignUpClick = () => {
     navigate('/sign-up');
   };
@@ -69,19 +69,22 @@ function SignIn() {
     setAutoLogin(!autoLogin);
   };
 
+  const handleStudentIdChange = (newValue) => {
+    setStudentIdValue(newValue);
+  };
+
   return (
     <MainContainer>
       <img src={logoGreen} alt="로고" />
 
       <InputContainer>
-        <StudentId value={studentId} setValue={setStudentId} />
-        <PasswordInput value={password} setValue={setPassword} />
+        <StudentId onChange={handleStudentIdChange} />
+        <PasswordInput onChange={handleStudentIdChange} />
         <CheckBoxContainer onClick={handleCheckBoxClick}>
           <CheckBox type="checkbox" checked={autoLogin} />
           자동로그인
         </CheckBoxContainer>
       </InputContainer>
-
       <Button size="Large">로그인</Button>
       <SignUpText>
         회원이 아니신가요?

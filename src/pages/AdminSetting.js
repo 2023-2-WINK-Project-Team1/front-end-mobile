@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import bell from '../../src/assets/Settings/bell.svg';
@@ -7,9 +7,8 @@ import onRadio from '../../src/assets/Settings/radio.svg';
 import arrow from '../../src/assets/Settings/arrow.svg';
 import questionmark from '../../src/assets/Settings/questionmark.svg';
 import offRadio from '../../src/assets/Settings/offRadio.svg';
-import { isAlarmOnState } from '../recoil/recoil';
+import { isAlarmOnState, isAdminState } from '../recoil/recoil';
 import Layout from '../components/layout/Layout';
-import { useNavigate } from 'react-router-dom';
 
 const MainContainer = styled.div`
   width: 100%;
@@ -74,9 +73,8 @@ const LogOutBox = styled.button`
   background-color: #ffffff;
 `;
 
-function Setting() {
+function AdminSetting() {
   const [isAlarmOn, setIsAlarmOn] = useRecoilState(isAlarmOnState);
-  const navigate = useNavigate();
   // isRadioOn이 true이면 alarm 설정됨.
   const RadioClick = () => {
     setIsAlarmOn(!isAlarmOn);
@@ -85,10 +83,17 @@ function Setting() {
     // header에 들어갈 페이지 제목은 여기서 수정
     title: '설정',
   };
-  // alarm on/off를 RadioClick으로 제어
-  const appInfoClick = () => {
-    navigate('/app-info');
+
+  const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
+
+  // 사용자모드를 버튼을 클릭하면 isAdmin의 값을 사용자(false) 값으로 변경해줌
+  const changeMode = (value) => {
+    setIsAdmin(!isAdmin);
   };
+
+  console.log(isAdmin);
+
+  // alarm on/off를 RadioClick으로 제어
   return (
     <div>
       <Layout headerProps={headerProps}>
@@ -102,7 +107,7 @@ function Setting() {
               <img src={isAlarmOn ? onRadio : offRadio} onClick={RadioClick} />
             </BoxComponent>
 
-            <BoxComponent onClick={appInfoClick}>
+            <BoxComponent>
               <MiniContainer>
                 <img src={questionmark} />
                 <Text>정보</Text>
@@ -110,7 +115,7 @@ function Setting() {
               <img src={arrow} />
             </BoxComponent>
 
-            <BoxComponent>
+            <BoxComponent onClick={changeMode}>
               <MiniContainer>
                 <img src={people} />
                 <Text>사용자 모드</Text>
@@ -129,4 +134,4 @@ function Setting() {
   );
 }
 
-export default Setting;
+export default AdminSetting;

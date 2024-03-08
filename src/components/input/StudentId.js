@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -20,14 +20,19 @@ const InputDiv = styled.input`
   }
 `;
 
-function StudentId({ value, setValue }) {
+function StudentId({ onChange, value }) {
+  const handleInputChange = (event) => {
+    const newValue = event.target.value;
+    onChange(newValue); // 상위 컴포넌트에 값을 전달
+  };
   return (
     <InputContainer>
       <InputDiv
         type="text"
+        className="input"
         placeholder="학번"
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={handleInputChange}
       />
     </InputContainer>
   );

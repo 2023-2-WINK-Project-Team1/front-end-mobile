@@ -37,8 +37,7 @@ const InputWrapper = styled.div`
   width: 100%; /* 필요에 따라 조절 */
 `;
 
-function PasswordCheck({ value, setValue }) {
-  //비밀번호
+function PasswordCheck({ onChange, value }) {
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -50,16 +49,16 @@ function PasswordCheck({ value, setValue }) {
   return (
     <InputContainer>
       <InputWrapper>
+        <InputDiv
+          type={showPassword ? 'text' : 'password'}
+          placeholder="비밀번호 확인"
+          onChange={(e) => onChange(e.target.value)} // 입력값이 변경될 때마다 onChange prop으로 전달된 함수 호출
+          value={value}
+        />
         <InputImage
           src={getPasswordIcon()}
           alt="Icon"
           onClick={togglePasswordVisibility}
-        />
-        <InputDiv
-          type={showPassword ? 'text' : 'password'}
-          placeholder="비밀번호 확인"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
         />
       </InputWrapper>
     </InputContainer>
