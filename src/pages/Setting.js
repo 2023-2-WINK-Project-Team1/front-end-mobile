@@ -120,6 +120,9 @@ function Setting() {
   };
 
   // alarm on/off를 RadioClick으로 제어
+  const appInfoClick = () => {
+    navigate('/app-info');
+  };
   return (
     <div>
       <Layout headerProps={headerProps}>
@@ -133,7 +136,7 @@ function Setting() {
               <img src={isAlarmOn ? onRadio : offRadio} onClick={RadioClick} />
             </BoxComponent>
 
-            <BoxComponent>
+            <BoxComponent onClick={appInfoClick}>
               <MiniContainer>
                 <img src={questionmark} />
                 <Text>정보</Text>

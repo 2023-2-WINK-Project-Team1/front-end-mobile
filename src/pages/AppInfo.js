@@ -4,6 +4,9 @@ import instagram from '../assets/AppInfo/instagram.svg';
 import kakaotalk from '../assets/AppInfo/kakaotalk.svg';
 import youtube from '../assets/AppInfo/youtube.svg';
 import winkOriginal from '../assets/AppInfo/wink-original.svg';
+import logoWink from '../assets/AppInfo/logo-wink.svg';
+import logoGreen from '../assets/AppInfo/logo-green.svg';
+import logoX from '../assets/AppInfo/logo-x.svg';
 
 const MainContainer = styled.div`
   display: flex;
@@ -18,9 +21,11 @@ const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  box-sizing: border-box;
 `;
 const AppTitle = styled.span`
-  font-size: 20px;
+  font-size: 28px;
+  text-align: center;
   font-weight: 600;
 `;
 const InfoItem = styled.span`
@@ -45,6 +50,24 @@ const WinkLogoWrapper = styled.div`
   background-color: #3a70ff;
 `;
 
+const LogoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+const Logo = styled.img`
+  &:nth-child(1) {
+    width: 110px;
+    margin-rignt: 4px;
+  }
+  &:nth-child(3) {
+    width: 80px;
+    margin-rignt: 12px;
+  }
+  width: 40px;
+  height: auto;
+`;
 function AppInfo() {
   const headerProps = {
     title: '앱 정보',
@@ -53,6 +76,11 @@ function AppInfo() {
     <Layout headerProps={headerProps}>
       <MainContainer>
         <InfoContainer>
+          <LogoWrapper>
+            <Logo src={logoWink} alt="wink" />
+            <Logo src={logoX} alt="x" />
+            <Logo src={logoGreen} alt="green" />
+          </LogoWrapper>
           <AppTitle>
             국민대학교 소프트웨어학부
             <br />
@@ -67,9 +95,6 @@ function AppInfo() {
           <InfoItem>
             주소: 서울특별시 성북구 정릉로 77 국민대학교 미래관
           </InfoItem>
-          <InfoItem>개인정보 처리방침 : 그런건 업소용</InfoItem>
-          <InfoItem>서비스 약관 : 그런건 업소용</InfoItem>
-          <InfoItem>라이센스 : 그런건 업소용</InfoItem>
           <InfoItem>About Us</InfoItem>
           <ContactWrapper>
             <a href="https://www.instagram.com/kmu_connect/">
