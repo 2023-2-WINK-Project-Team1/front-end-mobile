@@ -9,6 +9,7 @@ import questionmark from '../../src/assets/Settings/questionmark.svg';
 import offRadio from '../../src/assets/Settings/offRadio.svg';
 import { isAlarmOnState } from '../recoil/recoil';
 import Layout from '../components/layout/Layout';
+import { useNavigate } from 'react-router-dom';
 
 const MainContainer = styled.div`
   width: 100%;
@@ -75,6 +76,7 @@ const LogOutBox = styled.button`
 
 function Setting() {
   const [isAlarmOn, setIsAlarmOn] = useRecoilState(isAlarmOnState);
+  const navigate = useNavigate();
   // isRadioOn이 true이면 alarm 설정됨.
   const RadioClick = () => {
     setIsAlarmOn(!isAlarmOn);
@@ -84,6 +86,9 @@ function Setting() {
     title: '설정',
   };
   // alarm on/off를 RadioClick으로 제어
+  const appInfoClick = () => {
+    navigate('/app-info');
+  };
   return (
     <div>
       <Layout headerProps={headerProps}>
@@ -97,7 +102,7 @@ function Setting() {
               <img src={isAlarmOn ? onRadio : offRadio} onClick={RadioClick} />
             </BoxComponent>
 
-            <BoxComponent>
+            <BoxComponent onClick={appInfoClick}>
               <MiniContainer>
                 <img src={questionmark} />
                 <Text>정보</Text>
