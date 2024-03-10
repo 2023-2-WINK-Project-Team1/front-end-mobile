@@ -13,6 +13,7 @@ const State = styled.div`
   // 공통 스타일
   color: white;
   font-size: 12px;
+  cursor: pointer;
 
   // props에 따른 변화
   ${(props) => css`

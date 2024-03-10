@@ -11,4 +11,11 @@ export default {
       },
     });
   },
+  getUserName(authToken, userId) {
+    return customAxios.get(`user/${userId}`, {
+      headers: {
+        Authorization: authToken,
+      },
+    });
+  },
 };

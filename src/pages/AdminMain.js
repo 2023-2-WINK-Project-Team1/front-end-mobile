@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Layout from '../components/layout/Layout';
 import { useRecoilState } from 'recoil';
@@ -7,6 +7,8 @@ import Item from '../components/Item';
 import { ReactComponent as TitleIcon } from '../assets/title.svg';
 import { useNavigate } from 'react-router-dom';
 import rentalAPI from '../api/rentalAPI';
+import userAPI from '../api/userAPI';
+import itemAPI from '../api/itemAPI';
 
 const MyPageContainer = styled.div`
   display: flex;
@@ -44,7 +46,7 @@ function AdminMain() {
     'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
 
   const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
-
+  const [rentalList, setRentalList] = useState([]); // 대여내역
   // footer에서 활성화시킬 버튼 선택 부분 삭제 (나중에 전역 변수 수정해주는 방향)
   const [selectedButton, setSelectedButton] =
     useRecoilState(selectedButtonState);
@@ -54,49 +56,73 @@ function AdminMain() {
   const itemClick = (item) => {
     // rentalState가 1(대여중) 또는 2(대여신청)일 때 클릭 시 다른 페이지로 이동
     if (item.rentalState === 1) {
-      navigate('/return-goods'); // 반납처리 페이지로 이동
+      // 반납처리 페이지로 이동하면서 item 정보를 전달
+      navigate('/return-goods', { state: { item: item } });
     } else if (item.rentalState === 2) {
-      navigate('/rental-goods'); // 대여처리 페이지로 이동
+      // 대여처리 페이지로 이동하면서 item 정보를 전달
+      navigate('/rental-goods', { state: { item: item } });
     }
   };
+
   const getAllRentalList = async () => {
     // const cookie = cookies.auth_token;
     const cookie = adminCookie;
     const res = await rentalAPI.getAllRentalList(cookie);
-    console.log('getAllRentalList res : ', res);
+    setRentalList(res.data);
+  };
+  const getUserName = async (userId) => {
+    try {
+      const res = await userAPI.getUserName(adminCookie, userId);
+      const { name, user_number } = res.data;
+      return user_number + ' ' + name;
+    } catch (e) {
+      return 'no user name';
+    }
+  };
+
+  const getItemName = async (itemId) => {
+    const res = await itemAPI.getItem(itemId);
+    return res.data.product_name;
+  };
+  const fetchRentalList = async () => {
+    const res = await rentalAPI.getAllRentalList(adminCookie);
+    const rentalData = res.data;
+
+    const updatedRentalList = await Promise.all(
+      rentalData.map(async (item) => {
+        const userName = await getUserName(item.create_user);
+        const goodsName = await getItemName(item.item);
+
+        let rentalState;
+        if (item.approved === null) {
+          rentalState = 2;
+        } else if (item.approved !== null && item.returned === null) {
+          rentalState = 1;
+        } else if (item.returned !== null) {
+          rentalState = 3;
+        }
+        return {
+          ...item,
+          userName: userName,
+          rentalState: rentalState,
+          goodsName: goodsName,
+        };
+      }),
+    );
+    setRentalList(updatedRentalList);
   };
 
   useEffect(() => {
-    getAllRentalList();
+    fetchRentalList();
   }, []);
+  useEffect(() => {
+    // console.log('Updated rentalList:', rentalList);
+  }, [rentalList]);
   /*
     대여중: rentalState === 1
     대여신청: rentalState === 2
     반납완료: rentalState === 3
   */
-  const dummyData = [
-    {
-      goodsName: '고데기',
-      rentalDate: '2023.11.13 12:41',
-      returnDate: '-',
-      rentalState: 1,
-      user: '20181574 곽희건',
-    },
-    {
-      goodsName: '인공눈물',
-      rentalDate: '2023.11.13 12:41',
-      returnDate: '-',
-      rentalState: 2,
-      user: '20181574 곽희건',
-    },
-    {
-      goodsName: '우산',
-      rentalDate: '2023.11.13 12:41',
-      returnDate: '2023.11.14 10:12',
-      rentalState: 3,
-      user: '20181574 곽희건',
-    },
-  ];
 
   return (
     <Layout headerProps={headerProps} isAdmin={isAdmin}>
@@ -107,14 +133,14 @@ function AdminMain() {
             대여내역
           </HistoryTitleContainer>
           <Divider />
-          {dummyData.map((item, index) => (
+          {rentalList.map((item, index) => (
             <Item
               key={index}
               goodsName={item.goodsName}
-              rentalDate={item.rentalDate}
-              returnDate={item.returnDate}
+              rentalDate={item.created}
+              returnDate={item.returned}
               rentalState={item.rentalState}
-              user={item.user}
+              user={item.userName}
               onClick={() => itemClick(item)}
             />
           ))}

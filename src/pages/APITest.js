@@ -157,6 +157,7 @@ function APITest() {
     const res = await itemAPI.getAllItemList();
     console.log('getAllItemList res : ', res);
   };
+  // 물품 조회하기
   const getItem = async (itemId) => {
     const res = await itemAPI.getItem(itemId);
     console.log('getItem res : ', res);
