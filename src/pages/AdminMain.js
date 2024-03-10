@@ -54,22 +54,13 @@ function AdminMain() {
   const navigate = useNavigate(); // 대여중 및 대여신청 버튼 클릭시 이동하기 위함
 
   const itemClick = (item) => {
-    // rentalState가 1(대여중) 또는 2(대여신청)일 때 클릭 시 다른 페이지로 이동
     if (item.rentalState === 1) {
-      // 반납처리 페이지로 이동하면서 item 정보를 전달
       navigate('/return-goods', { state: { item: item } });
     } else if (item.rentalState === 2) {
-      // 대여처리 페이지로 이동하면서 item 정보를 전달
       navigate('/rental-goods', { state: { item: item } });
     }
   };
 
-  const getAllRentalList = async () => {
-    // const cookie = cookies.auth_token;
-    const cookie = adminCookie;
-    const res = await rentalAPI.getAllRentalList(cookie);
-    setRentalList(res.data);
-  };
   const getUserName = async (userId) => {
     try {
       const res = await userAPI.getUserName(adminCookie, userId);
@@ -109,15 +100,14 @@ function AdminMain() {
         };
       }),
     );
-    setRentalList(updatedRentalList);
+    const sortedList = updatedRentalList.reverse();
+    setRentalList(sortedList);
   };
 
   useEffect(() => {
     fetchRentalList();
   }, []);
-  useEffect(() => {
-    // console.log('Updated rentalList:', rentalList);
-  }, [rentalList]);
+
   /*
     대여중: rentalState === 1
     대여신청: rentalState === 2

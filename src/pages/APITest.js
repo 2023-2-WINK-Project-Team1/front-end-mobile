@@ -146,6 +146,7 @@ function APITest() {
     console.log('approveRental res : ', res);
   };
 
+  // 반납 완료 처리하기 - 관리자
   const returnRental = async (rentalId) => {
     const cookie = adminCookie;
     const res = await rentalAPI.returnRental(cookie, rentalId);
