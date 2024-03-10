@@ -6,6 +6,9 @@ import Time from '../components/input/Time';
 import Button from '../components/Button';
 import { ReactComponent as ImageIcon } from '../assets/image.svg';
 import Swal from 'sweetalert2';
+import { useLocation } from 'react-router-dom';
+import rentalAPI from '../api/rentalAPI';
+import Count from '../components/input/Count';
 
 const RentalContainer = styled.div`
   display: flex;
@@ -41,11 +44,11 @@ const Image = styled.img`
   border-radius: 10px;
 `;
 
-const TimeContainer = styled.div`
+const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 28px;
-  gap: 8px;
+  gap: 16px;
 `;
 
 const Text = styled.div`
@@ -63,38 +66,53 @@ function UserRental() {
     // header에 들어갈 페이지 제목은 여기서 수정
     title: '대여 신청',
   };
-
-  /* 이미지 업로드 기능
-     uploadedImage: 현재 업로드된 이미지의 Base64 인코딩 데이터 저장
-   */
-  const [uploadedImage, setUploadedImage] = useState(null);
-  const imageInputRef = useRef(null);
-
-  // 이미지를 업로드 할 때 호출되는 함수
-  const imageUpload = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        setUploadedImage(reader.result);
-      };
-
-      reader.readAsDataURL(file);
-    }
-    console.log('uploadedImage : ', uploadedImage);
+  const userCookie =
+    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk3Y2Y3NWFlOWQzYmIwZTQwZGY5.oQxBqYgZ5LQphz_omqlO6w77we3_0mHj1SJ6xarqUeA';
+  const [count, setCount] = useState('');
+  const handleBase64 = (byteArray) => {
+    const byteCharacters = byteArray.reduce(
+      (data, byte) => data + String.fromCharCode(byte),
+      '',
+    );
+    const base64String = btoa(byteCharacters);
+    return `data:image/jpeg;base64,${base64String}`;
   };
 
-  // <ImageBox> 컴포넌트 클릭하면 호출되는 함수
-  const clickImageWrapper = () => {
-    imageInputRef.current.click();
-  };
+  const location = useLocation();
+  const { item } = location.state || {};
 
   const navigate = useNavigate();
 
   // 대여신청 버튼을 클릭하였을 때
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  const requestRental = async (count) => {
+    // const cookie = cookies.auth_token;
+    const rentalData = {
+      item_id: item._id,
+      count: count,
+    };
+    const res = await rentalAPI.requestRental(userCookie, rentalData);
+    if (res.status !== 200) {
+      Swal.fire({
+        title: '잠시 후 다시 시도해주세요.',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
+      setIsButtonDisabled(false);
+      return;
+    } else {
+      Swal.fire({
+        title: '대여 신청이 완료되었습니다.',
+        icon: 'success',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      }).then(() => {
+        navigate('/main');
+      });
+    }
+  };
 
   const clickRentalButton = () => {
     setIsButtonDisabled(true); // 버튼 클릭하면 disabled 되게
@@ -110,19 +128,20 @@ function UserRental() {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        // '신청' 버튼을 누르면 2초 뒤에 확인창 뜸
-        setTimeout(() => {
+        if (count === '' || count === 0) {
           Swal.fire({
-            title: '대여 신청이 완료되었습니다.',
-            icon: 'success',
-            confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+            title: '대여 수량을 입력해주세요.',
+            icon: 'error',
+            confirmButtonColor: 'var(--primary-color)',
             confirmButtonText: '확인',
-          }).then(() => {
-            navigate('/main');
           });
-        }, 2000);
+          setIsButtonDisabled(false);
+          return;
+        } else {
+          requestRental(count);
+        }
       } else {
-        setIsButtonDisabled(false); // 대여신청 취소 버튼을 누르면 버튼이 다시 활성화 되도록
+        setIsButtonDisabled(false);
       }
     });
   };
@@ -131,19 +150,19 @@ function UserRental() {
     <Layout headerProps={headerProps}>
       <RentalContainer>
         <ImageContainer>
-          <ImageBox onClick={clickImageWrapper}>
-            {uploadedImage ? (
-              <Image src={uploadedImage} alt="Uploaded" />
+          <ImageBox>
+            {item ? (
+              <Image src={handleBase64(item.image.data)} alt="Uploaded" />
             ) : (
               <ImageIcon />
             )}
           </ImageBox>
-          <Text>물품1</Text>
+          <Text>{item.product_name}</Text>
         </ImageContainer>
-        <TimeContainer>
-          <Text>대여 시간</Text>
-          <Time />
-        </TimeContainer>
+        <InfoContainer>
+          <Text>대여 정보</Text>
+          <Count value={count} setValue={setCount} />
+        </InfoContainer>
         <Button
           onClick={clickRentalButton}
           disabled={isButtonDisabled}
@@ -152,12 +171,6 @@ function UserRental() {
         >
           대여 신청
         </Button>
-        <Input
-          type="file"
-          accept="image/*"
-          ref={imageInputRef}
-          onChange={imageUpload}
-        />
       </RentalContainer>
     </Layout>
   );

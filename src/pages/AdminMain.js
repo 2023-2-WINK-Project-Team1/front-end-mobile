@@ -6,6 +6,7 @@ import { isAdminState, selectedButtonState } from '../recoil/recoil';
 import Item from '../components/Item';
 import { ReactComponent as TitleIcon } from '../assets/title.svg';
 import { useNavigate } from 'react-router-dom';
+import rentalAPI from '../api/rentalAPI';
 
 const MyPageContainer = styled.div`
   display: flex;
@@ -39,6 +40,8 @@ function AdminMain() {
     // header에 들어갈 페이지 제목은 여기서 수정
     title: '관리자 화면',
   };
+  const adminCookie =
+    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
 
   const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
 
@@ -56,7 +59,16 @@ function AdminMain() {
       navigate('/rental-goods'); // 대여처리 페이지로 이동
     }
   };
+  const getAllRentalList = async () => {
+    // const cookie = cookies.auth_token;
+    const cookie = adminCookie;
+    const res = await rentalAPI.getAllRentalList(cookie);
+    console.log('getAllRentalList res : ', res);
+  };
 
+  useEffect(() => {
+    getAllRentalList();
+  }, []);
   /*
     대여중: rentalState === 1
     대여신청: rentalState === 2

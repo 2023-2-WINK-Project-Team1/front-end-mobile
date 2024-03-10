@@ -5,6 +5,7 @@ import accountAPI from '../api/accountAPI';
 import userAPI from '../api/userAPI';
 import notificationAPI from '../api/notificationAPI';
 import rentalAPI from '../api/rentalAPI';
+import itemAPI from '../api/itemAPI';
 import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 
@@ -29,12 +30,13 @@ const APIButton = styled.button`
 function APITest() {
   const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
   const [isNotification, setIsNotification] = useState(false); // 알림 여부 [true: 알림 있음, false: 알림 없음
-  const [itemId, setItemId] = useState('65bf3198c9068e44fff72bce'); // 물품 아이디
+  const itemId = '65ed6b338e39eb5a259b186e'; // 물품 아이디
   const rentalId = '65c337ce52c7b5d08e08be3a'; // 대여 아이디
   const adminCookie =
-    'eyJhbGciOiJIUzI1NiJ9.NjVjMzQwMWZlNzFjZjE2YjVlODFkNWI0.ctbykqlWUc5wgVsfnZgrysNRU3u33-SJHbphNuVs61M';
+    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
   const userCookie =
-    'eyJhbGciOiJIUzI1NiJ9.NjVkNWE5NTAwNGUyOGIwYzg4MDUzMjFh.AwPvSYy-njOu170MarDY22HfwqNuvA0NKc4p8BkG2ig';
+    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk3Y2Y3NWFlOWQzYmIwZTQwZGY5.oQxBqYgZ5LQphz_omqlO6w77we3_0mHj1SJ6xarqUeA';
+
   const headerProps = {
     // header에 들어갈 페이지 제목은 여기서 수정
     title: '물품 대여',
@@ -151,6 +153,28 @@ function APITest() {
   };
 
   // item - 보류
+  const getAllItemList = async () => {
+    const res = await itemAPI.getAllItemList();
+    console.log('getAllItemList res : ', res);
+  };
+  const getItem = async (itemId) => {
+    const res = await itemAPI.getItem(itemId);
+    console.log('getItem res : ', res);
+  };
+
+  // 물품 수정하기
+  const updateItem = async () => {
+    const gun = {
+      product_name: '호절미 아니지롱',
+      count: '50',
+    };
+    const res = await itemAPI.updateItem(
+      adminCookie,
+      '65ed6b338e39eb5a259b186e',
+      gun,
+    );
+    console.log('updateItem res : ', res);
+  };
 
   return (
     <div>
@@ -185,6 +209,12 @@ function APITest() {
             <APIButton onClick={() => returnRental(rentalId)}>
               returnRental
             </APIButton>
+            <h3>Item</h3>
+            <APIButton onClick={() => getAllItemList()}>
+              getAllItemList
+            </APIButton>
+            <APIButton onClick={() => getItem(itemId)}>getItem</APIButton>
+            <APIButton onClick={() => updateItem()}>updateItem</APIButton>
           </ButtonContainer>
         </MainContainer>
       </Layout>

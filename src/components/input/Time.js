@@ -32,11 +32,13 @@ const TimeIcon = styled.img`
   right: 0;
   top: 0;
 `;
+function Time({ onChange, value }) {
+  // 부모 컴포넌트로부터 전달받은 value를 useState의 초기값으로 설정
+  const [startTime, setStartTime] = useState(value);
 
-function Time() {
-  const [startTime, setStartTime] = useState(null);
   const onSelect = (time) => {
-    setStartTime(time);
+    setStartTime(time); // 시간 상태 업데이트
+    onChange(time); // 부모 컴포넌트에 변경 사항 전달
   };
 
   return (
@@ -49,9 +51,8 @@ function Time() {
           showTimeSelectOnly
           timeIntervals={15}
           timeCaption="대여시간"
-          dateFormat=" aa h:mm"
+          dateFormat="aa h:mm"
           placeholderText="대여시간"
-          readonly={false}
         />
         <TimeIcon src={Clock} />
       </InputWrapper>
