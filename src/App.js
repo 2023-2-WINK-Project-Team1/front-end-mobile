@@ -1,3 +1,4 @@
+// App.js
 import './App.css';
 import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -7,7 +8,7 @@ import MainPage from './pages/MainPage';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Setting from './pages/Setting';
-import Notification from './pages/Notification';
+import NotificationPage from './pages/Notification';
 import UserRental from './pages/UserRental';
 import MyPage from './pages/MyPage';
 import APITest from './pages/APITest';
@@ -32,7 +33,10 @@ function App() {
               <Route path="/setting" element={<Setting />}></Route>
               <Route path="/user-rental" element={<UserRental />}></Route>
               <Route path="/mypage" element={<MyPage />}></Route>
-              <Route path="/notification" element={<Notification />}></Route>
+              <Route
+                path="/notification"
+                element={<NotificationPage />}
+              ></Route>
               <Route path="/sign-in" element={<SignIn />}></Route>
               <Route path="/sign-up" element={<SignUp />}></Route>
               <Route
