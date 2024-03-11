@@ -36,7 +36,6 @@ const Title = styled.h1`
 
 // title을 전달 받아서 제목이 달라지게 함
 function Header({ headerTitle }) {
-  console.log('headerTitle : ', headerTitle);
   const navigate = useNavigate(); // 대여중 및 대여신청 버튼 클릭시 이동하기 위함
   const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
   const clickSetting = () => {

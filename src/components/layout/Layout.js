@@ -27,7 +27,6 @@ const Main = styled.main`
     children: 안에 들어갈 컨텐츠들
     */
 function Layout({ headerTitle, children }) {
-  console.log('headerTitle : ', headerTitle);
   return (
     <LayoutContainer>
       {/*...을 쓰면 객체내의 모든 속성이 해당 컴포넌트의 props로 전달됨*/}
