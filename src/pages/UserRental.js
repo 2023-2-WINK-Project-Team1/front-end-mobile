@@ -57,10 +57,6 @@ const Text = styled.div`
   font-weight: 700;
 `;
 
-const Input = styled.input`
-  display: none; // 화면에 안보이게 하기 위함
-`;
-
 function UserRental() {
   const headerTitle = '대여 신청';
 
@@ -159,7 +155,7 @@ function UserRental() {
         </ImageContainer>
         <InfoContainer>
           <Text>대여 정보</Text>
-          <Count value={count} setValue={setCount} />
+          <Count value={count} onChange={setCount} />
         </InfoContainer>
         <Button
           onClick={clickRentalButton}

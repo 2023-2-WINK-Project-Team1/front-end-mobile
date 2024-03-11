@@ -30,7 +30,6 @@ const AlarmContent = styled.div`
 `;
 
 function NotiItem({ type }) {
-  console.log('type : ', type);
   const [titleText, setTitleText] = useState('');
   const [resultText, setResultText] = useState('');
   const [imagePath, setImagePath] = useState('');

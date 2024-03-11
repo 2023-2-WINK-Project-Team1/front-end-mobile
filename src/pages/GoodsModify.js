@@ -96,7 +96,6 @@ function GoodsRegistration() {
   };
 
   useEffect(() => {
-    console.log('item : ', item);
     if (item) {
       setProductName(item.product_name);
       setCount(item.count);
@@ -127,7 +126,6 @@ function GoodsRegistration() {
       });
       setIsButtonDisabled(false); // 대여신청 취소 버튼을 누르면 버튼이 다시 활성화 되도록
     }
-    console.log('updateItem res : ', res);
   };
 
   const clickRentalButton = () => {

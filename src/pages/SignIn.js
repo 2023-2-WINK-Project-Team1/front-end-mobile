@@ -102,10 +102,8 @@ function SignIn() {
       user_number: studentIdValue,
       password: passwordValue,
     };
-    console.log('data : ', data);
     try {
       const res = await accountAPI.signIn(data);
-      console.log('res : ', res);
       // 로그인 성공 후 받은 토큰을 쿠키에 저장
       await setCookies('auth_token', res.data.user.token);
       setDisabled(false);

@@ -92,14 +92,11 @@ function Setting() {
   const headerTitle = '설정';
   const logout = async () => {
     const cookie = cookies.auth_token;
-    console.log('cookie : ', cookie);
     try {
       const res = await accountAPI.logout(cookie);
-      console.log('logout res : ', res);
       removeCookie('auth_token'); // 쿠키를 삭제
       navigate('/sign-in'); // 로그인 페이지로 이동
     } catch (e) {
-      console.log('logout error : ', e);
       Swal.fire({
         title: '로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.',
         icon: 'error',
@@ -110,10 +107,8 @@ function Setting() {
   };
   const changeAdminMode = async () => {
     const cookie = cookies.auth_token;
-    console.log('gmlgml');
     try {
       const res = await userAPI.getUserInfo(adminCookie);
-      console.log('getUserInfo res : ', res);
       setAdminState(res.data.is_manager);
       navigate('/admin-main');
     } catch (e) {
@@ -123,7 +118,6 @@ function Setting() {
         confirmButtonColor: 'var(--primary-color)',
         confirmButtonText: '확인',
       });
-      console.log('getUserInfo error : ', e);
     }
   };
 

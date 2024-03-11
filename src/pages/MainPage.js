@@ -168,7 +168,6 @@ function MainPage() {
     const allItems = allItemsResponse.data;
     const userRentalResponse = await rentalAPI.getUserRentalList(userCookie);
     const userRentalList = userRentalResponse.data;
-    console.log('userRentalList : ', userRentalList);
     const updatedItemList = updateItemListState(allItems, userRentalList);
 
     setItemList(updatedItemList);

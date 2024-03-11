@@ -67,11 +67,9 @@ function MyPage() {
     const cookie = cookies.auth_token;
     const res = await userAPI.getUserInfo(cookie);
     setUserInfo(res.data);
-    console.log('getUserInfo res : ', res);
   };
   useEffect(() => {
     getUserInfo();
-    console.log('userInfo : ', userInfo);
   }, []);
 
   // footer에서 활성화시킬 버튼 선택 (mypage 버튼 활성화)
@@ -112,11 +110,10 @@ function MyPage() {
       <MyPageContainer>
         <InfoContainer>
           {/* 아래 이름, 학번, 학부, 이메일은 나중에 받아오는 것으로 수정해야함 */}
-          <PersonWrapper onClick={() => console.log('userInfo : ', userInfo)}>
+          <PersonWrapper>
             {userInfo.name} ({userInfo.user_number})
           </PersonWrapper>
           <InfoWrapper>
-            {/* Todo : 학번 잘라서 소속 구분 */}
             소프트웨어학부 {modifyUserNumber(userInfo.user_number)}
           </InfoWrapper>
           <InfoWrapper>{userInfo.email}</InfoWrapper>

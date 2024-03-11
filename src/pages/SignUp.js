@@ -141,7 +141,6 @@ function SignUp() {
     };
     try {
       const res = await accountAPI.signUp(data);
-      console.log('signUp res : ', res);
       navigate('/login');
     } catch (error) {
       Swal.fire({

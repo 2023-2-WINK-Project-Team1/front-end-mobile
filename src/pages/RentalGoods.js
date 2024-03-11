@@ -81,10 +81,9 @@ function RentalGoods() {
     const formattedMinutes = minutes.toString().padStart(2, '0');
     return `${meridiem} ${formattedHours}:${formattedMinutes}`;
   };
-
   const getItemSrc = async (itemId) => {
     try {
-      const res = await itemAPI.getItem('65ee9a7e05e76f241b39b678');
+      const res = await itemAPI.getItem(itemId);
       return res.data.image.data;
     } catch (e) {
       return 'no item info';
@@ -105,6 +104,7 @@ function RentalGoods() {
     const base64Image = arrayBufferToBase64(itemSrc); // 가져온 데이터를 Base64로 변환합니다.
     setImageSrc(`data:image/jpeg;base64,${base64Image}`);
   };
+
   // 대여 승인 - 관리자
   const approveRental = async (rentalId) => {
     const cookie = adminCookie;
@@ -127,11 +127,9 @@ function RentalGoods() {
         confirmButtonText: '확인',
       });
     }
-    console.log('approveRental res : ', res);
   };
 
   useEffect(() => {
-    console.log('item : ', item);
     if (item && item.item) {
       fetchImage();
     }

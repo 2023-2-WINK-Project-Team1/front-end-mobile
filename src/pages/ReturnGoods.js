@@ -139,11 +139,9 @@ function ReturnGoods() {
         confirmButtonText: '확인',
       });
     }
-    console.log('approveRental res : ', res);
   };
 
   useEffect(() => {
-    console.log('item : ', item);
     if (item && item.item) {
       fetchImage();
     }

@@ -70,7 +70,6 @@ function AdminMain() {
 
   const getItemName = async (itemId) => {
     const res = await itemAPI.getItem(itemId);
-    console.log('getItemName res : ', res);
     return res.data.product_name;
   };
   const fetchRentalList = async () => {
