@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import NotiItem from '../components/NotiItem';
-
+import Layout from '../components/layout/Layout';
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -11,13 +11,16 @@ const MainContainer = styled.div`
 `;
 
 function Notification() {
+  const headerTitle = '알림';
   return (
-    <MainContainer>
-      <NotiItem type={'Request'} />
-      <NotiItem type={'RequestApprove'} />
-      <NotiItem type={'InfoFix'} />
-      <NotiItem type={'RequestDenial'} />
-    </MainContainer>
+    <Layout headerTitle={headerTitle}>
+      <MainContainer>
+        <NotiItem type={'Request'} />
+        <NotiItem type={'RequestApprove'} />
+        <NotiItem type={'InfoFix'} />
+        <NotiItem type={'RequestDenial'} />
+      </MainContainer>
+    </Layout>
   );
 }
 

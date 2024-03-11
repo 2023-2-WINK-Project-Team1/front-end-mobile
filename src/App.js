@@ -16,9 +16,9 @@ import AppInfo from './pages/AppInfo';
 import { RecoilRoot } from 'recoil';
 import RentalGoods from './pages/RentalGoods';
 import ReturnGoods from './pages/ReturnGoods';
-import AdminSetting from './pages/AdminSetting';
 import AdminMain from './pages/AdminMain';
 import GoodsManagement from './pages/GoodsManagement';
+import GoodsModify from './pages/GoodsModify';
 
 function App() {
   return (
@@ -42,12 +42,12 @@ function App() {
               <Route path="/app-info" element={<AppInfo />}></Route>
               <Route path="/rental-goods" element={<RentalGoods />}></Route>
               <Route path="/return-goods" element={<ReturnGoods />}></Route>
-              <Route path="/admin-setting" element={<AdminSetting />}></Route>
               <Route path="/admin-main" element={<AdminMain />}></Route>
               <Route
                 path="/goods-management"
                 element={<GoodsManagement />}
               ></Route>
+              <Route path="/goods-modify" element={<GoodsModify />}></Route>
               <Route path="/api-test" element={<APITest />}></Route>
             </Routes>
           </BrowserRouter>

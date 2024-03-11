@@ -1,8 +1,8 @@
-// GoodsRegistration.js
-import React, { useRef, useState } from 'react';
+// GoodsModify.js
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Layout from '../components/layout/Layout';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import Name from '../components/input/Name';
 import Count from '../components/input/Count';
@@ -18,6 +18,7 @@ const RegisterContainer = styled.div`
   height: 100%;
   padding: 28px 32px 100px 32px;
   box-sizing: border-box;
+  gap: 32px;
 `;
 
 const ImageBox = styled.div`
@@ -35,7 +36,7 @@ const ImageContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 76px;
+  margin-bottom: 46px;
 `;
 
 const Image = styled.img`
@@ -71,88 +72,64 @@ const CheckBox = styled.input`
 `;
 
 function GoodsRegistration() {
-  const headerTitle = '관리자 화면';
-
+  const headerTitle = '물품 수정';
   const adminCookie =
     'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
+  const location = useLocation();
+  const { item } = location.state || {};
 
   const [productName, setProductName] = useState('');
-  const [count, setCount] = useState('');
-
-  /* 이미지 업로드 기능
-     uploadedImage: 현재 업로드된 이미지의 Base64 인코딩 데이터 저장
-   */
-  const [uploadedImage, setUploadedImage] = useState(null);
-  const imageInputRef = useRef(null);
-
-  // 이미지를 업로드 할 때 호출되는 함수
-  const imageUpload = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        setUploadedImage(reader.result);
-      };
-
-      reader.readAsDataURL(file);
-    }
-  };
-
-  // <ImageBox> 컴포넌트 클릭하면 호출되는 함수
-  const clickImageWrapper = () => {
-    imageInputRef.current.click();
-  };
+  const [count, setCount] = useState(0);
 
   const navigate = useNavigate();
-
-  // 반납여부 체크
-  const [isReturn, setIsReturn] = useState(false);
-
-  const returnCheckboxChange = (e) => {
-    setIsReturn(e.target.checked);
-  };
 
   // 대여신청 버튼을 클릭하였을 때
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  const createItem = async () => {
-    const formData = new FormData();
-    formData.append('product_name', productName);
-    formData.append('type', isReturn ? 'rental' : 'expandable');
-    formData.append('count', count);
-    if (imageInputRef.current && imageInputRef.current.files[0]) {
-      formData.append('item_image', imageInputRef.current.files[0]);
+  const handleBase64 = (byteArray) => {
+    const byteCharacters = byteArray.reduce(
+      (data, byte) => data + String.fromCharCode(byte),
+      '',
+    );
+    const base64String = btoa(byteCharacters);
+    return `data:image/jpeg;base64,${base64String}`;
+  };
+
+  useEffect(() => {
+    if (item) {
+      setProductName(item.product_name);
+      setCount(item.count);
     }
-    try {
-      const res = await itemAPI.createItem(adminCookie, formData);
-      if (res.status === 200 || res.status === 201) {
-        Swal.fire({
-          title: '물품이 등록되었습니다.',
-          icon: 'success',
-          confirmButtonColor: 'var(--primary-color)',
-          confirmButtonText: '확인',
-        }).then(() => {
-          navigate('/goods-management');
-        });
-      } else {
-        throw new Error(`등록 실패: ${res.status}`);
-      }
-    } catch (error) {
-      console.error('Error creating item:', error);
+  }, [item]);
+
+  const updateItem = async () => {
+    const itemInfo = {
+      product_name: productName,
+      count: count,
+    };
+    const res = await itemAPI.updateItem(adminCookie, item._id, itemInfo);
+    if (res.status === 200) {
       Swal.fire({
-        title: '물품 등록에 실패하였습니다.',
+        title: '물품이 수정되었습니다.',
+        icon: 'success',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      }).then(() => {
+        navigate('/goods-management');
+      });
+    } else {
+      Swal.fire({
+        title: '물품 수정에 실패하였습니다.',
         icon: 'error',
         confirmButtonColor: 'var(--primary-color)',
         confirmButtonText: '확인',
       });
-      setIsButtonDisabled(false);
+      setIsButtonDisabled(false); // 대여신청 취소 버튼을 누르면 버튼이 다시 활성화 되도록
     }
   };
 
   const clickRentalButton = () => {
-    if (!uploadedImage || !productName || !count) {
+    if (!productName || !count) {
       Swal.fire({
         title: '물품의 정보를 모두 입력해주세요.',
         icon: 'error',
@@ -162,7 +139,7 @@ function GoodsRegistration() {
       return;
     }
 
-    setIsButtonDisabled(true);
+    setIsButtonDisabled(true); // 버튼 클릭하면 disabled 되게
 
     Swal.fire({
       title: '물품을 등록하시겠습니까?',
@@ -175,9 +152,9 @@ function GoodsRegistration() {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        createItem();
+        updateItem();
       } else {
-        setIsButtonDisabled(false);
+        setIsButtonDisabled(false); // 대여신청 취소 버튼을 누르면 버튼이 다시 활성화 되도록
       }
     });
   };
@@ -186,41 +163,22 @@ function GoodsRegistration() {
     <Layout headerTitle={headerTitle}>
       <RegisterContainer>
         <ImageContainer>
-          <ImageBox onClick={clickImageWrapper}>
-            {uploadedImage ? (
-              <Image src={uploadedImage} alt="Uploaded" />
-            ) : (
-              <ImageIcon />
-            )}
+          <ImageBox>
+            <Image src={handleBase64(item.image.data)} alt="Uploaded" />
           </ImageBox>
         </ImageContainer>
         <GoodsInfoContainer>
           <Name value={productName} onChange={setProductName} />
           <Count value={count} onChange={setCount} />
         </GoodsInfoContainer>
-        <ReturnContainer>
-          <CheckBox
-            id={'returnCheck'}
-            type={'checkbox'}
-            checked={isReturn}
-            onChange={returnCheckboxChange}
-          />
-          <label htmlFor={'returnCheck'}>반납이 필요한 물품입니다.</label>
-        </ReturnContainer>
         <Button
           onClick={clickRentalButton}
           disabled={isButtonDisabled}
           size="Large"
           cancel={false}
         >
-          물품 등록
+          물품 수정
         </Button>
-        <Input
-          type="file"
-          accept="image/*"
-          ref={imageInputRef}
-          onChange={imageUpload}
-        />
       </RegisterContainer>
     </Layout>
   );

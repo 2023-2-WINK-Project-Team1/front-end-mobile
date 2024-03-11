@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import 'react-datepicker/dist/react-datepicker.css';
 import accountAPI from '../../api/accountAPI';
+import Swal from 'sweetalert2';
 
 const InputContainer = styled.div`
   display: flex;
@@ -82,14 +83,15 @@ function Email({
     };
     try {
       const res = await accountAPI.emailAuth(data);
-      console.log('emailAuth res : ', res);
       setDisabled(false);
-      console.log('disabled : ', disabled);
     } catch (e) {
-      alert('인증번호 전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
-      console.log('emailAuth error : ', e);
+      Swal.fire({
+        title: '인증번호 전송에 실패했습니다. 잠시 후 다시 시도해주세요..',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
       setDisabled(false);
-      console.log('disabled : ', disabled);
     }
   };
   const validateEmail = () => {

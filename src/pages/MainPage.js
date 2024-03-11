@@ -8,9 +8,11 @@ import defaultImage from '../assets/defaultImage.svg';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import itemAPI from '../api/itemAPI';
+import rentalAPI from '../api/rentalAPI';
 
 const Container = styled.div`
   width: 100%;
@@ -54,8 +56,8 @@ const ConnectLogoWhite = styled.img`
 const ListContainer = styled.div`
   width: 100%;
   height: calc(100vh - 256px);
+  padding: 0 20px 64px 20px;
   box-sizing: border-box;
-  padding-bottom: 64px;
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -64,11 +66,10 @@ const ListContainer = styled.div`
 
 const ListItem = styled.div`
   display: flex;
-  flex-direction: row;
   flex-shrink: 0;
   align-items: center;
-  justify-content: center;
-  gap: 50px;
+  justify-content: space-between;
+  gap: 8px;
   width: 100%;
   height: 150px;
   border-bottom: 1px solid #d8d8d8;
@@ -89,62 +90,119 @@ const Remaining = styled.div`
 `;
 
 const GoodsName = styled.div`
+  width: 100px;
+  overflow: hidden;
+  word-break: break-all;
   font-size: 20px;
   font-weight: 500;
 `;
 
 const ItemImage = styled.img`
-  width: 48px; /* Adjust the width of the image as needed */
-  height: 48px; /* Adjust the height of the image as needed */
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
 `;
 
-const dummyData = [
-  { imgSrc: defaultImage, goodsName: '물품 1', state: 0, remaining: 5 },
-  { imgSrc: defaultImage, goodsName: '물품 2', state: 1, remaining: 5 },
-  { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-  { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-  { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-  { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-  { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-  { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-];
-
-const stateList = ['대여하기', '신청취소', '반납하기'];
+const stateList = ['대여하기', '신청취소', '대여중'];
 
 function MainPage() {
   const navigate = useNavigate();
-  const headerProps = {
-    title: '물품 대여',
-  };
+  const headerTitle = '물품 대여';
+  const userCookie =
+    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk3Y2Y3NWFlOWQzYmIwZTQwZGY5.oQxBqYgZ5LQphz_omqlO6w77we3_0mHj1SJ6xarqUeA';
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [itemList, setItemList] = useState([]);
+  const updateItemListState = (allItems, userRentalList) => {
+    const updatedItems = allItems.map((item) => {
+      const reversedRentalList = [...userRentalList].reverse();
+
+      const rentalInfo = reversedRentalList.find(
+        (rental) => rental.item === item._id,
+      );
+      let state;
+      let rentalId;
+      if (
+        !rentalInfo ||
+        (rentalInfo.approved !== null && rentalInfo.returned !== null)
+      ) {
+        state = 0; // 대응하는 rental 정보가 없거나, approved와 returned가 모두 null이 아닌 경우
+        rentalId = '';
+      } else if (rentalInfo.approved === null) {
+        state = 1; // 대여 승인 대기중
+        rentalId = rentalInfo._id;
+      } else if (rentalInfo.approved !== null && rentalInfo.returned === null) {
+        state = 2; // 대여중
+        rentalId = rentalInfo._id;
+      }
+      return {
+        ...item,
+        state: state,
+        rentalId: rentalId,
+      };
+    });
+    return updatedItems;
+  };
+  const cancelRental = async (rentalId) => {
+    // const cookie = cookies.auth_token;
+    const res = await rentalAPI.cancelRental(userCookie, rentalId);
+    if (res.status === 200) {
+      Swal.fire({
+        title: '신청이 취소되었습니다.',
+        icon: 'success',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
+      fetchAndUpdateItems();
+    } else {
+      Swal.fire({
+        title: '신청 취소에 실패하였습니다.',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
+    }
+  };
+
+  const fetchAndUpdateItems = async () => {
+    const allItemsResponse = await itemAPI.getAllItemList();
+    const allItems = allItemsResponse.data;
+    const userRentalResponse = await rentalAPI.getUserRentalList(userCookie);
+    const userRentalList = userRentalResponse.data;
+    const updatedItemList = updateItemListState(allItems, userRentalList);
+
+    setItemList(updatedItemList);
+  };
+
+  useEffect(() => {
+    fetchAndUpdateItems();
+  }, []);
+
+  const handleBase64 = (byteArray) => {
+    const byteCharacters = byteArray.reduce(
+      (data, byte) => data + String.fromCharCode(byte),
+      '',
+    );
+    const base64String = btoa(byteCharacters);
+    return `data:image/jpeg;base64,${base64String}`;
+  };
 
   const handleRentalClick = (item) => {
     if (item.state === 0) {
-      navigate('../user-rental');
+      navigate('../user-rental', { state: { item: item } });
     } else if (item.state === 1) {
       Swal.fire({
         title: '신청을 취소하시겠습니까?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        confirmButtonColor: 'var(--primary-color)',
         cancelButtonColor: 'var(--red-color)',
         confirmButtonText: '예',
         cancelButtonText: '아니요',
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
-          // '신청' 버튼을 누르면 2초 뒤에 확인창 뜸
-          setTimeout(() => {
-            Swal.fire({
-              title: '취소 신청이 완료되었습니다.',
-              icon: 'success',
-              confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
-              confirmButtonText: '확인',
-            }).then(() => {
-              navigate('/');
-            });
-          }, 2000);
+          cancelRental(item.rentalId);
         } else {
           setIsButtonDisabled(false); // 아니요 버튼을 누르면 버튼이 다시 활성화 되도록
         }
@@ -154,7 +212,7 @@ function MainPage() {
         title: '반납을 신청하시겠습니까?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        confirmButtonColor: 'var(--primary-color)',
         cancelButtonColor: 'var(--red-color)',
         confirmButtonText: '예',
         cancelButtonText: '아니요',
@@ -166,7 +224,7 @@ function MainPage() {
             Swal.fire({
               title: '반납을 완료하였습니다.',
               icon: 'success',
-              confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+              confirmButtonColor: 'var(--primary-color)',
               confirmButtonText: '확인',
             }).then(() => {
               navigate('/');
@@ -181,7 +239,7 @@ function MainPage() {
 
   return (
     <>
-      <Header {...headerProps} />
+      <Header headerTitle={headerTitle} />
       <Container>
         <ImageContainer>
           <WinkLogo src={winkLogo} alt="Wink Logo" />
@@ -195,18 +253,19 @@ function MainPage() {
       </Container>
 
       <ListContainer>
-        {dummyData.map((item, index) => (
+        {itemList.map((item, index) => (
           <ListItem key={index}>
-            <ItemImage src={item.imgSrc} alt={defaultImage} />
-            <GoodsName>{item.goodsName}</GoodsName>
+            <ItemImage src={handleBase64(item.image.data)} alt={defaultImage} />
+            <GoodsName>{item.product_name}</GoodsName>
             <ButtonContainer>
               <Button
                 children={stateList[item.state]}
                 size="Medium"
                 cancel={item.state === 1}
+                disabled={item.state === 2}
                 onClick={() => handleRentalClick(item)}
-              ></Button>
-              <Remaining>남은 수량: {item.remaining}</Remaining>
+              />
+              <Remaining>남은 수량: {item.count}</Remaining>
             </ButtonContainer>
           </ListItem>
         ))}

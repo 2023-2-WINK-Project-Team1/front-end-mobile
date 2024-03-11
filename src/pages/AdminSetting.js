@@ -12,6 +12,7 @@ import Layout from '../components/layout/Layout';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import accountAPI from '../api/accountAPI';
+import Swal from 'sweetalert2';
 
 const MainContainer = styled.div`
   width: 100%;
@@ -85,10 +86,7 @@ function AdminSetting() {
   const RadioClick = () => {
     setIsAlarmOn(!isAlarmOn);
   };
-  const headerProps = {
-    // header에 들어갈 페이지 제목은 여기서 수정
-    title: '설정',
-  };
+  const headerTitle = '설정';
 
   const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
 
@@ -99,22 +97,24 @@ function AdminSetting() {
 
   const logout = async () => {
     const cookie = cookies.auth_token;
-    console.log('cookie : ', cookie);
     try {
       const res = await accountAPI.logout(cookie);
-      console.log('logout res : ', res);
       removeCookie('auth_token'); // 쿠키를 삭제
       navigate('/sign-in'); // 로그인 페이지로 이동
     } catch (e) {
-      console.log('logout error : ', e);
-      alert('로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      Swal.fire({
+        title: '로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
     }
   };
 
   // alarm on/off를 RadioClick으로 제어
   return (
     <div>
-      <Layout headerProps={headerProps}>
+      <Layout headerTitle={headerTitle}>
         <MainContainer>
           <BoxContainer>
             <BoxComponent>

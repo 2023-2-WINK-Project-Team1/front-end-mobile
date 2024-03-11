@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Layout from '../components/layout/Layout';
 import defaultImage from '../assets/defaultImage.svg';
 import Button from '../components/Button';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import rentalAPI from '../api/rentalAPI';
+import itemAPI from '../api/itemAPI';
 
 const MyPageContainer = styled.div`
   display: flex;
@@ -67,14 +69,85 @@ const dummyData = {
   time: '23:00',
 };
 function ReturnGoods() {
-  const headerProps = {
-    title: '물품 반납',
-  };
+  const headerTitle = '물품 대여';
+
+  const adminCookie =
+    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { item } = location.state || {}; // location.state가 존재하지 않는 경우를 대비한 기본값 설정
+  const [imageSrc, setImageSrc] = useState(dummyData.imgSrc); // 이미지 소스 상태를 추가
+  const extractTime = (datetimeString) => {
+    const date = new Date(datetimeString);
 
-  const clickRentalButton = () => {
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+
+    const meridiem = hours < 12 ? '오전' : '오후';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+
+    const formattedHours = hours.toString().padStart(2, '0');
+    const formattedMinutes = minutes.toString().padStart(2, '0');
+    return `${meridiem} ${formattedHours}:${formattedMinutes}`;
+  };
+
+  const getItemSrc = async (itemId) => {
+    try {
+      const res = await itemAPI.getItem(itemId);
+      return res.data.image.data;
+    } catch (e) {
+      return 'no item info';
+    }
+  };
+  const arrayBufferToBase64 = (buffer) => {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+  };
+
+  const fetchImage = async () => {
+    const itemSrc = await getItemSrc(item.item); // itemSrc가 비동기로 가져온 데이터이므로 await을 사용합니다.
+    const base64Image = arrayBufferToBase64(itemSrc); // 가져온 데이터를 Base64로 변환합니다.
+    setImageSrc(`data:image/jpeg;base64,${base64Image}`);
+  };
+  // 대여 승인 - 관리자
+  const returnRental = async (rentalId) => {
+    const cookie = adminCookie;
+    const res = await rentalAPI.returnRental(cookie, rentalId);
+    if (res.status === 200) {
+      Swal.fire({
+        title: '반납 신청이 승인되었습니다.',
+        icon: 'success',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      }).then(() => {
+        setIsButtonDisabled(false);
+        navigate('/admin-main');
+      });
+    } else {
+      Swal.fire({
+        title: '반납 신청 승인에 실패하였습니다.',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (item && item.item) {
+      fetchImage();
+    }
+  }, [item]);
+
+  const clickReturnButton = () => {
     setIsButtonDisabled(true);
 
     Swal.fire({
@@ -88,17 +161,7 @@ function ReturnGoods() {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        setTimeout(() => {
-          Swal.fire({
-            title: '반납 신청 처리가 완료되었습니다.',
-            icon: 'success',
-            confirmButtonColor: 'var(--primary-color)',
-            confirmButtonText: '확인',
-          }).then(() => {
-            setIsButtonDisabled(false);
-            navigate('/');
-          });
-        }, 2000);
+        returnRental(item._id);
       } else {
         setIsButtonDisabled(false);
       }
@@ -106,20 +169,20 @@ function ReturnGoods() {
   };
 
   return (
-    <Layout headerProps={headerProps}>
+    <Layout headerTitle={headerTitle}>
       <MyPageContainer>
         <ListContainer>
           <ImageBox>
-            <Image src={dummyData.imgSrc} alt={defaultImage} />
+            <Image src={imageSrc} alt={defaultImage} />
           </ImageBox>
           <ListItem>
-            <ItemLabel>대여 물품: {dummyData.label}</ItemLabel>
-            <ItemUser>대여자: {dummyData.user}</ItemUser>
-            <ItemTime>대여 시간: {dummyData.time}</ItemTime>
+            <ItemLabel>대여 물품: {item.goodsName}</ItemLabel>
+            <ItemUser>대여자: {item.userName}</ItemUser>
+            <ItemTime>대여 시간: {extractTime(item.created)}</ItemTime>
           </ListItem>
         </ListContainer>
         <Button
-          onClick={clickRentalButton}
+          onClick={clickReturnButton}
           disabled={isButtonDisabled}
           size="Large"
           cancel={false}

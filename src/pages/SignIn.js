@@ -7,6 +7,7 @@ import PasswordInput from '../components/input/PasswordInput';
 import Button from '../components/Button';
 import accountAPI from '../api/accountAPI';
 import { useCookies } from 'react-cookie';
+import Swal from 'sweetalert2';
 
 const MainContainer = styled.div`
   display: flex;
@@ -73,12 +74,22 @@ function SignIn() {
     const valueList = [studentIdValue, passwordValue];
     for (let i = 0; i < valueList.length; i++) {
       if (valueList[i].trim() === '') {
-        alert(`${errorList[i]} 입력해주세요.`);
+        Swal.fire({
+          title: `${errorList[i]} 입력해주세요.`,
+          icon: 'error',
+          confirmButtonColor: 'var(--primary-color)',
+          confirmButtonText: '확인',
+        });
         return false;
       }
     }
     if (studentIdValue.length !== 8 || !/^\d+$/.test(studentIdValue)) {
-      alert('학번을 올바르게 입력해주세요.');
+      Swal.fire({
+        title: '학번을 올바르게 입력해주세요.',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
       return false;
     }
     setDisabled(true);
@@ -91,17 +102,20 @@ function SignIn() {
       user_number: studentIdValue,
       password: passwordValue,
     };
-    console.log('data : ', data);
     try {
       const res = await accountAPI.signIn(data);
-      console.log('res : ', res);
       // 로그인 성공 후 받은 토큰을 쿠키에 저장
       await setCookies('auth_token', res.data.user.token);
       setDisabled(false);
       navigate('/main');
     } catch (error) {
       if (error.response) {
-        alert(error.response.data);
+        Swal.fire({
+          title: error.response.data,
+          icon: 'error',
+          confirmButtonColor: 'var(--primary-color)',
+          confirmButtonText: '확인',
+        });
       }
       console.error('error :', error);
       setDisabled(false);

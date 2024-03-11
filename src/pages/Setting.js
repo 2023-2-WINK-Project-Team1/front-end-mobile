@@ -12,7 +12,8 @@ import Layout from '../components/layout/Layout';
 import accountAPI from '../api/accountAPI';
 import userAPI from '../api/userAPI';
 import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom'; // useNavigate 훅 추가
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // useNavigate 훅 추가
 
 const MainContainer = styled.div`
   width: 100%;
@@ -82,41 +83,47 @@ function Setting() {
   const [isAlarmOn, setIsAlarmOn] = useRecoilState(isAlarmOnState);
   const [adminState, setAdminState] = useRecoilState(isAdminState);
   const adminCookie =
-    'eyJhbGciOiJIUzI1NiJ9.NjVjMzQwMWZlNzFjZjE2YjVlODFkNWI0.ctbykqlWUc5wgVsfnZgrysNRU3u33-SJHbphNuVs61M';
+    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
   const navigate = useNavigate();
   // isRadioOn이 true이면 alarm 설정됨.
   const RadioClick = () => {
     setIsAlarmOn(!isAlarmOn);
   };
-  const headerProps = {
-    // header에 들어갈 페이지 제목은 여기서 수정
-    title: '설정',
-  };
+  const headerTitle = '설정';
   const logout = async () => {
     const cookie = cookies.auth_token;
-    console.log('cookie : ', cookie);
     try {
       const res = await accountAPI.logout(cookie);
-      console.log('logout res : ', res);
       removeCookie('auth_token'); // 쿠키를 삭제
       navigate('/sign-in'); // 로그인 페이지로 이동
     } catch (e) {
-      console.log('logout error : ', e);
-      alert('로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      Swal.fire({
+        title: '로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
     }
   };
   const changeAdminMode = async () => {
     const cookie = cookies.auth_token;
-    console.log('gmlgml');
     try {
       const res = await userAPI.getUserInfo(adminCookie);
-      console.log('getUserInfo res : ', res);
       setAdminState(res.data.is_manager);
       navigate('/admin-main');
     } catch (e) {
-      alert('관리자로 인증된 사용자가 아닙니다.');
-      console.log('getUserInfo error : ', e);
+      Swal.fire({
+        title: '관리자로 인증된 사용자가 아닙니다.',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
     }
+  };
+
+  const changeUserMode = () => {
+    setAdminState(false);
+    navigate('/main');
   };
 
   // alarm on/off를 RadioClick으로 제어
@@ -125,7 +132,7 @@ function Setting() {
   };
   return (
     <div>
-      <Layout headerProps={headerProps}>
+      <Layout headerTitle={headerTitle}>
         <MainContainer>
           <BoxContainer>
             <BoxComponent>
@@ -144,13 +151,23 @@ function Setting() {
               <img src={arrow} />
             </BoxComponent>
 
-            <BoxComponent onClick={() => changeAdminMode()}>
-              <MiniContainer>
-                <img src={people} />
-                <Text>관리자 모드</Text>
-              </MiniContainer>
-              <img src={arrow} />
-            </BoxComponent>
+            {adminState === true ? (
+              <BoxComponent onClick={() => changeUserMode()}>
+                <MiniContainer>
+                  <img src={people} />
+                  <Text>사용자 모드</Text>
+                </MiniContainer>
+                <img src={arrow} />
+              </BoxComponent>
+            ) : (
+              <BoxComponent onClick={() => changeAdminMode()}>
+                <MiniContainer>
+                  <img src={people} />
+                  <Text>관리자 모드</Text>
+                </MiniContainer>
+                <img src={arrow} />
+              </BoxComponent>
+            )}
           </BoxContainer>
           <LogOutContainer>
             <LogOutBox>
