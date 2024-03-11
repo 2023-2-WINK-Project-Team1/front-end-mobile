@@ -82,6 +82,8 @@ function Setting() {
   const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
   const [isAlarmOn, setIsAlarmOn] = useRecoilState(isAlarmOnState);
   const [adminState, setAdminState] = useRecoilState(isAdminState);
+  const userCookie =
+    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk3Y2Y3NWFlOWQzYmIwZTQwZGY5.oQxBqYgZ5LQphz_omqlO6w77we3_0mHj1SJ6xarqUeA';
   const adminCookie =
     'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
   const navigate = useNavigate();
@@ -109,11 +111,28 @@ function Setting() {
     const cookie = cookies.auth_token;
     try {
       const res = await userAPI.getUserInfo(adminCookie);
+      console.log('res', res);
+      if (res.data.is_manager === false) {
+        Swal.fire({
+          title: '관리자로 인증된 사용자가 아닙니다.',
+          icon: 'error',
+          confirmButtonColor: 'var(--primary-color)',
+          confirmButtonText: '확인',
+        });
+        return;
+      } else {
+        Swal.fire({
+          title: '관리자 화면으로 이동합니다.',
+          icon: 'success',
+          confirmButtonColor: 'var(--primary-color)',
+          confirmButtonText: '확인',
+        });
+      }
       setAdminState(res.data.is_manager);
       navigate('/admin-main');
     } catch (e) {
       Swal.fire({
-        title: '관리자로 인증된 사용자가 아닙니다.',
+        title: '잠시 후 다시 시도해주세요.',
         icon: 'error',
         confirmButtonColor: 'var(--primary-color)',
         confirmButtonText: '확인',
@@ -123,6 +142,12 @@ function Setting() {
 
   const changeUserMode = () => {
     setAdminState(false);
+    Swal.fire({
+      title: '일반 사용자 화면으로 이동합니다.',
+      icon: 'success',
+      confirmButtonColor: 'var(--primary-color)',
+      confirmButtonText: '확인',
+    });
     navigate('/main');
   };
 
