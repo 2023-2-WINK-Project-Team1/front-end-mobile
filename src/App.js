@@ -14,12 +14,13 @@ import MyPage from './pages/MyPage';
 import APITest from './pages/APITest';
 import GoodsRegistration from './pages/GoodsRegistration';
 import AppInfo from './pages/AppInfo';
-import { RecoilRoot } from 'recoil';
+import { RecoilRoot, useRecoilState } from 'recoil';
 import RentalGoods from './pages/RentalGoods';
 import ReturnGoods from './pages/ReturnGoods';
 import AdminMain from './pages/AdminMain';
 import GoodsManagement from './pages/GoodsManagement';
 import GoodsModify from './pages/GoodsModify';
+import AdminRoute from './routes/AdminRoute';
 
 function App() {
   return (
@@ -41,17 +42,39 @@ function App() {
               <Route path="/sign-up" element={<SignUp />}></Route>
               <Route
                 path="/goods-registration"
-                element={<GoodsRegistration />}
+                element={
+                  <AdminRoute>
+                    <GoodsRegistration />
+                  </AdminRoute>
+                }
               ></Route>
               <Route path="/app-info" element={<AppInfo />}></Route>
               <Route path="/rental-goods" element={<RentalGoods />}></Route>
               <Route path="/return-goods" element={<ReturnGoods />}></Route>
-              <Route path="/admin-main" element={<AdminMain />}></Route>
+              <Route
+                path="/admin-main"
+                element={
+                  <AdminRoute>
+                    <AdminMain />
+                  </AdminRoute>
+                }
+              ></Route>
               <Route
                 path="/goods-management"
-                element={<GoodsManagement />}
+                element={
+                  <AdminRoute>
+                    <GoodsManagement />
+                  </AdminRoute>
+                }
               ></Route>
-              <Route path="/goods-modify" element={<GoodsModify />}></Route>
+              <Route
+                path="/goods-modify"
+                element={
+                  <AdminRoute>
+                    <GoodsModify />
+                  </AdminRoute>
+                }
+              ></Route>
               <Route path="/api-test" element={<APITest />}></Route>
             </Routes>
           </BrowserRouter>
