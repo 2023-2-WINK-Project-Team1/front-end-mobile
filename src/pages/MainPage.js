@@ -69,11 +69,10 @@ const ListItem = styled.div`
   flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
-  gap: 50px;
+  gap: 8px;
   width: 100%;
   height: 150px;
   border-bottom: 1px solid #d8d8d8;
-  padding: 0 20px;
 `;
 
 const ButtonContainer = styled.div`
@@ -115,15 +114,12 @@ function MainPage() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [itemList, setItemList] = useState([]);
   const updateItemListState = (allItems, userRentalList) => {
-    console.log('userRentalList : ', userRentalList);
     const updatedItems = allItems.map((item) => {
       const reversedRentalList = [...userRentalList].reverse();
 
       const rentalInfo = reversedRentalList.find(
         (rental) => rental.item === item._id,
       );
-
-      console.log('rentalInfo : ', rentalInfo);
       let state;
       let rentalId;
       if (
@@ -172,7 +168,6 @@ function MainPage() {
     const allItemsResponse = await itemAPI.getAllItemList();
     const allItems = allItemsResponse.data;
     const userRentalResponse = await rentalAPI.getUserRentalList(userCookie);
-    console.log('userRentalResponse : ', userRentalResponse);
     const userRentalList = userRentalResponse.data;
     const updatedItemList = updateItemListState(allItems, userRentalList);
 
@@ -182,9 +177,6 @@ function MainPage() {
   useEffect(() => {
     fetchAndUpdateItems();
   }, []);
-  useEffect(() => {
-    console.log('itemList : ', itemList);
-  }, [itemList]);
 
   const handleBase64 = (byteArray) => {
     const byteCharacters = byteArray.reduce(
