@@ -6,7 +6,7 @@ import { ReactComponent as MypageIcon } from '../../assets/mypage.svg';
 import { ReactComponent as ListIcon } from '../../assets/list.svg';
 import { ReactComponent as UploadIcon } from '../../assets/upload.svg';
 // 푸터에서 어떤 아이콘을 눌렀는지 확인하기 위해 recoil 사용
-import { useNavigate } from 'react-router-dom'; // useNavigate 훅 추가
+import { useLocation, useNavigate } from 'react-router-dom'; // useNavigate 훅 추가
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { selectedButtonState, isAdminState } from '../../recoil/recoil';
 
@@ -76,20 +76,21 @@ function Footer() {
      - selectedButton: 현재 selectedButtonState의 값을 저장하는 변수
      - setSelectedButton: selectedButtonState의 값을 업데이트하는 함수 */
   const navigate = useNavigate();
-  const selectedButton = useRecoilValue(selectedButtonState);
-  const setSelectedButton = useSetRecoilState(selectedButtonState);
-  const isAdmin = useRecoilState(isAdminState);
+  const location = useLocation(); // 현재 경로를 확인하기 위해 useLocation 훅 사용
+  const isAdmin = useRecoilValue(isAdminState); // Recoil에서 관리자 여부 가져오기
 
-  // default로 불이 들어오는 button설정
-  if (!selectedButton) {
-    if (isAdmin[0]) setSelectedButton('list'); // 관리자일때는 listIcon
-    else setSelectedButton('home'); // 사용자일때는 homeIcon
-  }
+  // 현재 경로에 따른 버튼 선택 상태 결정
+  const getSelectedButton = () => {
+    const path = location.pathname;
+    if (path.includes('/notification')) return 'alarm';
+    if (path.includes('/admin-main')) return 'list';
+    if (path === '/main') return 'home';
+    if (path.includes('/goods-management')) return 'upload';
+    if (path.includes('/mypage')) return 'mypage';
+    return ''; // Default case
+  };
 
-  /* 버튼이 클릭되었을 때 실행되는 콜백 함수
-     useRecoilState(selectedButtonState)에서 반환된 setSelectedButton 함수를 호출하여 selectedButtonState의 값을 업데이트*/
-  const isClicked = (button) => {
-    setSelectedButton(button);
+  const handleButtonClick = (button) => {
     switch (button) {
       case 'alarm':
         navigate('/notification');
@@ -101,7 +102,7 @@ function Footer() {
         navigate('/main');
         break;
       case 'upload':
-        navigate('/goods-registration');
+        navigate('/goods-management');
         break;
       case 'mypage':
         navigate('/mypage');
@@ -111,48 +112,48 @@ function Footer() {
     }
   };
 
+  const selectedButton = getSelectedButton(); // 현재 선택된 버튼 가져오기
+
   return (
-    // onClick: 'alarm'버튼이 클릭되었을 때 isClicked 실행
-    // isSelected: selectedButton이 'alarm'일 경우 true로 설정되어 해당 버튼 활성화
     <FooterContainer>
       <ButtonContainer>
         <AlarmButton
-          onClick={() => isClicked('alarm')}
+          onClick={() => handleButtonClick('alarm')}
           isSelected={selectedButton === 'alarm'}
         >
           <AlarmIcon />
         </AlarmButton>
-        {isAdmin[0] ? ( // isAdmin = true(관리자)일 때, <ListButton> 렌더링
-          <ListButton
-            onClick={() => isClicked('list')}
-            isSelected={selectedButton === 'list'}
-          >
-            <ListIcon />
-          </ListButton>
-        ) : (
-          // isAdmin = false(사용자)일 때, <HomeButton> 렌더링
-          <HomeButton
-            onClick={() => isClicked('home')}
-            isSelected={selectedButton === 'home'}
-          >
-            <HomeIcon />
-          </HomeButton>
+        {isAdmin && (
+          <>
+            <ListButton
+              onClick={() => handleButtonClick('list')}
+              isSelected={selectedButton === 'list'}
+            >
+              <ListIcon />
+            </ListButton>
+            <UploadButton
+              onClick={() => handleButtonClick('upload')}
+              isSelected={selectedButton === 'upload'}
+            >
+              <UploadIcon />
+            </UploadButton>
+          </>
         )}
-        {isAdmin[0] ? ( // isAdmin = true(관리자)일 때, <UploadButton> 렌더링
-          <UploadButton
-            onClick={() => isClicked('upload')}
-            isSelected={selectedButton === 'upload'}
-          >
-            <UploadIcon />
-          </UploadButton>
-        ) : (
-          // isAdmin = false(사용자)일 때, <MypageButton> 렌더링
-          <MypageButton
-            onClick={() => isClicked('mypage')}
-            isSelected={selectedButton === 'mypage'}
-          >
-            <MypageIcon />
-          </MypageButton>
+        {!isAdmin && (
+          <>
+            <HomeButton
+              onClick={() => handleButtonClick('home')}
+              isSelected={selectedButton === 'home'}
+            >
+              <HomeIcon />
+            </HomeButton>
+            <MypageButton
+              onClick={() => handleButtonClick('mypage')}
+              isSelected={selectedButton === 'mypage'}
+            >
+              <MypageIcon />
+            </MypageButton>
+          </>
         )}
       </ButtonContainer>
     </FooterContainer>

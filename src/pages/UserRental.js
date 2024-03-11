@@ -62,10 +62,8 @@ const Input = styled.input`
 `;
 
 function UserRental() {
-  const headerProps = {
-    // header에 들어갈 페이지 제목은 여기서 수정
-    title: '대여 신청',
-  };
+  const headerTitle = '대여 신청';
+
   const userCookie =
     'eyJhbGciOiJIUzI1NiJ9.NjVkZDk3Y2Y3NWFlOWQzYmIwZTQwZGY5.oQxBqYgZ5LQphz_omqlO6w77we3_0mHj1SJ6xarqUeA';
   const [count, setCount] = useState('');
@@ -147,7 +145,7 @@ function UserRental() {
   };
 
   return (
-    <Layout headerProps={headerProps}>
+    <Layout headerTitle={headerTitle}>
       <RentalContainer>
         <ImageContainer>
           <ImageBox>

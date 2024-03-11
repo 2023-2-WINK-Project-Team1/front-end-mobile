@@ -85,10 +85,7 @@ function AdminSetting() {
   const RadioClick = () => {
     setIsAlarmOn(!isAlarmOn);
   };
-  const headerProps = {
-    // header에 들어갈 페이지 제목은 여기서 수정
-    title: '설정',
-  };
+  const headerTitle = '설정';
 
   const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
 
@@ -114,7 +111,7 @@ function AdminSetting() {
   // alarm on/off를 RadioClick으로 제어
   return (
     <div>
-      <Layout headerProps={headerProps}>
+      <Layout headerTitle={headerTitle}>
         <MainContainer>
           <BoxContainer>
             <BoxComponent>

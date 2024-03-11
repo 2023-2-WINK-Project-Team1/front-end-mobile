@@ -69,11 +69,9 @@ const Logo = styled.img`
   height: auto;
 `;
 function AppInfo() {
-  const headerProps = {
-    title: '앱 정보',
-  };
+  const headerTitle = '앱 정보';
   return (
-    <Layout headerProps={headerProps}>
+    <Layout headerTitle={headerTitle}>
       <MainContainer>
         <InfoContainer>
           <LogoWrapper>

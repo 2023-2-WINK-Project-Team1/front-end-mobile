@@ -72,10 +72,7 @@ const CheckBox = styled.input`
 `;
 
 function GoodsRegistration() {
-  const headerProps = {
-    // header에 들어갈 페이지 제목은 여기서 수정
-    title: '물품 수정',
-  };
+  const headerTitle = '물품 수정';
   const adminCookie =
     'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
   const location = useLocation();
@@ -165,7 +162,7 @@ function GoodsRegistration() {
   };
 
   return (
-    <Layout headerProps={headerProps}>
+    <Layout headerTitle={headerTitle}>
       <RegisterContainer>
         <ImageContainer>
           <ImageBox>

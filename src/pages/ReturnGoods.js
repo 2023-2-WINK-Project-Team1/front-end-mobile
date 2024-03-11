@@ -69,9 +69,8 @@ const dummyData = {
   time: '23:00',
 };
 function ReturnGoods() {
-  const headerProps = {
-    title: '물품 대여',
-  };
+  const headerTitle = '물품 대여';
+
   const adminCookie =
     'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
 
@@ -172,7 +171,7 @@ function ReturnGoods() {
   };
 
   return (
-    <Layout headerProps={headerProps}>
+    <Layout headerTitle={headerTitle}>
       <MyPageContainer>
         <ListContainer>
           <ImageBox>

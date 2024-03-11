@@ -82,16 +82,13 @@ function Setting() {
   const [isAlarmOn, setIsAlarmOn] = useRecoilState(isAlarmOnState);
   const [adminState, setAdminState] = useRecoilState(isAdminState);
   const adminCookie =
-    'eyJhbGciOiJIUzI1NiJ9.NjVjMzQwMWZlNzFjZjE2YjVlODFkNWI0.ctbykqlWUc5wgVsfnZgrysNRU3u33-SJHbphNuVs61M';
+    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
   const navigate = useNavigate();
   // isRadioOn이 true이면 alarm 설정됨.
   const RadioClick = () => {
     setIsAlarmOn(!isAlarmOn);
   };
-  const headerProps = {
-    // header에 들어갈 페이지 제목은 여기서 수정
-    title: '설정',
-  };
+  const headerTitle = '설정';
   const logout = async () => {
     const cookie = cookies.auth_token;
     console.log('cookie : ', cookie);
@@ -125,7 +122,7 @@ function Setting() {
   };
   return (
     <div>
-      <Layout headerProps={headerProps}>
+      <Layout headerTitle={headerTitle}>
         <MainContainer>
           <BoxContainer>
             <BoxComponent>

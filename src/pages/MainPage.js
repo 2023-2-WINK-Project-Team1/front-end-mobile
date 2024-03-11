@@ -108,9 +108,7 @@ const stateList = ['대여하기', '신청취소', '반납하기'];
 
 function MainPage() {
   const navigate = useNavigate();
-  const headerProps = {
-    title: '물품 대여',
-  };
+  const headerTitle = '물품 대여';
   const userCookie =
     'eyJhbGciOiJIUzI1NiJ9.NjVkZDk3Y2Y3NWFlOWQzYmIwZTQwZGY5.oQxBqYgZ5LQphz_omqlO6w77we3_0mHj1SJ6xarqUeA';
 
@@ -241,7 +239,7 @@ function MainPage() {
 
   return (
     <>
-      <Header {...headerProps} />
+      <Header headerTitle={headerTitle} />
       <Container>
         <ImageContainer>
           <WinkLogo src={winkLogo} alt="Wink Logo" />

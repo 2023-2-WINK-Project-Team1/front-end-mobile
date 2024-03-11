@@ -37,10 +37,7 @@ function APITest() {
   const userCookie =
     'eyJhbGciOiJIUzI1NiJ9.NjVkZDk3Y2Y3NWFlOWQzYmIwZTQwZGY5.oQxBqYgZ5LQphz_omqlO6w77we3_0mHj1SJ6xarqUeA';
 
-  const headerProps = {
-    // header에 들어갈 페이지 제목은 여기서 수정
-    title: '물품 대여',
-  };
+  const headerTitle = '물폼 대여';
   const emailAuth = async () => {
     const data = {
       email: 'heegun4690@kookmin.ac.kr',
@@ -180,7 +177,7 @@ function APITest() {
 
   return (
     <div>
-      <Layout headerProps={headerProps}>
+      <Layout headerTitle={headerTitle}>
         {/*<h1>1팀 화이팅 ~!</h1>*/}
         <MainContainer>
           <ButtonContainer>

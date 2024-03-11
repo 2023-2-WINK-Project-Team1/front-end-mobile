@@ -61,10 +61,7 @@ const Divider = styled.div`
 function MyPage() {
   const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
   const [userInfo, setUserInfo] = useState({}); // 유저 정보
-  const headerProps = {
-    // header에 들어갈 페이지 제목은 여기서 수정
-    title: '마이페이지',
-  };
+  const headerTitle = '마이페이지';
 
   const getUserInfo = async () => {
     const cookie = cookies.auth_token;
@@ -111,7 +108,7 @@ function MyPage() {
     return userNumber?.substring(2, 4) + '학번';
   };
   return (
-    <Layout headerProps={headerProps}>
+    <Layout headerTitle={headerTitle}>
       <MyPageContainer>
         <InfoContainer>
           {/* 아래 이름, 학번, 학부, 이메일은 나중에 받아오는 것으로 수정해야함 */}
