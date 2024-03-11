@@ -100,7 +100,6 @@ function GoodsRegistration() {
 
       reader.readAsDataURL(file);
     }
-    console.log('uploadedImage : ', uploadedImage);
   };
 
   // <ImageBox> 컴포넌트 클릭하면 호출되는 함수
@@ -150,7 +149,7 @@ function GoodsRegistration() {
         confirmButtonColor: 'var(--primary-color)',
         confirmButtonText: '확인',
       });
-      setIsButtonDisabled(false); // 오류 발생 시 버튼을 다시 활성화
+      setIsButtonDisabled(false);
     }
   };
 
@@ -159,13 +158,13 @@ function GoodsRegistration() {
       Swal.fire({
         title: '물품의 정보를 모두 입력해주세요.',
         icon: 'error',
-        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        confirmButtonColor: 'var(--primary-color)',
         confirmButtonText: '확인',
       });
       return;
     }
 
-    setIsButtonDisabled(true); // 버튼 클릭하면 disabled 되게
+    setIsButtonDisabled(true);
 
     Swal.fire({
       title: '물품을 등록하시겠습니까?',
@@ -180,7 +179,7 @@ function GoodsRegistration() {
       if (result.isConfirmed) {
         createItem();
       } else {
-        setIsButtonDisabled(false); // 대여신청 취소 버튼을 누르면 버튼이 다시 활성화 되도록
+        setIsButtonDisabled(false);
       }
     });
   };

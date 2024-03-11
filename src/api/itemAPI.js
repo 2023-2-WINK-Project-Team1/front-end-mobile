@@ -16,7 +16,6 @@ export default {
       },
     });
   },
-
   updateItem(authToken, itemId, itemData) {
     return customAxios.patch(`/items/${itemId}`, itemData, {
       headers: { Authorization: authToken },

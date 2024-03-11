@@ -58,6 +58,7 @@ const GoodsName = styled.div`
 const ItemImage = styled.img`
   width: 100px;
   height: 100px;
+  border-radius: 10px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -78,22 +79,10 @@ const FloatingButton = styled.div`
   align-items: center;
 `;
 
-const dummyData = [
-  { imgSrc: defaultImage, goodsName: '물품 1', state: 0, remaining: 5 },
-  { imgSrc: defaultImage, goodsName: '물품 2', state: 1, remaining: 5 },
-  { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-  { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-  { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-  { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-  { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-  { imgSrc: defaultImage, goodsName: '물품 3', state: 2, remaining: 5 },
-];
-
 function GoodsManagement() {
   const [itemList, setItemList] = useState([]); // [1]
   const getAllItemList = async () => {
     const res = await itemAPI.getAllItemList();
-    console.log('getAllItemList res : ', res);
     setItemList(res.data);
   };
   const navigate = useNavigate();
@@ -118,9 +107,6 @@ function GoodsManagement() {
   useEffect(() => {
     getAllItemList();
   }, []);
-  useEffect(() => {
-    console.log('itemList : ', itemList);
-  }, [itemList]);
 
   return (
     <>
