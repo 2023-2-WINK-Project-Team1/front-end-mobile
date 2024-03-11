@@ -24,7 +24,7 @@ const SplashScreenContainer = styled.div`
   width: 100%;
   height: 100vh;
   position: relative;
-  background-color: ${(props) => props.theme.primary};
+  background-color: var(--primary-color);
   box-sizing: border-box;
   overflow-x: hidden;
 `;

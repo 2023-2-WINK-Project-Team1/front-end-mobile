@@ -29,17 +29,14 @@ function App() {
         <CookiesProvider>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Main />}></Route>
-              <Route path="/main" element={<MainPage />}></Route>
-              <Route path="/setting" element={<Setting />}></Route>
-              <Route path="/user-rental" element={<UserRental />}></Route>
-              <Route path="/mypage" element={<MyPage />}></Route>
-              <Route
-                path="/notification"
-                element={<NotificationPage />}
-              ></Route>
-              <Route path="/sign-in" element={<SignIn />}></Route>
-              <Route path="/sign-up" element={<SignUp />}></Route>
+              <Route path="/" element={<Main />} />
+              <Route path="/main" element={<MainPage />} />
+              <Route path="/setting" element={<Setting />} />
+              <Route path="/user-rental" element={<UserRental />} />
+              <Route path="/mypage" element={<MyPage />} />
+              <Route path="/notification" element={<NotificationPage />} />
+              <Route path="/sign-in" element={<SignIn />} />
+              <Route path="/sign-up" element={<SignUp />} />
               <Route
                 path="/goods-registration"
                 element={
@@ -47,10 +44,10 @@ function App() {
                     <GoodsRegistration />
                   </AdminRoute>
                 }
-              ></Route>
-              <Route path="/app-info" element={<AppInfo />}></Route>
-              <Route path="/rental-goods" element={<RentalGoods />}></Route>
-              <Route path="/return-goods" element={<ReturnGoods />}></Route>
+              />
+              <Route path="/app-info" element={<AppInfo />} />
+              <Route path="/rental-goods" element={<RentalGoods />} />
+              <Route path="/return-goods" element={<ReturnGoods />} />
               <Route
                 path="/admin-main"
                 element={
@@ -58,7 +55,7 @@ function App() {
                     <AdminMain />
                   </AdminRoute>
                 }
-              ></Route>
+              />
               <Route
                 path="/goods-management"
                 element={
@@ -66,7 +63,7 @@ function App() {
                     <GoodsManagement />
                   </AdminRoute>
                 }
-              ></Route>
+              />
               <Route
                 path="/goods-modify"
                 element={
@@ -74,8 +71,8 @@ function App() {
                     <GoodsModify />
                   </AdminRoute>
                 }
-              ></Route>
-              <Route path="/api-test" element={<APITest />}></Route>
+              />
+              <Route path="/api-test" element={<APITest />} />
             </Routes>
           </BrowserRouter>
         </CookiesProvider>
