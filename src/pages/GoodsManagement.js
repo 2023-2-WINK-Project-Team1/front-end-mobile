@@ -80,6 +80,7 @@ const FloatingButton = styled.div`
 `;
 
 function GoodsManagement() {
+  const headerTitle = '물품 관리 및 등록';
   const [itemList, setItemList] = useState([]); // [1]
   const getAllItemList = async () => {
     const res = await itemAPI.getAllItemList();
@@ -110,7 +111,7 @@ function GoodsManagement() {
 
   return (
     <>
-      <Header title={'물품 관리 및 등록'}></Header>
+      <Header headerTitle={headerTitle} />
       <ListContainer>
         {itemList.map((item, index) => (
           <ListItem key={index}>
