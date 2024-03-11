@@ -9,6 +9,7 @@ import PasswordInput from '../components/input/PasswordInput';
 import PasswordInputCheck from '../components/input/PasswordInputCheck';
 import Button from '../components/Button';
 import accountAPI from '../api/accountAPI';
+import Swal from 'sweetalert2';
 
 const MainContainer = styled.div`
   display: flex;
@@ -70,12 +71,22 @@ function SignUp() {
     ];
     for (let i = 0; i < valueList.length; i++) {
       if (valueList[i].trim() === '') {
-        alert(`${errorList[i]} 입력해주세요.`);
+        Swal.fire({
+          title: `${errorList[i]} 입력해주세요.`,
+          icon: 'error',
+          confirmButtonColor: 'var(--primary-color)',
+          confirmButtonText: '확인',
+        });
         return false;
       }
     }
     if (emailError) {
-      alert('이메일 인증을 완료해주세요.');
+      Swal.fire({
+        title: '이메일 인증을 완료해주세요.',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
       return false;
     }
     return true;
@@ -90,12 +101,27 @@ function SignUp() {
 
     if (hasNumber) {
       // 숫자와 문자 포함되어 있으면 알림 창 띄우기
-      alert('이름을 한글로 작성해주세요.');
+      Swal.fire({
+        title: '이름을 한글로 작성해주세요.',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
     } else if (hasLetterInStudentId) {
-      alert('학번 형식이 틀렸습니다.');
+      Swal.fire({
+        title: '학번 형식이 틀렸습니다.',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
     } else if (passwordValue !== passwordCheckValue) {
       // 비밀번호와 비밀번호 확인 값이 다를 때 알림창 띄우기
-      alert('비밀번호가 틀렸습니다. 다시 입력해주세요.');
+      Swal.fire({
+        title: '비밀번호가 틀렸습니다. 다시 입력해주세요.',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
     } else {
       // 숫자가 포함되어 있지 않고 비밀번호가 일치하면 회원가입 페이지로 이동
       return true;
@@ -118,7 +144,12 @@ function SignUp() {
       console.log('signUp res : ', res);
       navigate('/login');
     } catch (error) {
-      alert('회원가입에 실패했습니다. 다시 시도해주세요.');
+      Swal.fire({
+        title: '회원가입에 실패했습니다. 다시 시도해주세요.',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
     }
   };
 

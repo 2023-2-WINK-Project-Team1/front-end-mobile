@@ -113,7 +113,7 @@ function RentalGoods() {
       Swal.fire({
         title: '대여 신청이 승인되었습니다.',
         icon: 'success',
-        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        confirmButtonColor: 'var(--primary-color)',
         confirmButtonText: '확인',
       }).then(() => {
         setIsButtonDisabled(false);
@@ -123,7 +123,7 @@ function RentalGoods() {
       Swal.fire({
         title: '대여 신청 승인에 실패하였습니다.',
         icon: 'error',
-        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        confirmButtonColor: 'var(--primary-color)',
         confirmButtonText: '확인',
       });
     }

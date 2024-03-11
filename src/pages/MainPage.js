@@ -149,7 +149,7 @@ function MainPage() {
       Swal.fire({
         title: '신청이 취소되었습니다.',
         icon: 'success',
-        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        confirmButtonColor: 'var(--primary-color)',
         confirmButtonText: '확인',
       });
       fetchAndUpdateItems();
@@ -157,7 +157,7 @@ function MainPage() {
       Swal.fire({
         title: '신청 취소에 실패하였습니다.',
         icon: 'error',
-        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        confirmButtonColor: 'var(--primary-color)',
         confirmButtonText: '확인',
       });
     }
@@ -195,7 +195,7 @@ function MainPage() {
         title: '신청을 취소하시겠습니까?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        confirmButtonColor: 'var(--primary-color)',
         cancelButtonColor: 'var(--red-color)',
         confirmButtonText: '예',
         cancelButtonText: '아니요',
@@ -212,7 +212,7 @@ function MainPage() {
         title: '반납을 신청하시겠습니까?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        confirmButtonColor: 'var(--primary-color)',
         cancelButtonColor: 'var(--red-color)',
         confirmButtonText: '예',
         cancelButtonText: '아니요',
@@ -224,7 +224,7 @@ function MainPage() {
             Swal.fire({
               title: '반납을 완료하였습니다.',
               icon: 'success',
-              confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+              confirmButtonColor: 'var(--primary-color)',
               confirmButtonText: '확인',
             }).then(() => {
               navigate('/');

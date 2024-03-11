@@ -12,6 +12,7 @@ import Layout from '../components/layout/Layout';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import accountAPI from '../api/accountAPI';
+import Swal from 'sweetalert2';
 
 const MainContainer = styled.div`
   width: 100%;
@@ -104,7 +105,12 @@ function AdminSetting() {
       navigate('/sign-in'); // 로그인 페이지로 이동
     } catch (e) {
       console.log('logout error : ', e);
-      alert('로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      Swal.fire({
+        title: '로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
     }
   };
 

@@ -113,7 +113,7 @@ function GoodsRegistration() {
       Swal.fire({
         title: '물품이 수정되었습니다.',
         icon: 'success',
-        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        confirmButtonColor: 'var(--primary-color)',
         confirmButtonText: '확인',
       }).then(() => {
         navigate('/goods-management');
@@ -122,7 +122,7 @@ function GoodsRegistration() {
       Swal.fire({
         title: '물품 수정에 실패하였습니다.',
         icon: 'error',
-        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        confirmButtonColor: 'var(--primary-color)',
         confirmButtonText: '확인',
       });
       setIsButtonDisabled(false); // 대여신청 취소 버튼을 누르면 버튼이 다시 활성화 되도록
@@ -135,7 +135,7 @@ function GoodsRegistration() {
       Swal.fire({
         title: '물품의 정보를 모두 입력해주세요.',
         icon: 'error',
-        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        confirmButtonColor: 'var(--primary-color)',
         confirmButtonText: '확인',
       });
       return;

@@ -12,7 +12,8 @@ import Layout from '../components/layout/Layout';
 import accountAPI from '../api/accountAPI';
 import userAPI from '../api/userAPI';
 import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom'; // useNavigate 훅 추가
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // useNavigate 훅 추가
 
 const MainContainer = styled.div`
   width: 100%;
@@ -99,7 +100,12 @@ function Setting() {
       navigate('/sign-in'); // 로그인 페이지로 이동
     } catch (e) {
       console.log('logout error : ', e);
-      alert('로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      Swal.fire({
+        title: '로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
     }
   };
   const changeAdminMode = async () => {
@@ -111,7 +117,12 @@ function Setting() {
       setAdminState(res.data.is_manager);
       navigate('/admin-main');
     } catch (e) {
-      alert('관리자로 인증된 사용자가 아닙니다.');
+      Swal.fire({
+        title: '관리자로 인증된 사용자가 아닙니다.',
+        icon: 'error',
+        confirmButtonColor: 'var(--primary-color)',
+        confirmButtonText: '확인',
+      });
       console.log('getUserInfo error : ', e);
     }
   };
