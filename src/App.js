@@ -19,6 +19,7 @@ import ReturnGoods from './pages/ReturnGoods';
 import AdminSetting from './pages/AdminSetting';
 import AdminMain from './pages/AdminMain';
 import GoodsManagement from './pages/GoodsManagement';
+import GoodsModify from './pages/GoodsModify';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
                 path="/goods-management"
                 element={<GoodsManagement />}
               ></Route>
+              <Route path="/goods-modify" element={<GoodsModify />}></Route>
               <Route path="/api-test" element={<APITest />}></Route>
             </Routes>
           </BrowserRouter>

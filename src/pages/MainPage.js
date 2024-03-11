@@ -91,6 +91,9 @@ const Remaining = styled.div`
 `;
 
 const GoodsName = styled.div`
+  width: 100px;
+  overflow: hidden;
+  word-break: break-all;
   font-size: 20px;
   font-weight: 500;
 `;
@@ -98,6 +101,7 @@ const GoodsName = styled.div`
 const ItemImage = styled.img`
   width: 100px;
   height: 100px;
+  border-radius: 10px;
 `;
 
 const stateList = ['대여하기', '신청취소', '반납하기'];

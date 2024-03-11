@@ -86,7 +86,7 @@ function RentalGoods() {
 
   const getItemSrc = async (itemId) => {
     try {
-      const res = await itemAPI.getItem(itemId);
+      const res = await itemAPI.getItem('65ee9a7e05e76f241b39b678');
       return res.data.image.data;
     } catch (e) {
       return 'no item info';

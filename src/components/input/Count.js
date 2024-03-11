@@ -25,9 +25,9 @@ const InputWrapper = styled.div`
   width: 100%; /* 필요에 따라 조절 */
 `;
 
-function Count({ value, setValue }) {
+function Count({ value, onChange }) {
   const handleChange = (e) => {
-    setValue(e.target.value);
+    onChange(e.target.value);
   };
 
   return (
