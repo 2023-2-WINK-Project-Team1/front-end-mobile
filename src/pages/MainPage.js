@@ -104,7 +104,7 @@ const ItemImage = styled.img`
   border-radius: 10px;
 `;
 
-const stateList = ['대여하기', '신청취소', '반납하기'];
+const stateList = ['대여하기', '신청취소', '대여중'];
 
 function MainPage() {
   const navigate = useNavigate();
@@ -115,10 +115,15 @@ function MainPage() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [itemList, setItemList] = useState([]);
   const updateItemListState = (allItems, userRentalList) => {
+    console.log('userRentalList : ', userRentalList);
     const updatedItems = allItems.map((item) => {
-      const rentalInfo = userRentalList.find(
+      const reversedRentalList = [...userRentalList].reverse();
+
+      const rentalInfo = reversedRentalList.find(
         (rental) => rental.item === item._id,
       );
+
+      console.log('rentalInfo : ', rentalInfo);
       let state;
       let rentalId;
       if (
@@ -167,6 +172,7 @@ function MainPage() {
     const allItemsResponse = await itemAPI.getAllItemList();
     const allItems = allItemsResponse.data;
     const userRentalResponse = await rentalAPI.getUserRentalList(userCookie);
+    console.log('userRentalResponse : ', userRentalResponse);
     const userRentalList = userRentalResponse.data;
     const updatedItemList = updateItemListState(allItems, userRentalList);
 
@@ -176,6 +182,9 @@ function MainPage() {
   useEffect(() => {
     fetchAndUpdateItems();
   }, []);
+  useEffect(() => {
+    console.log('itemList : ', itemList);
+  }, [itemList]);
 
   const handleBase64 = (byteArray) => {
     const byteCharacters = byteArray.reduce(
@@ -261,6 +270,7 @@ function MainPage() {
                 children={stateList[item.state]}
                 size="Medium"
                 cancel={item.state === 1}
+                disabled={item.state === 2}
                 onClick={() => handleRentalClick(item)}
               />
               <Remaining>남은 수량: {item.count}</Remaining>

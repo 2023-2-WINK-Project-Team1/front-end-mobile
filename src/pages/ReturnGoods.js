@@ -123,7 +123,7 @@ function ReturnGoods() {
     const res = await rentalAPI.returnRental(cookie, rentalId);
     if (res.status === 200) {
       Swal.fire({
-        title: '대여 신청이 승인되었습니다.',
+        title: '반납 신청이 승인되었습니다.',
         icon: 'success',
         confirmButtonColor: 'var(--primary-color)',
         confirmButtonText: '확인',
