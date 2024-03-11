@@ -11,9 +11,12 @@ export default {
   },
   createItem(authToken, itemData) {
     return customAxios.post('/items', itemData, {
-      headers: { Authorization: authToken },
+      headers: {
+        Authorization: authToken,
+      },
     });
   },
+
   updateItem(authToken, itemId, itemData) {
     return customAxios.patch(`/items/${itemId}`, itemData, {
       headers: { Authorization: authToken },

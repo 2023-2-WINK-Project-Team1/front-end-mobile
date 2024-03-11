@@ -1,3 +1,4 @@
+// GoodsRegistration.js
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Layout from '../components/layout/Layout';
@@ -120,31 +121,36 @@ function GoodsRegistration() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const createItem = async () => {
-    const itemInfo = {
-      product_name: productName,
-      type: isReturn ? 'rental' : 'expandable',
-      count: count,
-      item_image: uploadedImage,
-    };
-    console.log('itemInfo : ', itemInfo);
-    const res = await itemAPI.createItem(adminCookie, itemInfo);
-    if (res.status === 200) {
-      Swal.fire({
-        title: '물품이 등록되었습니다.',
-        icon: 'success',
-        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
-        confirmButtonText: '확인',
-      }).then(() => {
-        navigate('/goods-management');
-      });
-    } else {
+    const formData = new FormData();
+    formData.append('product_name', productName);
+    formData.append('type', isReturn ? 'rental' : 'expandable');
+    formData.append('count', count);
+    if (imageInputRef.current && imageInputRef.current.files[0]) {
+      formData.append('item_image', imageInputRef.current.files[0]);
+    }
+    try {
+      const res = await itemAPI.createItem(adminCookie, formData);
+      if (res.status === 200 || res.status === 201) {
+        Swal.fire({
+          title: '물품이 등록되었습니다.',
+          icon: 'success',
+          confirmButtonColor: 'var(--primary-color)',
+          confirmButtonText: '확인',
+        }).then(() => {
+          navigate('/goods-management');
+        });
+      } else {
+        throw new Error(`등록 실패: ${res.status}`);
+      }
+    } catch (error) {
+      console.error('Error creating item:', error);
       Swal.fire({
         title: '물품 등록에 실패하였습니다.',
         icon: 'error',
-        confirmButtonColor: 'var(--primary-color)', // 이 부분은 전역 색상이 안써져서 매년 수정해야할 것 같음
+        confirmButtonColor: 'var(--primary-color)',
         confirmButtonText: '확인',
       });
-      setIsButtonDisabled(false); // 대여신청 취소 버튼을 누르면 버튼이 다시 활성화 되도록
+      setIsButtonDisabled(false); // 오류 발생 시 버튼을 다시 활성화
     }
   };
 
