@@ -116,6 +116,11 @@ function Setting() {
     }
   };
 
+  const changeUserMode = () => {
+    setAdminState(false);
+    navigate('/main');
+  };
+
   // alarm on/off를 RadioClick으로 제어
   const appInfoClick = () => {
     navigate('/app-info');
@@ -141,13 +146,23 @@ function Setting() {
               <img src={arrow} />
             </BoxComponent>
 
-            <BoxComponent onClick={() => changeAdminMode()}>
-              <MiniContainer>
-                <img src={people} />
-                <Text>관리자 모드</Text>
-              </MiniContainer>
-              <img src={arrow} />
-            </BoxComponent>
+            {adminState === true ? (
+              <BoxComponent onClick={() => changeUserMode()}>
+                <MiniContainer>
+                  <img src={people} />
+                  <Text>사용자 모드</Text>
+                </MiniContainer>
+                <img src={arrow} />
+              </BoxComponent>
+            ) : (
+              <BoxComponent onClick={() => changeAdminMode()}>
+                <MiniContainer>
+                  <img src={people} />
+                  <Text>관리자 모드</Text>
+                </MiniContainer>
+                <img src={arrow} />
+              </BoxComponent>
+            )}
           </BoxContainer>
           <LogOutContainer>
             <LogOutBox>

@@ -39,11 +39,7 @@ function Header({ headerTitle }) {
   const navigate = useNavigate(); // 대여중 및 대여신청 버튼 클릭시 이동하기 위함
   const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
   const clickSetting = () => {
-    if (isAdmin) {
-      navigate('/admin-setting');
-    } else {
-      navigate('/setting');
-    }
+    navigate('/setting');
   };
   const backClick = () => {
     navigate(-1);
