@@ -1,9 +1,9 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "빌릴게",
+  "name": "국민대학교 소프트웨어학부 복지물품 대여시스템",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "app-icon.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
