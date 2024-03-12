@@ -25,7 +25,7 @@ const SplashScreenContainer = styled.div`
   width: 100%;
   height: 100vh;
   position: relative;
-  background-color: var(--primary-color);
+  background-color: #005950; // 최초 시작 시 색상 변수가 적용되지 않는 경우가 있음.
   box-sizing: border-box;
   overflow-x: hidden;
 `;
