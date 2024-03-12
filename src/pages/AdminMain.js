@@ -45,7 +45,12 @@ function AdminMain() {
   // footer에서 활성화시킬 버튼 선택 부분 삭제 (나중에 전역 변수 수정해주는 방향)
   const [selectedButton, setSelectedButton] =
     useRecoilState(selectedButtonState);
-
+  const getUserRentalList = async () => {
+    const cookie = cookies.auth_token;
+    const res = await rentalAPI.getUserRentalList(cookie);
+    const rentalData = res.data;
+    console.log('rentalData : ', rentalData);
+  };
   const navigate = useNavigate(); // 대여중 및 대여신청 버튼 클릭시 이동하기 위함
 
   const itemClick = (item) => {
@@ -100,9 +105,20 @@ function AdminMain() {
     const sortedList = updatedRentalList.reverse();
     setRentalList(sortedList);
   };
+  function formatDateTime(isoString) {
+    const date = new Date(isoString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 1을 더합니다.
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+
+    return `${year}.${month}.${day} ${hours}:${minutes}`;
+  }
 
   useEffect(() => {
     fetchRentalList();
+    getUserRentalList();
   }, []);
 
   /*
@@ -124,8 +140,8 @@ function AdminMain() {
             <Item
               key={index}
               goodsName={item.goodsName}
-              rentalDate={item.created}
-              returnDate={item.returned}
+              rentalDate={formatDateTime(item.created)}
+              returnDate={formatDateTime(item.returned)}
               rentalState={item.rentalState}
               user={item.userName}
               onClick={() => itemClick(item)}

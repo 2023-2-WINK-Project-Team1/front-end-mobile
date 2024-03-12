@@ -89,20 +89,38 @@ function Setting() {
   };
   const headerTitle = '설정';
   const logout = async () => {
-    const cookie = cookies.auth_token;
-    try {
-      const res = await accountAPI.logout(cookie);
-      removeCookie('auth_token'); // 쿠키를 삭제
-      navigate('/sign-in'); // 로그인 페이지로 이동
-    } catch (e) {
-      Swal.fire({
-        title: '로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.',
-        icon: 'error',
-        confirmButtonColor: 'var(--primary-color)',
-        confirmButtonText: '확인',
-      });
-    }
+    Swal.fire({
+      title: '로그아웃 하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: 'var(--primary-color)',
+      cancelButtonColor: 'var(--red-color)',
+      confirmButtonText: '로그아웃',
+      cancelButtonText: '취소',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await accountAPI.logout(cookies.auth_token);
+          if (res.status === 200) {
+            setAdminState(false);
+            removeCookie('auth_token');
+            navigate('/sign-in');
+          } else {
+            // 서버에서 로그아웃 처리 실패
+            throw new Error('로그아웃 처리 실패');
+          }
+        } catch (e) {
+          Swal.fire({
+            title: '로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.',
+            icon: 'error',
+            confirmButtonColor: 'var(--primary-color)',
+            confirmButtonText: '확인',
+          });
+        }
+      }
+    });
   };
+
   const changeAdminMode = async () => {
     const cookie = cookies.auth_token;
     try {

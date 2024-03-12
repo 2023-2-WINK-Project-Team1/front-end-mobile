@@ -170,7 +170,6 @@ function MainPage() {
     const userRentalResponse = await rentalAPI.getUserRentalList(cookie);
     const userRentalList = userRentalResponse.data;
     const updatedItemList = updateItemListState(allItems, userRentalList);
-
     setItemList(updatedItemList);
   };
 
