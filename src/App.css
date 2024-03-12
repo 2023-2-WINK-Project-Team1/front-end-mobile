@@ -8,7 +8,6 @@
   position: relative;
   word-break: keep-all;
   font-family: 'Noto Sans KR', sans-serif;
-  border: 1px solid red;
 }
 :root{
   --primary-color: #005950; /* 학생회 대표 색상 */
