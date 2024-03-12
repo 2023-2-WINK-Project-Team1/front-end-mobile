@@ -82,8 +82,6 @@ function Setting() {
   const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
   const [isAlarmOn, setIsAlarmOn] = useRecoilState(isAlarmOnState);
   const [adminState, setAdminState] = useRecoilState(isAdminState);
-  const adminCookie =
-    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
   const navigate = useNavigate();
   // isRadioOn이 true이면 alarm 설정됨.
   const RadioClick = () => {
@@ -108,7 +106,7 @@ function Setting() {
   const changeAdminMode = async () => {
     const cookie = cookies.auth_token;
     try {
-      const res = await userAPI.getUserInfo(adminCookie);
+      const res = await userAPI.getUserInfo(cookie);
       setAdminState(res.data.is_manager);
       navigate('/admin-main');
     } catch (e) {

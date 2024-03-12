@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { useLocation } from 'react-router-dom';
 import rentalAPI from '../api/rentalAPI';
 import Count from '../components/input/Count';
+import { useCookies } from 'react-cookie';
 
 const RentalContainer = styled.div`
   display: flex;
@@ -60,8 +61,8 @@ const Text = styled.div`
 function UserRental() {
   const headerTitle = '대여 신청';
 
-  const userCookie =
-    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk3Y2Y3NWFlOWQzYmIwZTQwZGY5.oQxBqYgZ5LQphz_omqlO6w77we3_0mHj1SJ6xarqUeA';
+  const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
+
   const [count, setCount] = useState('');
   const handleBase64 = (byteArray) => {
     const byteCharacters = byteArray.reduce(
@@ -81,12 +82,12 @@ function UserRental() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const requestRental = async (count) => {
-    // const cookie = cookies.auth_token;
+    const cookie = cookies.auth_token;
     const rentalData = {
       item_id: item._id,
       count: count,
     };
-    const res = await rentalAPI.requestRental(userCookie, rentalData);
+    const res = await rentalAPI.requestRental(cookie, rentalData);
     if (res.status !== 200) {
       Swal.fire({
         title: '잠시 후 다시 시도해주세요.',

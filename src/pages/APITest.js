@@ -34,8 +34,6 @@ function APITest() {
   const rentalId = '65c337ce52c7b5d08e08be3a'; // 대여 아이디
   const adminCookie =
     'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
-  const userCookie =
-    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk3Y2Y3NWFlOWQzYmIwZTQwZGY5.oQxBqYgZ5LQphz_omqlO6w77we3_0mHj1SJ6xarqUeA';
 
   const headerTitle = '물폼 대여';
   const emailAuth = async () => {
@@ -109,8 +107,7 @@ function APITest() {
   // Rental
   // 관리자 대여 내역 조회
   const getAllRentalList = async () => {
-    // const cookie = cookies.auth_token;
-    const cookie = adminCookie;
+    const cookie = cookies.auth_token;
     const res = await rentalAPI.getAllRentalList(cookie);
     console.log('getAllRentalList res : ', res);
   };
@@ -138,14 +135,14 @@ function APITest() {
   };
   // 대여 승인 - 관리자
   const approveRental = async (rentalId) => {
-    const cookie = adminCookie;
+    const cookie = cookies.auth_token;
     const res = await rentalAPI.approveRental(cookie, rentalId);
     console.log('approveRental res : ', res);
   };
 
   // 반납 완료 처리하기 - 관리자
   const returnRental = async (rentalId) => {
-    const cookie = adminCookie;
+    const cookie = cookies.auth_token;
     const res = await rentalAPI.returnRental(cookie, rentalId);
     console.log('returnRental res : ', res);
   };

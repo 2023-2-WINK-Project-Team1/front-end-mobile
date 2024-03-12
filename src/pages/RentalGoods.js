@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { useNavigate, useLocation } from 'react-router-dom';
 import itemAPI from '../api/itemAPI';
 import rentalAPI from '../api/rentalAPI';
+import { useCookies } from 'react-cookie';
 
 const MyPageContainer = styled.div`
   display: flex;
@@ -59,8 +60,7 @@ const dummyData = {
 };
 function RentalGoods() {
   const headerTitle = '물품 대여';
-  const adminCookie =
-    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
+  const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const navigate = useNavigate();
@@ -107,7 +107,7 @@ function RentalGoods() {
 
   // 대여 승인 - 관리자
   const approveRental = async (rentalId) => {
-    const cookie = adminCookie;
+    const cookie = cookies.auth_token;
     const res = await rentalAPI.approveRental(cookie, rentalId);
     if (res.status === 200) {
       Swal.fire({

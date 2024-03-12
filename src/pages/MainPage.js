@@ -13,6 +13,7 @@ import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import itemAPI from '../api/itemAPI';
 import rentalAPI from '../api/rentalAPI';
+import { useCookies } from 'react-cookie';
 
 const Container = styled.div`
   width: 100%;
@@ -108,9 +109,7 @@ const stateList = ['대여하기', '신청취소', '대여중'];
 function MainPage() {
   const navigate = useNavigate();
   const headerTitle = '물품 대여';
-  const userCookie =
-    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk3Y2Y3NWFlOWQzYmIwZTQwZGY5.oQxBqYgZ5LQphz_omqlO6w77we3_0mHj1SJ6xarqUeA';
-
+  const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [itemList, setItemList] = useState([]);
   const updateItemListState = (allItems, userRentalList) => {
@@ -144,8 +143,8 @@ function MainPage() {
     return updatedItems;
   };
   const cancelRental = async (rentalId) => {
-    // const cookie = cookies.auth_token;
-    const res = await rentalAPI.cancelRental(userCookie, rentalId);
+    const cookie = cookies.auth_token;
+    const res = await rentalAPI.cancelRental(cookie, rentalId);
     if (res.status === 200) {
       Swal.fire({
         title: '신청이 취소되었습니다.',
@@ -165,9 +164,10 @@ function MainPage() {
   };
 
   const fetchAndUpdateItems = async () => {
+    const cookie = cookies.auth_token;
     const allItemsResponse = await itemAPI.getAllItemList();
     const allItems = allItemsResponse.data;
-    const userRentalResponse = await rentalAPI.getUserRentalList(userCookie);
+    const userRentalResponse = await rentalAPI.getUserRentalList(cookie);
     const userRentalList = userRentalResponse.data;
     const updatedItemList = updateItemListState(allItems, userRentalList);
 
@@ -203,33 +203,6 @@ function MainPage() {
       }).then((result) => {
         if (result.isConfirmed) {
           cancelRental(item.rentalId);
-        } else {
-          setIsButtonDisabled(false); // 아니요 버튼을 누르면 버튼이 다시 활성화 되도록
-        }
-      });
-    } else if (item.state === 2) {
-      Swal.fire({
-        title: '반납을 신청하시겠습니까?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: 'var(--primary-color)',
-        cancelButtonColor: 'var(--red-color)',
-        confirmButtonText: '예',
-        cancelButtonText: '아니요',
-        reverseButtons: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // '신청' 버튼을 누르면 2초 뒤에 확인창 뜸
-          setTimeout(() => {
-            Swal.fire({
-              title: '반납을 완료하였습니다.',
-              icon: 'success',
-              confirmButtonColor: 'var(--primary-color)',
-              confirmButtonText: '확인',
-            }).then(() => {
-              navigate('/');
-            });
-          }, 2000);
         } else {
           setIsButtonDisabled(false); // 아니요 버튼을 누르면 버튼이 다시 활성화 되도록
         }

@@ -3,13 +3,13 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Layout from '../components/layout/Layout';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
 import Name from '../components/input/Name';
 import Count from '../components/input/Count';
 import Button from '../components/Button';
 import { ReactComponent as ImageIcon } from '../assets/image.svg';
 import Swal from 'sweetalert2';
 import itemAPI from '../api/itemAPI';
+import { useCookies } from 'react-cookie';
 
 const RegisterContainer = styled.div`
   display: flex;
@@ -72,9 +72,7 @@ const CheckBox = styled.input`
 
 function GoodsRegistration() {
   const headerTitle = '관리자 화면';
-
-  const adminCookie =
-    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
+  const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
 
   const [productName, setProductName] = useState('');
   const [count, setCount] = useState('');
@@ -118,6 +116,7 @@ function GoodsRegistration() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const createItem = async () => {
+    const cookie = cookies.auth_token;
     const formData = new FormData();
     formData.append('product_name', productName);
     formData.append('type', isReturn ? 'rental' : 'expandable');
@@ -126,7 +125,7 @@ function GoodsRegistration() {
       formData.append('item_image', imageInputRef.current.files[0]);
     }
     try {
-      const res = await itemAPI.createItem(adminCookie, formData);
+      const res = await itemAPI.createItem(cookie, formData);
       if (res.status === 200 || res.status === 201) {
         Swal.fire({
           title: '물품이 등록되었습니다.',
