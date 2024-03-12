@@ -10,6 +10,7 @@ import Button from '../components/Button';
 import { ReactComponent as ImageIcon } from '../assets/image.svg';
 import Swal from 'sweetalert2';
 import itemAPI from '../api/itemAPI';
+import { useCookies } from 'react-cookie';
 
 const RegisterContainer = styled.div`
   display: flex;
@@ -73,8 +74,8 @@ const CheckBox = styled.input`
 
 function GoodsRegistration() {
   const headerTitle = '물품 수정';
-  const adminCookie =
-    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
+  const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
+
   const location = useLocation();
   const { item } = location.state || {};
 
@@ -103,11 +104,13 @@ function GoodsRegistration() {
   }, [item]);
 
   const updateItem = async () => {
+    const cookie = cookies.auth_token;
+
     const itemInfo = {
       product_name: productName,
       count: count,
     };
-    const res = await itemAPI.updateItem(adminCookie, item._id, itemInfo);
+    const res = await itemAPI.updateItem(cookie, item._id, itemInfo);
     if (res.status === 200) {
       Swal.fire({
         title: '물품이 수정되었습니다.',

@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import rentalAPI from '../api/rentalAPI';
 import userAPI from '../api/userAPI';
 import itemAPI from '../api/itemAPI';
+import { useCookies } from 'react-cookie';
 
 const MyPageContainer = styled.div`
   display: flex;
@@ -39,10 +40,7 @@ const Divider = styled.div`
 
 function AdminMain() {
   const headerTitle = '관리자 화면';
-  const adminCookie =
-    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
-
-  const [isAdmin, setIsAdmin] = useRecoilState(isAdminState); // 관리자(true), 사용자(false)
+  const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
   const [rentalList, setRentalList] = useState([]); // 대여내역
   // footer에서 활성화시킬 버튼 선택 부분 삭제 (나중에 전역 변수 수정해주는 방향)
   const [selectedButton, setSelectedButton] =
@@ -59,8 +57,9 @@ function AdminMain() {
   };
 
   const getUserName = async (userId) => {
+    const cookie = cookies.auth_token;
     try {
-      const res = await userAPI.getUserName(adminCookie, userId);
+      const res = await userAPI.getUserName(cookie, userId);
       const { name, user_number } = res.data;
       return user_number + ' ' + name;
     } catch (e) {
@@ -73,7 +72,8 @@ function AdminMain() {
     return res.data.product_name;
   };
   const fetchRentalList = async () => {
-    const res = await rentalAPI.getAllRentalList(adminCookie);
+    const cookie = cookies.auth_token;
+    const res = await rentalAPI.getAllRentalList(cookie);
     const rentalData = res.data;
 
     const updatedRentalList = await Promise.all(

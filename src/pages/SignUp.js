@@ -141,7 +141,22 @@ function SignUp() {
     };
     try {
       const res = await accountAPI.signUp(data);
-      navigate('/login');
+      if (res.status === 201 || res.status === 200) {
+        Swal.fire({
+          title: '회원가입이 완료되었습니다.',
+          icon: 'success',
+          confirmButtonColor: 'var(--primary-color)',
+          confirmButtonText: '확인',
+        });
+        navigate('/sign-in');
+      } else {
+        Swal.fire({
+          title: '회원가입에 실패했습니다. 다시 시도해주세요.',
+          icon: 'error',
+          confirmButtonColor: 'var(--primary-color)',
+          confirmButtonText: '확인',
+        });
+      }
     } catch (error) {
       Swal.fire({
         title: '회원가입에 실패했습니다. 다시 시도해주세요.',

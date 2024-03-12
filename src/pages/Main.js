@@ -5,6 +5,7 @@ import LogoWhite from '../assets/splash-screen/logo-white.svg';
 import XIcon from '../assets/splash-screen/splash-x.svg';
 import WinkWhite from '../assets/splash-screen/wink-white.svg';
 import { useCookies } from 'react-cookie';
+import userAPI from '../api/userAPI';
 
 const moveCenter = keyframes`
   to {
@@ -24,7 +25,7 @@ const SplashScreenContainer = styled.div`
   width: 100%;
   height: 100vh;
   position: relative;
-  background-color: var(--primary-color);
+  background-color: #005950; // 최초 시작 시 색상 변수가 적용되지 않는 경우가 있음.
   box-sizing: border-box;
   overflow-x: hidden;
 `;
@@ -39,17 +40,15 @@ const CenterIcon = styled.img`
 const SplashScreen = () => {
   const navigate = useNavigate();
   const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
-  const adminCookie =
-    'eyJhbGciOiJIUzI1NiJ9.NjVkZDk4YTE4NDNlZmY5NmYzMDc2MjIx.9WPIQUtoxUg9BOd6r0Qb8d3UUkov2bdsFTju1QJnA4E';
 
-  useEffect(() => {
-    setCookies('auth_token', adminCookie);
-  }, []);
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/sign-in'); // 3초 후에 로그인 페이지로 이동 or 메인 페이지로 이동
+      if (cookies.auth_token) {
+        navigate('/main');
+      } else {
+        navigate('/sign-in'); // 3초 후에 로그인 페이지로 이동 or 메인 페이지로 이동
+      }
     }, 3000);
-
     return () => clearTimeout(timer);
   }, [navigate]);
 
