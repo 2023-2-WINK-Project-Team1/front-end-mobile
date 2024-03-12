@@ -80,6 +80,7 @@ const LogOutBox = styled.button`
 function AdminSetting() {
   const [cookies, setCookies, removeCookie] = useCookies(['auth_token']); // 쿠키 훅
   const [isAlarmOn, setIsAlarmOn] = useRecoilState(isAlarmOnState);
+  const [adminState, setAdminState] = useRecoilState(isAdminState);
   const navigate = useNavigate(); // 대여중 및 대여신청 버튼 클릭시 이동하기 위함
 
   // isRadioOn이 true이면 alarm 설정됨.
@@ -109,6 +110,7 @@ function AdminSetting() {
         try {
           const res = await accountAPI.logout(cookies.auth_token);
           if (res.status === 200) {
+            setAdminState(false);
             removeCookie('auth_token'); // 쿠키 삭제
             navigate('/sign-in'); // 로그인 페이지로 리다이렉션
           } else {

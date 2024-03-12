@@ -102,6 +102,7 @@ function Setting() {
         try {
           const res = await accountAPI.logout(cookies.auth_token);
           if (res.status === 200) {
+            setAdminState(false);
             removeCookie('auth_token');
             navigate('/sign-in');
           } else {
