@@ -7,6 +7,7 @@ import { ReactComponent as TitleIcon } from '../assets/title.svg';
 import { selectedButtonState } from '../recoil/recoil';
 import userAPI from '../api/userAPI';
 import { useCookies } from 'react-cookie';
+import rentalAPI from '../api/rentalAPI';
 
 const MyPageContainer = styled.div`
   display: flex;
@@ -70,12 +71,18 @@ function MyPage() {
   };
   useEffect(() => {
     getUserInfo();
+    getRentalHistory();
   }, []);
 
   // footer에서 활성화시킬 버튼 선택 (mypage 버튼 활성화)
   const [selectedButton, setSelectedButton] =
     useRecoilState(selectedButtonState);
   setSelectedButton('mypage');
+  const getRentalHistory = async () => {
+    const cookie = cookies.auth_token;
+    const res = await rentalAPI.getUserRentalList(cookie);
+    console.log(res.data);
+  };
 
   /*
     대여중: rentalState === 1

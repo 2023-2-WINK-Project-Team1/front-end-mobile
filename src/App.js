@@ -21,7 +21,7 @@ import AdminMain from './pages/AdminMain';
 import GoodsManagement from './pages/GoodsManagement';
 import GoodsModify from './pages/GoodsModify';
 import AdminRoute from './routes/AdminRoute';
-
+import ToBeContinued from './pages/ToBeContinued';
 function App() {
   return (
     <RecoilRoot>
@@ -34,7 +34,7 @@ function App() {
               <Route path="/setting" element={<Setting />} />
               <Route path="/user-rental" element={<UserRental />} />
               <Route path="/mypage" element={<MyPage />} />
-              <Route path="/notification" element={<NotificationPage />} />
+              <Route path="/notification" element={<ToBeContinued />} />
               <Route path="/sign-in" element={<SignIn />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route
