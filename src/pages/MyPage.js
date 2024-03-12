@@ -128,7 +128,7 @@ function MyPage() {
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
 
-    return `${year}.${month}.${day} ${hours}:${minutes}`;
+    return isoString ? `${year}.${month}.${day} ${hours}:${minutes}` : '';
   }
 
   useEffect(() => {
@@ -138,6 +138,7 @@ function MyPage() {
   useEffect(() => {
     console.log('rentalList : ', rentalList);
   }, [rentalList]);
+
   /*
     대여중: rentalState === 1
     대여신청: rentalState === 2
