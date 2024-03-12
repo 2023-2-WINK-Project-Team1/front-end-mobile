@@ -104,7 +104,7 @@ function Setting() {
           if (res.status === 200) {
             setAdminState(false);
             removeCookie('auth_token');
-            navigate('/sign-in');
+            navigate('/'); // 로그인 페이지로 리다이렉션
           } else {
             // 서버에서 로그아웃 처리 실패
             throw new Error('로그아웃 처리 실패');
