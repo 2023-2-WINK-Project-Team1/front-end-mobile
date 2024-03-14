@@ -72,7 +72,7 @@ function App() {
                   </AdminRoute>
                 }
               />
-              <Route path="/api-test" element={<APITest />} />
+              {/*<Route path="/api-test" element={<APITest />} />*/}
             </Routes>
           </BrowserRouter>
         </CookiesProvider>

@@ -49,7 +49,6 @@ function AdminMain() {
     const cookie = cookies.auth_token;
     const res = await rentalAPI.getUserRentalList(cookie);
     const rentalData = res.data;
-    console.log('rentalData : ', rentalData);
   };
   const navigate = useNavigate(); // 대여중 및 대여신청 버튼 클릭시 이동하기 위함
 
