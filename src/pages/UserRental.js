@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Layout from '../components/layout/Layout';
 import { useNavigate } from 'react-router-dom';
-import Time from '../components/input/Time';
 import Button from '../components/Button';
 import { ReactComponent as ImageIcon } from '../assets/image.svg';
 import Swal from 'sweetalert2';
@@ -36,7 +35,7 @@ const ImageContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
 `;
 
 const Image = styled.img`
@@ -50,6 +49,12 @@ const InfoContainer = styled.div`
   flex-direction: column;
   padding-top: 28px;
   gap: 16px;
+`;
+
+const Remaining = styled.div`
+  color: var(--black-color);
+  font-size: 16px;
+  font-weight: 500;
 `;
 
 const Text = styled.div`
@@ -75,7 +80,6 @@ function UserRental() {
 
   const location = useLocation();
   const { item } = location.state || {};
-
   const navigate = useNavigate();
 
   // 대여신청 버튼을 클릭하였을 때
@@ -123,9 +127,18 @@ function UserRental() {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        if (count === '' || count === 0) {
+        if (count === '' || count <= 0) {
           Swal.fire({
-            title: '대여 수량을 입력해주세요.',
+            title: '대여 수량을 올바르게 입력해주세요.',
+            icon: 'error',
+            confirmButtonColor: 'var(--primary-color)',
+            confirmButtonText: '확인',
+          });
+          setIsButtonDisabled(false);
+          return;
+        } else if (count > item.count) {
+          Swal.fire({
+            title: '재고가 부족합니다.',
             icon: 'error',
             confirmButtonColor: 'var(--primary-color)',
             confirmButtonText: '확인',
@@ -153,6 +166,7 @@ function UserRental() {
             )}
           </ImageBox>
           <Text>{item.product_name}</Text>
+          <Remaining>남은 수량: {item.count}</Remaining>
         </ImageContainer>
         <InfoContainer>
           <Text>대여 정보</Text>

@@ -104,7 +104,7 @@ const ItemImage = styled.img`
   border-radius: 10px;
 `;
 
-const stateList = ['대여하기', '신청취소', '대여중'];
+const stateList = ['대여하기', '신청취소', '대여중', '재고없음'];
 
 function MainPage() {
   const navigate = useNavigate();
@@ -134,6 +134,7 @@ function MainPage() {
         state = 2; // 대여중
         rentalId = rentalInfo._id;
       }
+      if (state !== 1 && item.count === 0) state = 3; // 재고 없음
       return {
         ...item,
         state: state,
@@ -234,7 +235,7 @@ function MainPage() {
                 children={stateList[item.state]}
                 size="Medium"
                 cancel={item.state === 1}
-                disabled={item.state === 2}
+                disabled={item.state === 2 || item.state === 3}
                 onClick={() => handleRentalClick(item)}
               />
               <Remaining>남은 수량: {item.count}</Remaining>

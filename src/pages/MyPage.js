@@ -80,14 +80,6 @@ function MyPage() {
   const [selectedButton, setSelectedButton] =
     useRecoilState(selectedButtonState);
   setSelectedButton('mypage');
-  const getRentalHistory = async () => {
-    const cookie = cookies.auth_token;
-    const res = await rentalAPI.getUserRentalList(cookie);
-    console.log(res.data);
-    return res.data;
-  };
-
-  //  @@@@@@@@@@@@@@@@
 
   const getItemName = async (itemId) => {
     const res = await itemAPI.getItem(itemId);
@@ -135,35 +127,11 @@ function MyPage() {
     fetchRentalList();
   }, []);
 
-  useEffect(() => {
-    console.log('rentalList : ', rentalList);
-  }, [rentalList]);
-
   /*
     대여중: rentalState === 1
     대여신청: rentalState === 2
     반납완료: rentalState === 3
   */
-  const dummyData = [
-    {
-      goodsName: '고데기',
-      rentalDate: '2023.11.13 12:41',
-      returnDate: '-',
-      rentalState: 1,
-    },
-    {
-      goodsName: '인공눈물',
-      rentalDate: '2023.11.13 12:41',
-      returnDate: '-',
-      rentalState: 2,
-    },
-    {
-      goodsName: '우산',
-      rentalDate: '2023.11.13 12:41',
-      returnDate: '2023.11.14 10:12',
-      rentalState: 3,
-    },
-  ];
   const modifyUserNumber = (userNumber) => {
     return userNumber?.substring(2, 4) + '학번';
   };

@@ -125,7 +125,6 @@ function Setting() {
     const cookie = cookies.auth_token;
     try {
       const res = await userAPI.getUserInfo(cookie);
-      console.log('res', res);
       if (res.data.is_manager === false) {
         Swal.fire({
           title: '관리자로 인증된 사용자가 아닙니다.',
