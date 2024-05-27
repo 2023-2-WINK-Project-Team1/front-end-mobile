@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/gh/poposnail61/min-sans@main/web/css/minsans-dynamic-subset.css");
+
 #App {
   max-width: 480px;
   margin: 0 auto;
@@ -7,7 +9,7 @@
   width: auto;
   position: relative;
   word-break: keep-all;
-  font-family: 'Noto Sans KR', sans-serif;
+  /*font-family: 'Noto Sans KR', sans-serif;*/
 }
 :root{
   --primary-color: #005950; /* 학생회 대표 색상 */
